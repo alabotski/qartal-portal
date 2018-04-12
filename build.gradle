@@ -9,33 +9,38 @@ version "1.0-SNAPSHOT"
 
 apply from: "$rootDir/gradle/idea.gradle"
 apply from: "$rootDir/gradle/versions.gradle"
-//apply from: "$rootDir/gradle/options.gradle"
+apply from: "$rootDir/gradle/options.gradle"
 
 allprojects {
   repositories {
     mavenCentral()
     mavenLocal()
   }
+
+  apply from: "$rootDir/gradle/java.gradle"
+  apply from: "$rootDir/gradle/codeQuality.gradle"
+
+  dependencies {
+    // Test
+    testCompile("junit:junit:$junitVersion")
+  }
 }
 
 subprojects {
-  // apply from: "$rootDir/gradle/java.gradle"
-  // apply from: "$rootDir/gradle/codeQuality.gradle"
+  task fastRun(dependsOn: [clean, build]) {
+  }
 
-//  task fastRun(dependsOn: [clean, build]) {
-//  }
-
-//  gradle.taskGraph.whenReady {
-//    if (gradle.taskGraph.hasTask(":${project.name}:fastRun")) {
-//      checkstyleMain.enabled = false
-//      checkstyleTest.enabled = false
-//      findbugsMain.enabled = false
-//      findbugsTest.enabled = false
-//      pmdMain.enabled = false
-//      pmdTest.enabled = false
-//      test.enabled = false
-//    }
-//  }
+  gradle.taskGraph.whenReady {
+    if (gradle.taskGraph.hasTask(":${project.name}:fastRun")) {
+      checkstyleMain.enabled = false
+      checkstyleTest.enabled = false
+      findbugsMain.enabled = false
+      findbugsTest.enabled = false
+      pmdMain.enabled = false
+      pmdTest.enabled = false
+      test.enabled = false
+    }
+  }
 }
 
 task wrapper(type: Wrapper) {

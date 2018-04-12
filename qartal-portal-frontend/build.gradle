@@ -1,0 +1,15 @@
+apply from: "$rootDir/gradle/gwt.gradle"
+
+dependencies {
+  // GWT framework
+  compile("com.google.gwt:gwt-user:$gwtVersion")
+  compile("com.google.gwt:gwt-dev:$gwtVersion")
+
+  // Other
+  compileOnly("org.fusesource.restygwt:restygwt:$restyGwtVersion")
+
+  // GMD framework
+  compileOnly("com.github.gwtmaterialdesign:gwt-material:$gwtMaterialVersion")
+  compileOnly("com.github.gwtmaterialdesign:gwt-material-addins:$gwtMaterialAddinsVersion")
+  compileOnly("com.github.gwtmaterialdesign:gwt-material-themes:$gwtMaterialThemesVersion")
+}

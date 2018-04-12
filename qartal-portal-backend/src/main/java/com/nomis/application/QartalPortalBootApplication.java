@@ -1,5 +1,9 @@
 package com.nomis.application;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 /**
  * QartalPortalBootApplication.
  *
@@ -8,8 +12,7 @@ package com.nomis.application;
  */
 
 @SpringBootApplication(scanBasePackages = {"com.nomis"})
-//@EnableAutoConfiguration
-//@Slf4j
+@Slf4j
 @SuppressWarnings("PMD.UseUtilityClass")
 public class QartalPortalBootApplication {
 

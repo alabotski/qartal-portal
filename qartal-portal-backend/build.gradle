@@ -1,74 +1,20 @@
-buildscript {
-  repositories {
-    jcenter()
-  }
-}
-
 plugins {
   id "net.ltgt.apt" version "0.15"
   id "org.springframework.boot" version "2.0.1.RELEASE"
 }
-apply plugin: "java"
 apply plugin: "net.ltgt.apt"
 apply plugin: "net.ltgt.apt-idea"
 apply plugin: "io.spring.dependency-management"
 
-//bootJar {
-//  baseName = 'gs-spring-boot'
-//  version =  '0.1.0'
-//}
-
-allprojects {
-  repositories {
-    mavenCentral()
-    mavenLocal()
-  }
-}
-
-//bootJar { enabled = true }
-//jar { enabled = true }
-
-ext {
-  generatedDir = new File(buildDir, "generated/source/apt")
-}
-
-sourceSets {
-  main {
-    java {
-      srcDirs = ["src/main/java"]
-    }
-    resources {
-      srcDirs = ["src/main/resources"]
-    }
-  }
-  test {
-    java {
-      srcDirs = ["src/test/java"]
-    }
-    resources {
-      srcDirs = ["src/test/resources"]
-    }
-  }
-}
-
-compileJava {
-  sourceCompatibility = "1.8"
-  targetCompatibility = "1.8"
-  options.encoding = "UTF-8"
-  options.compilerArgs = ["-Xlint:all"]
-  dependsOn(processResources)
-}
-
 dependencies {
-  //compile project(":portal-frontend")
-  //compile project(":web-portal-backend")
+  compile project(":qartal-portal-frontend")
 
   // GWT framework
   // compileOnly("com.google.gwt:gwt-servlet:$gwtVersion")
 
   // Spring framework
-//  compile("org.springframework.boot:spring-boot-configuration-processor")
-//  compile("org.springframework.boot:spring-boot-starter-jetty")
+  // compile("org.springframework.boot:spring-boot-configuration-processor")
+  compile("org.springframework.boot:spring-boot-starter-jetty")
   compile("org.springframework.boot:spring-boot-starter-web") {
     exclude module: "spring-boot-starter-tomcat"
   }
@@ -78,20 +24,16 @@ dependencies {
   annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
   // Test
-  testCompile("junit:junit:$junitVersion")
-//  testCompile("org.springframework.boot:spring-boot-starter-test")
+  testCompile("org.springframework.boot:spring-boot-starter-test")
+  testCompile("org.projectlombok:lombok:$lombokVersion")
+  annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 }
 
-//bootJar {
-//  baseName = 'gs-spring-boot'
-//  version = '0.1.0'
-//}
-
-//bootJar {
+bootJar {
 // archiveName = "project.jar"
-// dependsOn(":portal-frontend:compileGwt")
+  dependsOn(":qartal-portal-frontend:compileGwt")
 
-// into(bootJarDir) {
-// from buildDirGwt
-// }
-//}
+  into(bootJarDir) {
+    from buildDirGwt
+  }
+}

@@ -1,10 +1,10 @@
-Project protalForntEnd = project(":qartal-portal-frontend")
+Project protalFornt = project(":qartal-portal-frontend")
 
 ext {
   // Spring build dir
   bootJarDir = "BOOT-INF/classes/static"
 
   // GWT build dir
-  buildDirGwt = "${protalForntEnd.buildDir}/gwt"
-  extraDirGwt = "${protalForntEnd.buildDir}/extra"
+  buildDirGwt = "${protalFornt.buildDir}/gwt"
+  extraDirGwt = "${protalFornt.buildDir}/extra"
 }
