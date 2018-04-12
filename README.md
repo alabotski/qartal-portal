@@ -1,1 +1,1 @@
-# qurtal-portal
+# qartal-portal

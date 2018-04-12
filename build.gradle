@@ -1,5 +1,7 @@
-plugins {
-  id "net.ltgt.apt" version "0.15"
+buildscript {
+  repositories {
+    jcenter()
+  }
 }
 
 group "com.nomis"
@@ -7,40 +9,35 @@ version "1.0-SNAPSHOT"
 
 apply from: "$rootDir/gradle/idea.gradle"
 apply from: "$rootDir/gradle/versions.gradle"
-apply from: "$rootDir/gradle/options.gradle"
+//apply from: "$rootDir/gradle/options.gradle"
 
 allprojects {
-  apply plugin: "net.ltgt.apt"
-  apply plugin: "net.ltgt.apt-idea"
-
-  apply from: "$rootDir/gradle/java.gradle"
-  apply from: "$rootDir/gradle/codeQuality.gradle"
-}
-
-subprojects {
   repositories {
     mavenCentral()
     mavenLocal()
-    jcenter()
   }
+}
 
-  dependencies {
-    // Test
-    testCompile("junit:junit:$junitVersion")
-  }
+subprojects {
+  // apply from: "$rootDir/gradle/java.gradle"
+  // apply from: "$rootDir/gradle/codeQuality.gradle"
 
-  task fastRun(dependsOn: [clean, build]) {
-  }
+//  task fastRun(dependsOn: [clean, build]) {
+//  }
 
-  gradle.taskGraph.whenReady {
-    if (gradle.taskGraph.hasTask(":${project.name}:fastRun")) {
-      checkstyleMain.enabled = false
-      checkstyleTest.enabled = false
-      findbugsMain.enabled = false
-      findbugsTest.enabled = false
-      pmdMain.enabled = false
-      pmdTest.enabled = false
-      test.enabled = false
-    }
-  }
+//  gradle.taskGraph.whenReady {
+//    if (gradle.taskGraph.hasTask(":${project.name}:fastRun")) {
+//      checkstyleMain.enabled = false
+//      checkstyleTest.enabled = false
+//      findbugsMain.enabled = false
+//      findbugsTest.enabled = false
+//      pmdMain.enabled = false
+//      pmdTest.enabled = false
+//      test.enabled = false
+//    }
+//  }
+}
+
+task wrapper(type: Wrapper) {
+  gradleVersion = "$gradleVersion"
 }

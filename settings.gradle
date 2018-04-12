@@ -1,4 +1,2 @@
-rootProject.name = "qartal-portal"
-
 include "qartal-portal-backend"
-include "qartal-portal-frontend"
+//include "qartal-portal-frontend"
