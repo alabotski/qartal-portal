@@ -1,0 +1,32 @@
+ext {
+  generatedDir = new File(buildDir, "generated/source/apt")
+}
+
+apply plugin: "java"
+
+sourceSets {
+  main {
+    java {
+      srcDirs = ["$generatedDir/main", "src/main/java"]
+    }
+    resources {
+      srcDirs = ["src/main/resources"]
+    }
+  }
+  test {
+    java {
+      srcDirs = ["$generatedDir/test", "src/test/java"]
+    }
+    resources {
+      srcDirs = ["src/test/resources"]
+    }
+  }
+}
+
+compileJava {
+  sourceCompatibility = "1.8"
+  targetCompatibility = "1.8"
+  options.encoding = "UTF-8"
+  options.compilerArgs = ["-Xlint:all"]
+  dependsOn(processResources)
+}

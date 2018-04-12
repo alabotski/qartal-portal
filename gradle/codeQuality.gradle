@@ -1,0 +1,87 @@
+def configDir = new File("$rootDir", 'config')
+def checkstyleConfigDir = "$configDir/checkstyle"
+
+apply plugin: 'checkstyle'
+apply plugin: 'findbugs'
+apply plugin: 'pmd'
+//apply plugin: "jacoco"
+
+checkstyle {
+  ignoreFailures = false
+  configFile = new File(checkstyleConfigDir, "checkstyle.xml")
+  configProperties.checkstyleConfigDir = checkstyleConfigDir
+  toolVersion "8.9"
+}
+
+checkstyleMain {
+  source = sourceSets.main.allSource
+}
+
+checkstyleTest {
+  source = sourceSets.test.allSource
+}
+
+findbugs {
+  ignoreFailures = false
+  toolVersion = "3.0.1"
+  sourceSets = [sourceSets.main, sourceSets.test]
+  reportsDir = file("$project.buildDir/findbugsReports")
+  effort = "max"
+  reportLevel = "high"
+}
+
+tasks.withType(FindBugs) {
+  reports {
+    xml.enabled = false
+    html.enabled = true
+  }
+}
+
+pmd {
+  ignoreFailures = false
+  toolVersion = "6.2.0"
+  sourceSets = [sourceSets.main, sourceSets.test]
+  reportsDir = file("$project.buildDir/pmdReports")
+  ruleSets = []
+  ruleSetFiles = files("$configDir/pmd-ruleset.xml")
+}
+
+tasks.withType(Pmd) {
+  reports {
+    xml.enabled = false
+    html.enabled = true
+  }
+}
+
+//jacoco {
+//  toolVersion = "0.8.0"
+//  reportsDir = file("$buildDir/jacocoReports")
+//}
+
+//jacocoTestReport {
+//  reports {
+//    xml.enabled false
+//    csv.enabled false
+//    html.enabled false
+//    html.destination file("${buildDir}/jacocoHtml")
+//  }
+//}
+
+task checkstyleHtml {
+  doLast {
+    try {
+      String xmlReportFilePath = checkstyleMain.reports.xml.destination.parent;
+      File xmlReportFile = new File(xmlReportFilePath, "main.xml")
+      if (!xmlReportFile.exists()) {
+        return;
+      }
+      ant.xslt(in: checkstyleMain.reports.xml.destination, style: file("$checkstyleConfigDir/styles.xsl"), out: new File(xmlReportFilePath, 'main.html'))
+    }
+    catch (Exception e) {
+      throw new RuntimeException(e)
+    }
+  }
+}
+
+checkstyleMain.finalizedBy checkstyleHtml
+checkstyleTest.finalizedBy checkstyleHtml

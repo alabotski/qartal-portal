@@ -1,0 +1,49 @@
+task compileGwt(dependsOn: classes, type: JavaExec) {
+  inputs.file sourceSets.main.java.srcDirs
+  inputs.dir sourceSets.main.output.resourcesDir
+  outputs.dir buildDir
+
+  doFirst {
+    file(buildDir).mkdirs()
+  }
+
+  main = "com.google.gwt.dev.Compiler"
+
+  classpath {
+    [
+        sourceSets.main.java.srcDirs,           // Java source
+        sourceSets.main.output.resourcesDir,    // Generated resources
+        sourceSets.main.java.outputDir,         // Generated classes
+        sourceSets.main.compileClasspath,       // Deps
+    ]
+  }
+
+  if (project.hasProperty('dev')) {
+    println "Run developer mode"
+    args = [
+        "com.test.portal.AppClientModuleDev",
+        "-war", buildDirGwt,
+        "-logLevel", "INFO",
+        "-localWorkers", "4",
+        "-compileReport",
+        "-extra", extraDirGwt,
+        "-style", "PRETTY",
+        "-draftCompile",
+        "-optimize", "0" // 0=none, 9=max
+    ]
+  } else {
+    println "Run production mode"
+    args = [
+        "com.test.portal.AppClientModule",
+        "-war", buildDirGwt,
+        "-logLevel", "INFO",
+        "-localWorkers", "4",
+        "-compileReport",
+        "-extra", extraDirGwt,
+        "-style", "OBFUSCATED",
+        "-optimize", "9" // 0=none, 9=max
+    ]
+  }
+
+  maxHeapSize = "4G"
+}
