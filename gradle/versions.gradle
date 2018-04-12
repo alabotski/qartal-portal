@@ -2,9 +2,6 @@ ext {
   // Gradle build
   gradleVersion = "4.6"
 
-  // Domino framework
-  dominoVersion = "1.0-rc.3-SNAPSHOT"
-
   // GWT framework
   gwtVersion = "2.8.2"
 
@@ -14,9 +11,6 @@ ext {
   gwtMaterialThemesVersion = "2.0.1"
   gwtMaterialTableVersion = "2.0.1"
 
-  // AutoService
-  autoServiceVersion = "1.0-rc4"
-
   // Other
   restyGwtVersion = "2.2.3"
 
@@ -25,7 +19,4 @@ ext {
 
   // Test
   junitVersion = "4.12"
-  slf4jVersion = "1.7.25"
-  gwtmockitoVersion = "1.1.8"
-  assertjcoreVersion = "3.9.1"
 }
