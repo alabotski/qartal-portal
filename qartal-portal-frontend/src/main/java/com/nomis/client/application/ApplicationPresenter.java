@@ -11,7 +11,6 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.presenter.slots.NestedSlot;
 import com.gwtplatform.mvp.client.presenter.slots.SingleSlot;
 import com.gwtplatform.mvp.client.proxy.LockInteractionEvent;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.nomis.client.event.LoadingEvent;
 import com.nomis.client.event.LoadingHandler;
@@ -47,12 +46,9 @@ public class ApplicationPresenter extends
   @Inject
   LoadingWidget loadingWidget;
 
-  private final PlaceManager placeManager;
-
   @Inject
-  ApplicationPresenter(EventBus eventBus, MyView view, MyProxy proxy, PlaceManager placeManager) {
+  ApplicationPresenter(EventBus eventBus, MyView view, MyProxy proxy) {
     super(eventBus, view, proxy, RevealType.Root);
-    this.placeManager = placeManager;
     getView().setUiHandlers(this);
   }
 

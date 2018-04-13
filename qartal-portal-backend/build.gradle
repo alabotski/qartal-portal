@@ -8,8 +8,6 @@ apply plugin: "net.ltgt.apt"
 apply plugin: "net.ltgt.apt-idea"
 
 dependencies {
-  compile project(":qartal-portal-frontend")
-
   // Spring framework
   compile("org.springframework.boot:spring-boot-starter-jetty")
   compile("org.springframework.boot:spring-boot-starter-web") {
@@ -23,8 +21,10 @@ dependencies {
 
   // Other
   compileOnly("org.apache.commons:commons-lang3:$commonsLang3Version")
+  compileOnly("javax.inject:javax.inject:$injectVersion")
 
   // Test
+  testCompile("org.apache.commons:commons-lang3:$commonsLang3Version")
   testCompile("org.springframework.boot:spring-boot-starter-test")
   testCompile("org.projectlombok:lombok:$lombokVersion")
   annotationProcessor("org.projectlombok:lombok:$lombokVersion")

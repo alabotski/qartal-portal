@@ -8,7 +8,6 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.NoGatekeeper;
 import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
-import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.nomis.client.application.ApplicationPresenter;
 import com.nomis.client.place.NameTokens;
@@ -33,12 +32,12 @@ public class ErrorPresenter extends Presenter<ErrorPresenter.MyView, ErrorPresen
 
   }
 
-  private final PlaceManager placeManager;
+  //  private final PlaceManager placeManager;
 
   @Inject
-  ErrorPresenter(EventBus eventBus, MyView view, MyProxy proxy, PlaceManager placeManager) {
+  ErrorPresenter(EventBus eventBus, MyView view, MyProxy proxy/*, PlaceManager placeManager*/) {
     super(eventBus, view, proxy, ApplicationPresenter.SLOT_MAIN_CONTENT);
-    this.placeManager = placeManager;
+    //    this.placeManager = placeManager;
     getView().setUiHandlers(this);
   }
 }

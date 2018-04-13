@@ -19,6 +19,7 @@ ext {
   // Other
   restyGwtVersion = "2.2.3"
   commonsLang3Version = "3.7"
+  injectVersion = "1"
 
   // Lombok
   lombokVersion = "1.16.20"

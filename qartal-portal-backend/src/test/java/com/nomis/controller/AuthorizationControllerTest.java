@@ -1,12 +1,12 @@
 package com.nomis.controller;
 
+import static com.nomis.TestUtil.asJsonString;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
-import static org.springframework.http.MediaType.APPLICATION_JSON_UTF8;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -20,6 +20,7 @@ import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -54,19 +55,21 @@ public class AuthorizationControllerTest {
   }
 
   @Test
-  public void should_getUrlPath() throws Exception {
+  public void should_login() throws Exception {
     LoginRequest loginRequest = new LoginRequest();
     loginRequest.setLogin("admin");
     loginRequest.setLogin("admin");
 
     when(authorizationService.login(loginRequest)).thenReturn(true);
 
-    mockMvc.perform(get("/authorization/login"))
+    mockMvc.perform(post("/authorization/login").contentType(MediaType.APPLICATION_JSON_UTF8)
+        .content(asJsonString(loginRequest)))
         .andExpect(status().isOk())
-        .andExpect(content().contentType(APPLICATION_JSON_UTF8))
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
         .andExpect(jsonPath("$.authorization", is(true)));
 
     verify(authorizationService, times(1)).login(loginRequest);
     verifyNoMoreInteractions(authorizationService);
   }
+
 }

@@ -1,10 +1,8 @@
 package com.nomis.config;
 
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.boot.SpringBootConfiguration;
-
-@SpringBootConfiguration
-@Slf4j
+//@SpringBootConfiguration
+//@EnableWebMvc
+//@Slf4j
 public class WebConfig {
 
 //  @Bean

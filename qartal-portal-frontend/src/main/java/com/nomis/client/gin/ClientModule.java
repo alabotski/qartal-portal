@@ -25,9 +25,9 @@ public class ClientModule extends AbstractPresenterModule {
     //Defaults.setServiceRoot("");
 
     install(new DefaultModule.Builder()
-        .defaultPlace(NameTokens.home)
-        .errorPlace(NameTokens.error)
-        .unauthorizedPlace(NameTokens.login)
+        .defaultPlace(NameTokens.getHome())
+        .errorPlace(NameTokens.getError())
+        .unauthorizedPlace(NameTokens.getLogin())
         .build());
 
     install(new ApplicationModule());
