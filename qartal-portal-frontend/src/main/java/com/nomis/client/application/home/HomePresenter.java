@@ -7,13 +7,15 @@ import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
+import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.nomis.client.application.ApplicationPresenter;
 import com.nomis.client.place.NameTokens;
+import com.nomis.client.security.LoggedInGatekeeper;
 
 /**
- * ErrorPresenter.
+ * HomePresenter.
  *
  * @author Aliaksei Labotski.
  * @since 4/13/18.
@@ -22,6 +24,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
   @ProxyCodeSplit
   @NameToken(NameTokens.home)
+  @UseGatekeeper(LoggedInGatekeeper.class)
   public interface MyProxy extends ProxyPlace<HomePresenter> {
 
   }

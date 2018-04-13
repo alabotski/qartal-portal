@@ -1,7 +1,11 @@
 plugins {
   id "org.springframework.boot" version "2.0.1.RELEASE"
+  id "net.ltgt.apt" version "0.15"
 }
+
 apply plugin: "io.spring.dependency-management"
+apply plugin: "net.ltgt.apt"
+apply plugin: "net.ltgt.apt-idea"
 
 dependencies {
   compile project(":qartal-portal-frontend")
@@ -16,6 +20,9 @@ dependencies {
   // Lombok
   compileOnly("org.projectlombok:lombok:$lombokVersion")
   annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+
+  // Other
+  compileOnly("org.apache.commons:commons-lang3:$commonsLang3Version")
 
   // Test
   testCompile("org.springframework.boot:spring-boot-starter-test")

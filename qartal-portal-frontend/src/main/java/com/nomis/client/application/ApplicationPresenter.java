@@ -15,8 +15,11 @@ import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.nomis.client.event.LoadingEvent;
 import com.nomis.client.event.LoadingHandler;
+import com.nomis.client.event.MessageEvent;
+import com.nomis.client.event.MessageHandler;
 import com.nomis.client.place.NameTokens;
 import com.nomis.client.widget.loading.LoadingWidget;
+import gwt.material.design.client.ui.MaterialToast;
 
 /**
  * ApplicationPresenter.
@@ -26,7 +29,7 @@ import com.nomis.client.widget.loading.LoadingWidget;
  */
 public class ApplicationPresenter extends
     Presenter<ApplicationPresenter.MyView, ApplicationPresenter.MyProxy> implements ApplicationUiHandlers,
-    LoadingHandler {
+    LoadingHandler, MessageHandler {
 
   @ProxyStandard
   @NameToken(NameTokens.home)
@@ -56,6 +59,7 @@ public class ApplicationPresenter extends
   @Override
   protected void onBind() {
     addRegisteredHandler(LoadingEvent.TYPE, this);
+    addRegisteredHandler(MessageEvent.TYPE, this);
   }
 
   @ProxyEvent
@@ -70,7 +74,15 @@ public class ApplicationPresenter extends
 
   @Override
   public void onLoading(LoadingEvent event) {
-    setInSlot(SLOT_LOADING_CONTENT, loadingWidget);
+    if (event.isShowLoading()) {
+      setInSlot(SLOT_LOADING_CONTENT, loadingWidget);
+    } else {
+      removeFromSlot(SLOT_LOADING_CONTENT, loadingWidget);
+    }
   }
 
+  @Override
+  public void onMessage(MessageEvent event) {
+    MaterialToast.fireToast(event.getMessage());
+  }
 }

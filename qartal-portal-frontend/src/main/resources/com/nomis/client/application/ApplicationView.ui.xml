@@ -3,6 +3,12 @@
 
   <ui:with field="lang" type="com.nomis.client.application.ApplicationConstants"/>
 
+  <ui:style gss="true">
+    .mainContent {
+      height: 100vh;
+    }
+  </ui:style>
+
   <m:MaterialPanel>
     <m:MaterialPanel ui:field="loadingContent"/>
     <m:MaterialHeader>
@@ -26,6 +32,6 @@
       <m:MaterialLink iconType="INFO_OUTLINE" text="Spam"/>
     </m:MaterialSideNavDrawer>
 
-    <m:MaterialContainer ui:field="mainContent"/>
+    <m:MaterialContainer ui:field="mainContent" addStyleNames="{style.mainContent}"/>
   </m:MaterialPanel>
 </ui:UiBinder>

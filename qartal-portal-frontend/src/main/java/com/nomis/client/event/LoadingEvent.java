@@ -11,13 +11,13 @@ import com.google.gwt.event.shared.HasHandlers;
  */
 public class LoadingEvent extends GwtEvent<LoadingHandler> {
 
-  public static Type<LoadingHandler> TYPE = new Type<LoadingHandler>();
-
-  private boolean showLoading;
+  public static final Type<LoadingHandler> TYPE = new Type<LoadingHandler>();
 
   public Type<LoadingHandler> getAssociatedType() {
     return TYPE;
   }
+
+  private boolean showLoading;
 
   protected void dispatch(LoadingHandler handler) {
     handler.onLoading(this);

@@ -3,7 +3,7 @@ package com.nomis.client.application.home;
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
 /**
- * ErrorModule.
+ * HomeModule.
  *
  * @author Aliaksei Labotski.
  * @since 4/13/18.

@@ -6,6 +6,7 @@ import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
+import com.gwtplatform.mvp.client.annotations.NoGatekeeper;
 import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
 import com.gwtplatform.mvp.client.proxy.PlaceManager;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
@@ -23,6 +24,7 @@ public class ErrorPresenter extends Presenter<ErrorPresenter.MyView, ErrorPresen
 
   @ProxyCodeSplit
   @NameToken(NameTokens.error)
+  @NoGatekeeper
   public interface MyProxy extends ProxyPlace<ErrorPresenter> {
 
   }

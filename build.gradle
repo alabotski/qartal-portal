@@ -1,7 +1,3 @@
-plugins {
-  id "net.ltgt.apt" version "0.15"
-}
-
 group "com.nomis"
 version "1.0-SNAPSHOT"
 
@@ -10,9 +6,6 @@ apply from: "$rootDir/gradle/versions.gradle"
 apply from: "$rootDir/gradle/options.gradle"
 
 allprojects {
-  apply plugin: "net.ltgt.apt"
-  apply plugin: "net.ltgt.apt-idea"
-
   repositories {
     mavenCentral()
     mavenLocal()

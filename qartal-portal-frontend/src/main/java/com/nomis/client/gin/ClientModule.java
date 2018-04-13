@@ -22,6 +22,8 @@ public class ClientModule extends AbstractPresenterModule {
 
   @Override
   protected void configure() {
+    //Defaults.setServiceRoot("");
+
     install(new DefaultModule.Builder()
         .defaultPlace(NameTokens.home)
         .errorPlace(NameTokens.error)

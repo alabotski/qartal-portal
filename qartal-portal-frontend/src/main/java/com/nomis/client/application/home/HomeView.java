@@ -6,7 +6,7 @@ import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 
 /**
- * ErrorView.
+ * HomeView.
  *
  * @author Aliaksei Labotski.
  * @since 4/13/18.

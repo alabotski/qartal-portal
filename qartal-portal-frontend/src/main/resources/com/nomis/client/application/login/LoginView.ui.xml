@@ -1,5 +1,33 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
   xmlns:m='urn:import:gwt.material.design.client.ui'>
 
-  <m:MaterialPanel/>
+  <ui:with field="lang" type="com.nomis.client.application.login.LoginConstants"/>
+
+  <ui:style gss="true">
+    .loginPanel {
+    }
+
+    .fieldPanel {
+      padding: 20px;
+      width: 300px;
+    }
+
+    .loginWrapper {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </ui:style>
+
+  <m:MaterialPanel addStyleNames="{style.loginWrapper}">
+    <m:MaterialPanel shadow="1" addStyleNames="{style.loginPanel}">
+      <m:MaterialPanel addStyleNames="{style.fieldPanel}">
+        <m:MaterialTextBox type="TEXT" placeholder="{lang.loginText}" ui:field="login"/>
+        <m:MaterialTextBox type="PASSWORD" placeholder="{lang.passwordText}" ui:field="password"/>
+        <m:MaterialButton waves="LIGHT" text="{lang.loginBtnText}" width="100%" ui:field="btnLogin"/>
+      </m:MaterialPanel>
+    </m:MaterialPanel>
+  </m:MaterialPanel>
 </ui:UiBinder>
