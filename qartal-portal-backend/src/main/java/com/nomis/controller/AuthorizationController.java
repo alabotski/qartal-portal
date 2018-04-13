@@ -2,8 +2,8 @@ package com.nomis.controller;
 
 import static org.springframework.http.HttpStatus.OK;
 
-import com.nomis.request.LoginRequest;
-import com.nomis.response.LoginResponse;
+import com.nomis.shared.request.LoginRequest;
+import com.nomis.shared.response.LoginResponse;
 import com.nomis.service.AuthorizationService;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;

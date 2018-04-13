@@ -1,6 +1,6 @@
 package com.nomis.service;
 
-import com.nomis.request.LoginRequest;
+import com.nomis.shared.request.LoginRequest;
 
 /**
  * AuthorizationService.

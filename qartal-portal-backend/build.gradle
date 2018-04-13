@@ -8,6 +8,8 @@ apply plugin: "net.ltgt.apt"
 apply plugin: "net.ltgt.apt-idea"
 
 dependencies {
+  compile project(":qartal-portal-shared")
+
   // Spring framework
   compile("org.springframework.boot:spring-boot-starter-jetty")
   compile("org.springframework.boot:spring-boot-starter-web") {

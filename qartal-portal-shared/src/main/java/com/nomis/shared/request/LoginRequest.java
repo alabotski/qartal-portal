@@ -1,6 +1,7 @@
-package com.nomis.client.rest.request;
+package com.nomis.shared.request;
 
 import javax.validation.constraints.NotNull;
+
 
 /**
  * LoginRequest.

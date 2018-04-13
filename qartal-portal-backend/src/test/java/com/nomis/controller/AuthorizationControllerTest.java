@@ -11,7 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import com.nomis.request.LoginRequest;
+import com.nomis.shared.request.LoginRequest;
 import com.nomis.service.AuthorizationService;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.junit.Before;
@@ -57,8 +57,8 @@ public class AuthorizationControllerTest {
   @Test
   public void should_login() throws Exception {
     LoginRequest loginRequest = new LoginRequest();
-    loginRequest.setLogin("admin");
-    loginRequest.setLogin("admin");
+    loginRequest.setLogin("Admin123");
+    loginRequest.setLogin("Admin123");
 
     when(authorizationService.login(loginRequest)).thenReturn(true);
 

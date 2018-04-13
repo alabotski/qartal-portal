@@ -15,7 +15,7 @@ public class LoginValidator extends RegExValidator {
   private static LoginConstants loginConstants = GWT.create(LoginConstants.class);
 
   public LoginValidator() {
-    super("\\$\\{[A-Za-z_0-9]+\\}", loginConstants.loginNotValid());
+    super("^[A-Za-z0-9]{8}$", loginConstants.loginNotValid());
   }
 
   @Override

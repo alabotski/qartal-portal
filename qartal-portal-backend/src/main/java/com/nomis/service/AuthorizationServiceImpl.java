@@ -1,6 +1,6 @@
 package com.nomis.service;
 
-import com.nomis.request.LoginRequest;
+import com.nomis.shared.request.LoginRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class AuthorizationServiceImpl implements AuthorizationService {
 
-  private static final String ADMIN = "admin";
+  private static final String ADMIN = "Admin123";
 
   @Override
   public boolean login(LoginRequest loginRequest) {

@@ -24,8 +24,10 @@
   <m:MaterialPanel addStyleNames="{style.loginWrapper}">
     <m:MaterialPanel shadow="1" addStyleNames="{style.loginPanel}">
       <m:MaterialPanel addStyleNames="{style.fieldPanel}">
-        <m:MaterialTextBox type="TEXT" placeholder="{lang.loginText}" ui:field="login"/>
-        <m:MaterialTextBox type="PASSWORD" placeholder="{lang.passwordText}" ui:field="password"/>
+        <m:MaterialTextBox type="TEXT" placeholder="{lang.loginText}" validateOnBlur="true" allowBlank="false"
+          ui:field="login"/>
+        <m:MaterialTextBox type="PASSWORD" placeholder="{lang.passwordText}" validateOnBlur="true" allowBlank="false"
+          ui:field="password"/>
         <m:MaterialButton waves="LIGHT" text="{lang.loginBtnText}" width="100%" ui:field="btnLogin"/>
       </m:MaterialPanel>
     </m:MaterialPanel>

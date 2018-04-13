@@ -28,6 +28,9 @@
   <!--RestyGWT-->
   <inherits name="org.fusesource.restygwt.RestyGWT"/>
 
+  <!--QartalPortalShared-->
+  <inherits name="com.nomis.QartalPortalShared"/>
+
   <!--GWT Guava-->
   <!--<inherits name="com.google.common.base.Base"/>-->
 

@@ -1,4 +1,4 @@
-package com.nomis.client.rest.response;
+package com.nomis.shared.response;
 
 /**
  * LoginResponse.
@@ -6,6 +6,7 @@ package com.nomis.client.rest.response;
  * @author Aliaksei Labotski.
  * @since 4/13/18.
  */
+
 public class LoginResponse {
 
   private boolean authorization;

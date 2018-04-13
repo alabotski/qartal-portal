@@ -1,0 +1,26 @@
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'org.wisepersist:gwt-gradle-plugin:1.0.6'
+  }
+}
+
+dependencies {
+  // GWT framework
+  compileOnly("com.google.gwt:gwt-user:$gwtVersion")
+  compileOnly("com.google.gwt:gwt-dev:$gwtVersion")
+
+  compileOnly("javax.validation:validation-api:$validationApiVersion")
+}
+
+apply plugin: "gwt-base"
+
+gwt {
+  gwtVersion = "2.8.2"
+}
+
+jar {
+  from project.sourceSets.main.allSource
+}

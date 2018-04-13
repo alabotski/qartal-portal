@@ -1,7 +1,7 @@
 package com.nomis.client.rest;
 
-import com.nomis.client.rest.request.LoginRequest;
-import com.nomis.client.rest.response.LoginResponse;
+import com.nomis.shared.request.LoginRequest;
+import com.nomis.shared.response.LoginResponse;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import org.fusesource.restygwt.client.MethodCallback;

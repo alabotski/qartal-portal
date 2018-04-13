@@ -10,9 +10,7 @@ buildscript {
 apply plugin: "gwt"
 
 dependencies {
-  compile("org.apache.maven.plugins:maven-compiler-plugin:3.7.0") {
-
-  }
+  compile project(":qartal-portal-shared")
 
   // GWT framework
   compileOnly("com.google.gwt:gwt-user:$gwtVersion")
