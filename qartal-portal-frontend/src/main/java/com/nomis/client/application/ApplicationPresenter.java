@@ -5,7 +5,6 @@ import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.Presenter;
 import com.gwtplatform.mvp.client.View;
-import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyEvent;
 import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.presenter.slots.NestedSlot;
@@ -16,7 +15,6 @@ import com.nomis.client.event.LoadingEvent;
 import com.nomis.client.event.LoadingHandler;
 import com.nomis.client.event.MessageEvent;
 import com.nomis.client.event.MessageHandler;
-import com.nomis.client.place.NameTokens;
 import com.nomis.client.widget.loading.LoadingWidget;
 import gwt.material.design.client.ui.MaterialToast;
 
@@ -31,7 +29,6 @@ public class ApplicationPresenter extends
     LoadingHandler, MessageHandler {
 
   @ProxyStandard
-  @NameToken(NameTokens.home)
   interface MyProxy extends ProxyPlace<ApplicationPresenter> {
 
   }

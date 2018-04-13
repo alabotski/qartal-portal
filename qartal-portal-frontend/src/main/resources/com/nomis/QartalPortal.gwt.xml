@@ -22,7 +22,7 @@
   <!--GMD framework-->
   <inherits name="gwt.material.design.GwtMaterialWithJQuery"/>
   <inherits name="gwt.material.design.GwtMaterialDesignBasic"/>
-  <inherits name="gwt.material.design.themes.ThemeBlueResources"/>
+  <inherits name="gwt.material.design.themes.ThemeBlue"/>
   <!--<inherits name="gwt.material.design.addins.GwtMaterialAddins"/>-->
 
   <!--RestyGWT-->
