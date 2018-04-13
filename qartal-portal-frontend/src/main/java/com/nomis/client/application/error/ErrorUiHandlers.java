@@ -10,4 +10,5 @@ import com.gwtplatform.mvp.client.UiHandlers;
  */
 public interface ErrorUiHandlers extends UiHandlers {
 
+  void goBack();
 }

@@ -1,5 +1,49 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
   xmlns:m='urn:import:gwt.material.design.client.ui'>
 
-  <m:MaterialPanel/>
+  <ui:with field="lang" type="com.nomis.client.application.error.ErrorConstants"/>
+  <ui:with field="res" type="com.nomis.client.css.QartalPortalBundle"/>
+
+  <ui:style gss="true">
+    .errorText {
+      color: #adadad;
+      font-family: "Cabin", Helvetica, Arial, Verdana, sans-serif;
+      /*font: normal 500 32 px / 36 px "Cabin", Helvetica, Arial, Verdana, sans-serif;*/
+      font-weight: 500;
+      line-height: 36px;
+      font-size: 36px;
+    }
+
+    .errorPanel {
+    }
+
+    .errorWrapper {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .errorButton {
+      text-align: center;
+    }
+  </ui:style>
+
+  <m:MaterialPanel addStyleNames="{style.errorWrapper}">
+    <m:MaterialPanel addStyleNames="{style.errorPanel}">
+      <m:MaterialRow>
+        <m:MaterialLabel text="{lang.errorCaption}" addStyleNames="{style.errorText}"/>
+      </m:MaterialRow>
+      <m:MaterialRow>
+        <m:MaterialImage resource="{res.error}"/>
+      </m:MaterialRow>
+      <m:MaterialRow>
+        <m:MaterialLabel text="{lang.errorFooter}" addStyleNames="{style.errorText}"/>
+      </m:MaterialRow>
+      <m:MaterialRow addStyleNames="{style.errorButton}">
+        <m:MaterialButton text="{lang.goBack}" ui:field="btnBack"/>
+      </m:MaterialRow>
+    </m:MaterialPanel>
+  </m:MaterialPanel>
 </ui:UiBinder>

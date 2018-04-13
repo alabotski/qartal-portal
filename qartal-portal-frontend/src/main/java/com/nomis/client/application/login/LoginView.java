@@ -4,12 +4,12 @@ import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.gwt.uibinder.client.UiHandler;
-import com.google.gwt.user.client.ui.Widget;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import com.nomis.client.validator.LoginValidator;
 import com.nomis.client.validator.PasswordValidator;
 import gwt.material.design.client.ui.MaterialButton;
+import gwt.material.design.client.ui.MaterialPanel;
 import gwt.material.design.client.ui.MaterialTextBox;
 
 /**
@@ -20,7 +20,7 @@ import gwt.material.design.client.ui.MaterialTextBox;
  */
 public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements LoginPresenter.MyView {
 
-  interface Binder extends UiBinder<Widget, LoginView> {
+  interface Binder extends UiBinder<MaterialPanel, LoginView> {
 
   }
 
