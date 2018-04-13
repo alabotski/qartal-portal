@@ -2,11 +2,11 @@ package com.nomis.controller;
 
 import static org.springframework.http.HttpStatus.OK;
 
+import com.nomis.service.AuthorizationService;
 import com.nomis.shared.request.LoginRequest;
 import com.nomis.shared.response.LoginResponse;
-import com.nomis.service.AuthorizationService;
-import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class AuthorizationController {
 
-  @Inject
+  @Autowired
   private AuthorizationService authorizationService;
 
   @PostMapping(value = "/login", consumes = MediaType.APPLICATION_JSON_VALUE,

@@ -43,6 +43,8 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
     String getLogin();
 
     String getPassword();
+
+    boolean isValid();
   }
 
   private AuthorizationService authorizationService = GWT.create(AuthorizationService.class);
@@ -64,28 +66,30 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
 
   @Override
   public void login() {
-    LoginRequest loginRequest = new LoginRequest();
-    loginRequest.setLogin(getView().getLogin());
-    loginRequest.setPassword(getView().getPassword());
+    if (getView().isValid()) {
+      LoginRequest loginRequest = new LoginRequest();
+      loginRequest.setLogin(getView().getLogin());
+      loginRequest.setPassword(getView().getPassword());
 
-    authorizationService.login(loginRequest, new MethodCallback<LoginResponse>() {
-      @Override
-      public void onFailure(Method method, Throwable exception) {
-        MessageEvent.fire(LoginPresenter.this, loginConstants.authorizationError());
-      }
-
-      @Override
-      public void onSuccess(Method method, LoginResponse response) {
-        if (response.isAuthorization()) {
-          person.setAuthorization(true);
-          MessageEvent.fire(LoginPresenter.this, loginConstants.authorizationSuccess());
-          PlaceRequest placeRequest = new PlaceRequest.Builder().nameToken(NameTokens.getHome())
-              .build();
-          placeManager.revealPlace(placeRequest);
-        } else {
+      authorizationService.login(loginRequest, new MethodCallback<LoginResponse>() {
+        @Override
+        public void onFailure(Method method, Throwable exception) {
           MessageEvent.fire(LoginPresenter.this, loginConstants.authorizationError());
         }
-      }
-    });
+
+        @Override
+        public void onSuccess(Method method, LoginResponse response) {
+          if (response.isAuthorization()) {
+            person.setAuthorization(true);
+            MessageEvent.fire(LoginPresenter.this, loginConstants.authorizationSuccess());
+            PlaceRequest placeRequest = new PlaceRequest.Builder().nameToken(NameTokens.getHome())
+                .build();
+            placeManager.revealPlace(placeRequest);
+          } else {
+            MessageEvent.fire(LoginPresenter.this, loginConstants.authorizationError());
+          }
+        }
+      });
+    }
   }
 }

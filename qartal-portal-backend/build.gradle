@@ -23,7 +23,6 @@ dependencies {
 
   // Other
   compileOnly("org.apache.commons:commons-lang3:$commonsLang3Version")
-  compileOnly("javax.inject:javax.inject:$injectVersion")
 
   // Test
   testCompile("org.apache.commons:commons-lang3:$commonsLang3Version")

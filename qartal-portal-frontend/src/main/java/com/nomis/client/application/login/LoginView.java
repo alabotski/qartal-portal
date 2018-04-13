@@ -54,5 +54,10 @@ public class LoginView extends ViewWithUiHandlers<LoginUiHandlers> implements Lo
     return password.getText();
   }
 
+  @Override
+  public boolean isValid() {
+    return login.validate() && password.validate();
+  }
+
 
 }
