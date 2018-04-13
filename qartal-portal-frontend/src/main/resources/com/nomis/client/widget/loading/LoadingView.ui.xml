@@ -1,0 +1,122 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:m='urn:import:gwt.material.design.client.ui'
+  xmlns:m.html="urn:import:gwt.material.design.client.ui.html">
+
+  <ui:with field="lang" type="com.nomis.client.widget.loading.LoadingConstants"/>
+
+  <ui:style gss="true">
+    .loading {
+      width: 100%;
+      height: 100%;
+      color: #000;
+      background: rgba(255, 255, 255, 0.701961);
+      letter-spacing: 2px;
+      font-size: 18px;
+      font-family: 'Arial', sans-serif;
+      text-align: center;
+      text-transform: uppercase;
+      position: fixed;
+      z-index: 999;
+      top: 0;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .preloader {
+      /*border: 1px solid gray;*/
+      /*padding: 5px;*/
+    }
+
+    .preloader .line {
+      width: 4px;
+      height: 24px;
+      background: #000;
+      margin: 0 1px;
+      display: inline-block;
+      animation: opacity-2 1000ms infinite ease-in-out;
+    }
+
+    .preloader .line-1 {
+      animation-delay: 800ms;
+    }
+
+    .preloader .line-2 {
+      animation-delay: 600ms;
+    }
+
+    .preloader .line-3 {
+      animation-delay: 400ms;
+    }
+
+    .preloader .line-4 {
+      animation-delay: 200ms;
+    }
+
+    .preloader .line-6 {
+      animation-delay: 200ms;
+    }
+
+    .preloader .line-7 {
+      animation-delay: 400ms;
+    }
+
+    .preloader .line-8 {
+      animation-delay: 600ms;
+    }
+
+    .preloader .line-9 {
+      animation-delay: 800ms;
+    }
+
+    @keyframes opacity-1 {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes opacity-2 {
+      0% {
+        opacity: 1;
+        height: 30px;
+      }
+      50% {
+        opacity: 0;
+        height: 24px;
+      }
+      100% {
+        opacity: 1;
+        height: 30px;
+      }
+    }
+  </ui:style>
+
+  <m:MaterialPanel>
+    <m:MaterialPanel class="{style.loading}" ui:field="loadingPanel">
+      <m:MaterialPanel class="{style.preloader}">
+        <m.html:Span addStyleNames="flow-text"/>
+        <m.html:Span class="{style.line} {style.line-1}"/>
+        <m.html:Span class="{style.line} {style.line-2}"/>
+        <m.html:Span class="{style.line} {style.line-3}"/>
+        <m.html:Span class="{style.line} {style.line-4}"/>
+        <m.html:Span class="{style.line}"/>
+        <m.html:Span class="{style.line} {style.line-6}"/>
+        <m.html:Span class="{style.line} {style.line-7}"/>
+        <m.html:Span class="{style.line} {style.line-8}"/>
+        <m.html:Span class="{style.line} {style.line-9}"/>
+        <m.html:Div>
+          <m.html:Span text="{lang.loadingText}"/>
+        </m.html:Div>
+      </m:MaterialPanel>
+    </m:MaterialPanel>
+  </m:MaterialPanel>
+</ui:UiBinder>

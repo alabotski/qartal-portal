@@ -1,7 +1,5 @@
-buildscript {
-  repositories {
-    jcenter()
-  }
+plugins {
+  id "net.ltgt.apt" version "0.15"
 }
 
 group "com.nomis"
@@ -12,9 +10,15 @@ apply from: "$rootDir/gradle/versions.gradle"
 apply from: "$rootDir/gradle/options.gradle"
 
 allprojects {
+  apply plugin: "net.ltgt.apt"
+  apply plugin: "net.ltgt.apt-idea"
+
   repositories {
     mavenCentral()
     mavenLocal()
+    maven {
+      url "https://oss.sonatype.org/content/repositories/snapshots"
+    }
   }
 
   apply from: "$rootDir/gradle/java.gradle"

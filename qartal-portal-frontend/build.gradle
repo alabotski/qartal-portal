@@ -1,15 +1,65 @@
-apply from: "$rootDir/gradle/gwt.gradle"
+buildscript {
+  repositories {
+    mavenCentral()
+  }
+  dependencies {
+    classpath 'org.wisepersist:gwt-gradle-plugin:1.0.6'
+  }
+}
+
+apply plugin: "gwt"
 
 dependencies {
+  compile("org.apache.maven.plugins:maven-compiler-plugin:3.7.0") {
+
+  }
+
   // GWT framework
-  compile("com.google.gwt:gwt-user:$gwtVersion")
-  compile("com.google.gwt:gwt-dev:$gwtVersion")
+  compileOnly("com.google.gwt:gwt-user:$gwtVersion")
+  compileOnly("com.google.gwt:gwt-dev:$gwtVersion")
+
+  // GWTP
+  compileOnly("com.gwtplatform:gwtp-all:$gwtpVersion")
+  compileOnly("com.google.gwt.inject:gin:$ginVersion")
 
   // Other
   compileOnly("org.fusesource.restygwt:restygwt:$restyGwtVersion")
 
   // GMD framework
   compileOnly("com.github.gwtmaterialdesign:gwt-material:$gwtMaterialVersion")
-  compileOnly("com.github.gwtmaterialdesign:gwt-material-addins:$gwtMaterialAddinsVersion")
+  // compileOnly("com.github.gwtmaterialdesign:gwt-material-addins:$gwtMaterialAddinsVersion")
   compileOnly("com.github.gwtmaterialdesign:gwt-material-themes:$gwtMaterialThemesVersion")
+
+  // Test
+  testCompile("com.google.gwt:gwt-user:$gwtVersion")
+  testCompile("com.google.gwt:gwt-dev:$gwtVersion")
+}
+
+gwt {
+  if (project.hasProperty("dev")) {
+    println "Run developer mode"
+    modules "com.nomis.QartalPortal"
+    logLevel "ERROR"
+    compiler {
+      style = "PRETTY"
+      draftCompile = true
+    }
+  } else {
+    println "Run production mode"
+    modules "com.nomis.QartalPortalDev"
+    logLevel "INFO"
+    compiler {
+      style = "OBF"
+      optimize = 9
+      disableClassMetadata = true
+      disableCastChecking = true
+    }
+  }
+
+  gwtVersion = "2.8.2"
+  maxHeapSize = "4G"
+  compiler {
+    strict = true
+    localWorkers = 4
+  }
 }

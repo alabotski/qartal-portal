@@ -11,6 +11,11 @@ ext {
   gwtMaterialThemesVersion = "2.0.1"
   gwtMaterialTableVersion = "2.0.1"
 
+  // GWTP
+  // gwtpVersion = "2.0-SNAPSHOT"
+  gwtpVersion = "1.6"
+  ginVersion = "2.1.2"
+
   // Other
   restyGwtVersion = "2.2.3"
 

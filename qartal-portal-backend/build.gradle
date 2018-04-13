@@ -1,23 +1,17 @@
 plugins {
-  id "net.ltgt.apt" version "0.15"
   id "org.springframework.boot" version "2.0.1.RELEASE"
 }
-apply plugin: "net.ltgt.apt"
-apply plugin: "net.ltgt.apt-idea"
 apply plugin: "io.spring.dependency-management"
 
 dependencies {
   compile project(":qartal-portal-frontend")
 
-  // GWT framework
-  // compileOnly("com.google.gwt:gwt-servlet:$gwtVersion")
-
   // Spring framework
-  // compile("org.springframework.boot:spring-boot-configuration-processor")
   compile("org.springframework.boot:spring-boot-starter-jetty")
   compile("org.springframework.boot:spring-boot-starter-web") {
     exclude module: "spring-boot-starter-tomcat"
   }
+  annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
 
   // Lombok
   compileOnly("org.projectlombok:lombok:$lombokVersion")
@@ -30,7 +24,7 @@ dependencies {
 }
 
 bootJar {
-// archiveName = "project.jar"
+  archiveName = "qartal-portal.jar"
   dependsOn(":qartal-portal-frontend:compileGwt")
 
   into(bootJarDir) {
