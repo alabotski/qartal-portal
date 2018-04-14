@@ -20,13 +20,4 @@ public class QartalPortalBootApplication {
     SpringApplication.run(QartalPortalBootApplication.class, args);
   }
 
-  //  @Bean
-  //  public CorsFilter corsFilter() {
-  //    final CorsConfiguration config = new CorsConfiguration().applyPermitDefaultValues();
-  //    config.addAllowedMethod("*");
-  //
-  //    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-  //    source.registerCorsConfiguration("/**", config);
-  //    return new CorsFilter(source);
-  //  }
 }

@@ -1,6 +1,5 @@
 package com.nomis.client.application.login;
 
-import com.google.gwt.core.client.GWT;
 import com.google.inject.Inject;
 import com.google.web.bindery.event.shared.EventBus;
 import com.gwtplatform.mvp.client.HasUiHandlers;
@@ -47,7 +46,8 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
     boolean isValid();
   }
 
-  private AuthorizationService authorizationService = GWT.create(AuthorizationService.class);
+  @Inject
+  private AuthorizationService authorizationService;
 
   @Inject
   private Person person;

@@ -7,8 +7,9 @@ import com.nomis.client.application.error.ErrorModule;
 import com.nomis.client.application.home.HomeModule;
 import com.nomis.client.application.login.LoginModule;
 import com.nomis.client.css.ResourceLoader;
-import com.nomis.client.model.Person;
+import com.nomis.client.model.ModelModule;
 import com.nomis.client.place.NameTokens;
+import com.nomis.client.rest.RestModule;
 import com.nomis.client.widget.loading.LoadingModule;
 
 /**
@@ -34,7 +35,9 @@ public class ClientModule extends AbstractPresenterModule {
     install(new ErrorModule());
     install(new LoadingModule());
 
+    install(new ModelModule());
+    install(new RestModule());
+
     bind(ResourceLoader.class).asEagerSingleton();
-    bind(Person.class).asEagerSingleton();
   }
 }

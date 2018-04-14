@@ -1,0 +1,15 @@
+{
+  "count": 2,
+  "serverInfoList": [
+    {
+      "name": "Server 1",
+      "webSocketUrl": "ws://server1",
+      "serverType": "SERVER"
+    },
+    {
+      "name": "Cluster 1",
+      "webSocketUrl": "ws://cluster1",
+      "serverType": "CLUSTER"
+    }
+  ]
+}

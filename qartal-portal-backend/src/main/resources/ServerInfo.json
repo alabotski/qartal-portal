@@ -1,0 +1,55 @@
+{
+  "count": 10,
+  "serverInfoList": [
+    {
+      "name": "Server 1",
+      "webSocketUrl": "ws://server1",
+      "serverType": "SERVER"
+    },
+    {
+      "name": "Server 2",
+      "webSocketUrl": "ws://server2",
+      "serverType": "SERVER"
+    },
+    {
+      "name": "Server 3",
+      "webSocketUrl": "ws://server3",
+      "serverType": "SERVER"
+    },
+    {
+      "name": "Server 4",
+      "webSocketUrl": "ws://server4",
+      "serverType": "SERVER"
+    },
+    {
+      "name": "Server 5",
+      "webSocketUrl": "ws://server5",
+      "serverType": "SERVER"
+    },
+    {
+      "name": "Server 6",
+      "webSocketUrl": "ws://server6",
+      "serverType": "SERVER"
+    },
+    {
+      "name": "Server 7",
+      "webSocketUrl": "ws://server7",
+      "serverType": "SERVER"
+    },
+    {
+      "name": "Cluster 1",
+      "webSocketUrl": "ws://cluster1",
+      "serverType": "CLUSTER"
+    },
+    {
+      "name": "Cluster 2",
+      "webSocketUrl": "ws://cluster2",
+      "serverType": "CLUSTER"
+    },
+    {
+      "name": "Cluster 2",
+      "webSocketUrl": "ws://cluster3",
+      "serverType": "CLUSTER"
+    }
+  ]
+}

@@ -18,7 +18,7 @@
     <m:MaterialPanel ui:field="loadingContent"/>
     <m:MaterialHeader>
       <m:MaterialNavBar ui:field="navBar" shadow="1">
-        <m:MaterialNavBrand fontSize="2.2em" marginLeft="40px" text="{lang.caption}"/>
+        <m:MaterialNavBrand fontSize="2.2em" marginLeft="40" text="{lang.caption}"/>
         <m:MaterialNavSection float="RIGHT">
           <m:MaterialLink iconType="EXIT_TO_APP" ui:field="logout"/>
         </m:MaterialNavSection>

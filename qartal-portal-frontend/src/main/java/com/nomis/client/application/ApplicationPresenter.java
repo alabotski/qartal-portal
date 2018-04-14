@@ -66,6 +66,7 @@ public class ApplicationPresenter extends
   protected void onBind() {
     addRegisteredHandler(LoadingEvent.TYPE, this);
     addRegisteredHandler(MessageEvent.TYPE, this);
+    super.onBind();
   }
 
   @ProxyEvent
@@ -79,7 +80,7 @@ public class ApplicationPresenter extends
     PlaceRequest placeRequest = new PlaceRequest.Builder().nameToken(NameTokens.getLogin())
         .build();
     placeManager.revealPlace(placeRequest);
-    MessageEvent.fire(this, applicationConstants.authorizationSuccess());
+    MessageEvent.fire(this, applicationConstants.logoutSuccess());
   }
 
   @Override

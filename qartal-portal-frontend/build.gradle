@@ -40,7 +40,7 @@ gwt {
     logLevel "ERROR"
     compiler {
       style = "PRETTY"
-      draftCompile = true
+      optimize = 0
     }
   } else {
     println "Run production mode"
