@@ -1,5 +1,7 @@
 package com.nomis.shared.model;
 
+import java.util.Random;
+
 /**
  * ServerStatus.
  *
@@ -7,5 +9,10 @@ package com.nomis.shared.model;
  * @since 4/14/18.
  */
 public enum ServerStatus {
-  ENABLE, DISABLE, RUNNING
+  ENABLE, DISABLE, RUNNING;
+
+  public static ServerStatus getRandomStatus() {
+    Random random = new Random();
+    return values()[random.nextInt(values().length)];
+  }
 }

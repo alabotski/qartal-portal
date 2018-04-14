@@ -3,13 +3,13 @@
   "serverInfoList": [
     {
       "name": "Server 1",
-      "webSocketUrl": "ws://server1",
+      "webSocketUrl": "ws://localhost:8080/server1",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Cluster 1",
-      "webSocketUrl": "ws://cluster1",
+      "webSocketUrl": "ws://localhost:8080/server2",
       "serverType": "CLUSTER",
       "serverStatus": "ENABLE"
     }

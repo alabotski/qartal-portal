@@ -7,9 +7,11 @@ import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
 import com.nomis.client.css.QartalPortalBundle;
+import com.nomis.client.event.MessageEvent;
 import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.model.ServerStatus;
 import org.realityforge.gwt.websockets.client.WebSocket;
+import org.realityforge.gwt.websockets.client.WebSocketListenerAdapter;
 
 /**
  * ServerInfoWidget.
@@ -27,8 +29,12 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
   }
 
   @Inject
+  private ServerInfoConstants serverInfoConstants;
+
+  @Inject
   private QartalPortalBundle qartalPortalBundle;
 
+  private ServerStatus serverStatus;
   private ServerInfo serverInfo;
   private WebSocket webSocket;
 
@@ -44,23 +50,26 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
     setImage(serverInfo.getServerStatus());
     getView().setText(serverInfo.getName(), serverInfo.getWebSocketUrl());
 
-    /*
     webSocket = WebSocket.newWebSocketIfSupported();
     if (null != webSocket) {
       webSocket.setListener(new WebSocketListenerAdapter() {
         @Override
-        public void onOpen(final WebSocket webSocket) {
-          webSocket.send("Test");
-        }
-
-        @Override
         public void onMessage(final WebSocket webSocket, final String data) {
-          getView().setText(data, "Hello");
+          serverStatus = ServerStatus.valueOf(data);
+          setImage(serverStatus);
         }
       });
       webSocket.connect(serverInfo.getWebSocketUrl());
     }
-    */
+  }
+
+  @Override
+  public void getServerInfo() {
+    if (serverStatus == ServerStatus.DISABLE) {
+      MessageEvent.fire(this, serverInfo.getServerType()
+          .name() + " " + serverInfoConstants.isDisable());
+    } else {
+    }
   }
 
   private void setImage(ServerStatus serverStatus) {

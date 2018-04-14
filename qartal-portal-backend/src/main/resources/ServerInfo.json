@@ -3,61 +3,61 @@
   "serverInfoList": [
     {
       "name": "Server 1",
-      "webSocketUrl": "http://localhost:8080/socket",
+      "webSocketUrl": "ws://localhost:8080/server1",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Server 2",
-      "webSocketUrl": "http://localhost:8080/socket",
+      "webSocketUrl": "ws://localhost:8080/server2",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Server 3",
-      "webSocketUrl": "http://localhost:8080/socket",
+      "webSocketUrl": "ws://localhost:8080/server3",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Server 4",
-      "webSocketUrl": "http://localhost:8080/socket",
+      "webSocketUrl": "ws://localhost:8080/server4",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Server 5",
-      "webSocketUrl": "http://localhost:8080/socket",
+      "webSocketUrl": "ws://localhost:8080/server5",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Server 6",
-      "webSocketUrl": "http://localhost:8080/socket",
+      "webSocketUrl": "ws://localhost:8080/server6",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Server 7",
-      "webSocketUrl": "http://localhost:8080/socket",
+      "webSocketUrl": "ws://localhost:8080/server7",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Cluster 1",
-      "webSocketUrl": "http://localhost:8080/socket",
+      "webSocketUrl": "ws://localhost:8080/server8",
       "serverType": "CLUSTER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Cluster 2",
-      "webSocketUrl": "http://localhost:8080/socket",
+      "webSocketUrl": "ws://localhost:8080/server9",
       "serverType": "CLUSTER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Cluster 2",
-      "webSocketUrl": "http://localhost:8080/socket",
+      "webSocketUrl": "ws://localhost:8080/server10",
       "serverType": "CLUSTER",
       "serverStatus": "ENABLE"
     }

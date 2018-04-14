@@ -1,5 +1,7 @@
 package com.nomis.client.widget.serverInfo;
 
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.DataResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
@@ -22,6 +24,9 @@ public class ServerInfoView extends ViewWithUiHandlers<ServerInfoUiHandlers> imp
   }
 
   @UiField
+  MaterialCollectionItem serverInfo;
+
+  @UiField
   MaterialImage serverStatus;
 
   @UiField
@@ -33,6 +38,13 @@ public class ServerInfoView extends ViewWithUiHandlers<ServerInfoUiHandlers> imp
   @Inject
   ServerInfoView(Binder binder) {
     initWidget(binder.createAndBindUi(this));
+
+    serverInfo.addClickHandler(new ClickHandler() {
+      @Override
+      public void onClick(ClickEvent event) {
+        getUiHandlers().getServerInfo();
+      }
+    });
   }
 
   @Override

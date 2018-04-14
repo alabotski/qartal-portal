@@ -12,4 +12,6 @@ import com.nomis.shared.model.ServerInfo;
 public interface ServerInfoUiHandlers extends UiHandlers {
 
   void setServerInfo(ServerInfo serverInfo);
+
+  void getServerInfo();
 }

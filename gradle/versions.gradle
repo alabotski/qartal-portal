@@ -21,6 +21,7 @@ ext {
   commonsLang3Version = "3.7"
   validationApiVersion = "2.0.1.Final"
   gwtWebsocketsVersion = "1.2"
+  gsonVersion = "2.8.2"
 
   // Lombok
   lombokVersion = "1.16.20"

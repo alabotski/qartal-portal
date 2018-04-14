@@ -7,7 +7,7 @@
   <ui:style gss="true">
   </ui:style>
 
-  <m:MaterialCollectionItem type="AVATAR">
+  <m:MaterialCollectionItem type="AVATAR" ui:field="serverInfo">
     <m:MaterialImage type="CIRCLE" ui:field="serverStatus"/>
     <m:MaterialLabel fontSize="2em" ui:field="serverName"/>
     <m:MaterialLabel ui:field="serverWebSocketUrl"/>
