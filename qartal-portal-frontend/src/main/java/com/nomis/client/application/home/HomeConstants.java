@@ -15,4 +15,10 @@ public interface HomeConstants extends Constants {
 
   @DefaultStringValue("serverInfoError")
   String serverInfoError();
+
+  @DefaultStringValue("serverHeaderText")
+  String serverHeaderText();
+
+  @DefaultStringValue("clusterHeaderText")
+  String clusterHeaderText();
 }

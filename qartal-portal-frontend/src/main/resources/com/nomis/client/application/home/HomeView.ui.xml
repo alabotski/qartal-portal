@@ -1,13 +1,16 @@
 <ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
   xmlns:m='urn:import:gwt.material.design.client.ui'>
 
+  <ui:with field="lang" type="com.nomis.client.application.home.HomeConstants"/>
+
   <m:MaterialPanel>
     <m:MaterialRow>
-      <m:MaterialColumn>
-        <m:MaterialButton text="ABC"/>
+      <m:MaterialColumn width="300">
+        <m:MaterialCollection header="{lang.serverHeaderText}" width="100%" ui:field="serverCollection"/>
+        <m:MaterialCollection header="{lang.clusterHeaderText}" width="100%" ui:field="clusterCollection"/>
       </m:MaterialColumn>
       <m:MaterialColumn>
-        <m:MaterialButton text="XYZ"/>
+        <m:MaterialPanel/>
       </m:MaterialColumn>
     </m:MaterialRow>
   </m:MaterialPanel>

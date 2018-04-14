@@ -1,6 +1,6 @@
 package com.nomis.client.rest;
 
-import com.nomis.shared.response.LoginResponse;
+import com.nomis.shared.response.ServerInfoResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import org.fusesource.restygwt.client.MethodCallback;
@@ -16,5 +16,5 @@ public interface ServerService extends RestService {
 
   @GET
   @Path("/server/serverInfo")
-  void serverInfo(MethodCallback<LoginResponse> callback);
+  void serverInfo(MethodCallback<ServerInfoResponse> callback);
 }

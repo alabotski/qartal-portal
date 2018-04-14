@@ -27,8 +27,6 @@
     }
 
     .preloader {
-      /*border: 1px solid gray;*/
-      /*padding: 5px;*/
     }
 
     .preloader .line {
@@ -100,23 +98,21 @@
     }
   </ui:style>
 
-  <m:MaterialPanel>
-    <m:MaterialPanel class="{style.loading}" ui:field="loadingPanel">
-      <m:MaterialPanel class="{style.preloader}">
-        <m.html:Span addStyleNames="flow-text"/>
-        <m.html:Span class="{style.line} {style.line-1}"/>
-        <m.html:Span class="{style.line} {style.line-2}"/>
-        <m.html:Span class="{style.line} {style.line-3}"/>
-        <m.html:Span class="{style.line} {style.line-4}"/>
-        <m.html:Span class="{style.line}"/>
-        <m.html:Span class="{style.line} {style.line-6}"/>
-        <m.html:Span class="{style.line} {style.line-7}"/>
-        <m.html:Span class="{style.line} {style.line-8}"/>
-        <m.html:Span class="{style.line} {style.line-9}"/>
-        <m.html:Div>
-          <m.html:Span text="{lang.loadingText}"/>
-        </m.html:Div>
-      </m:MaterialPanel>
+  <m:MaterialPanel class="{style.loading}">
+    <m:MaterialPanel class="{style.preloader}">
+      <m.html:Span addStyleNames="flow-text"/>
+      <m.html:Span class="{style.line} {style.line-1}"/>
+      <m.html:Span class="{style.line} {style.line-2}"/>
+      <m.html:Span class="{style.line} {style.line-3}"/>
+      <m.html:Span class="{style.line} {style.line-4}"/>
+      <m.html:Span class="{style.line}"/>
+      <m.html:Span class="{style.line} {style.line-6}"/>
+      <m.html:Span class="{style.line} {style.line-7}"/>
+      <m.html:Span class="{style.line} {style.line-8}"/>
+      <m.html:Span class="{style.line} {style.line-9}"/>
+      <m.html:Div>
+        <m.html:Span text="{lang.loadingText}"/>
+      </m.html:Div>
     </m:MaterialPanel>
   </m:MaterialPanel>
 </ui:UiBinder>

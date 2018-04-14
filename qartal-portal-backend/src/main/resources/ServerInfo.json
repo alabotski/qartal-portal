@@ -4,52 +4,62 @@
     {
       "name": "Server 1",
       "webSocketUrl": "ws://server1",
-      "serverType": "SERVER"
+      "serverType": "SERVER",
+      "serverStatus": "ENABLE"
     },
     {
       "name": "Server 2",
       "webSocketUrl": "ws://server2",
-      "serverType": "SERVER"
+      "serverType": "SERVER",
+      "serverStatus": "ENABLE"
     },
     {
       "name": "Server 3",
       "webSocketUrl": "ws://server3",
-      "serverType": "SERVER"
+      "serverType": "SERVER",
+      "serverStatus": "ENABLE"
     },
     {
       "name": "Server 4",
       "webSocketUrl": "ws://server4",
-      "serverType": "SERVER"
+      "serverType": "SERVER",
+      "serverStatus": "ENABLE"
     },
     {
       "name": "Server 5",
       "webSocketUrl": "ws://server5",
-      "serverType": "SERVER"
+      "serverType": "SERVER",
+      "serverStatus": "ENABLE"
     },
     {
       "name": "Server 6",
       "webSocketUrl": "ws://server6",
-      "serverType": "SERVER"
+      "serverType": "SERVER",
+      "serverStatus": "ENABLE"
     },
     {
       "name": "Server 7",
       "webSocketUrl": "ws://server7",
-      "serverType": "SERVER"
+      "serverType": "SERVER",
+      "serverStatus": "ENABLE"
     },
     {
       "name": "Cluster 1",
       "webSocketUrl": "ws://cluster1",
-      "serverType": "CLUSTER"
+      "serverType": "CLUSTER",
+      "serverStatus": "ENABLE"
     },
     {
       "name": "Cluster 2",
       "webSocketUrl": "ws://cluster2",
-      "serverType": "CLUSTER"
+      "serverType": "CLUSTER",
+      "serverStatus": "ENABLE"
     },
     {
       "name": "Cluster 2",
       "webSocketUrl": "ws://cluster3",
-      "serverType": "CLUSTER"
+      "serverType": "CLUSTER",
+      "serverStatus": "ENABLE"
     }
   ]
 }

@@ -11,6 +11,7 @@ import com.nomis.client.model.ModelModule;
 import com.nomis.client.place.NameTokens;
 import com.nomis.client.rest.RestModule;
 import com.nomis.client.widget.loading.LoadingModule;
+import com.nomis.client.widget.serverInfo.ServerInfoModule;
 
 /**
  * ClientModule.
@@ -34,6 +35,7 @@ public class ClientModule extends AbstractPresenterModule {
     install(new HomeModule());
     install(new ErrorModule());
     install(new LoadingModule());
+    install(new ServerInfoModule());
 
     install(new ModelModule());
     install(new RestModule());

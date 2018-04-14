@@ -11,6 +11,7 @@ public class ServerInfo {
   private String name;
   private ServerType serverType;
   private String webSocketUrl;
+  private ServerStatus serverStatus;
 
   public String getName() {
     return name;
@@ -34,5 +35,13 @@ public class ServerInfo {
 
   public void setWebSocketUrl(String webSocketUrl) {
     this.webSocketUrl = webSocketUrl;
+  }
+
+  public ServerStatus getServerStatus() {
+    return serverStatus;
+  }
+
+  public void setServerStatus(ServerStatus serverStatus) {
+    this.serverStatus = serverStatus;
   }
 }

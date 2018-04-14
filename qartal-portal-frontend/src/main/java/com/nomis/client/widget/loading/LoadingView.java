@@ -1,7 +1,6 @@
 package com.nomis.client.widget.loading;
 
 import com.google.gwt.uibinder.client.UiBinder;
-import com.google.gwt.uibinder.client.UiField;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewImpl;
 import gwt.material.design.client.ui.MaterialPanel;
@@ -17,9 +16,6 @@ public class LoadingView extends ViewImpl implements LoadingWidget.MyView {
   interface Binder extends UiBinder<MaterialPanel, LoadingView> {
 
   }
-
-  @UiField
-  MaterialPanel loadingPanel;
 
   @Inject
   LoadingView(Binder binder) {
