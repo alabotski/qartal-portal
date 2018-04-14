@@ -22,6 +22,7 @@ dependencies {
 
   // Other
   compileOnly("org.fusesource.restygwt:restygwt:$restyGwtVersion")
+  compileOnly("org.realityforge.gwt.websockets:gwt-websockets:$gwtWebsocketsVersion")
 
   // GMD framework
   compileOnly("com.github.gwtmaterialdesign:gwt-material:$gwtMaterialVersion")

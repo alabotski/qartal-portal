@@ -38,7 +38,7 @@
   <!--<inherits name="org.apache.commons.GWTCommonsLang3"/>-->
 
   <!--GWT WebSocket-->
-  <!--<inherits name="org.realityforge.gwt.websockets.WebSockets"/>-->
+  <inherits name="org.realityforge.gwt.websockets.WebSockets"/>
 
   <!--Reduce locale names support -->
   <inherits name="com.google.gwt.i18n.I18N"/>

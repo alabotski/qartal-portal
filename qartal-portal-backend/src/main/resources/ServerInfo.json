@@ -3,61 +3,61 @@
   "serverInfoList": [
     {
       "name": "Server 1",
-      "webSocketUrl": "ws://server1",
+      "webSocketUrl": "http://localhost:8080/socket",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Server 2",
-      "webSocketUrl": "ws://server2",
+      "webSocketUrl": "http://localhost:8080/socket",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Server 3",
-      "webSocketUrl": "ws://server3",
+      "webSocketUrl": "http://localhost:8080/socket",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Server 4",
-      "webSocketUrl": "ws://server4",
+      "webSocketUrl": "http://localhost:8080/socket",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Server 5",
-      "webSocketUrl": "ws://server5",
+      "webSocketUrl": "http://localhost:8080/socket",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Server 6",
-      "webSocketUrl": "ws://server6",
+      "webSocketUrl": "http://localhost:8080/socket",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Server 7",
-      "webSocketUrl": "ws://server7",
+      "webSocketUrl": "http://localhost:8080/socket",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Cluster 1",
-      "webSocketUrl": "ws://cluster1",
+      "webSocketUrl": "http://localhost:8080/socket",
       "serverType": "CLUSTER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Cluster 2",
-      "webSocketUrl": "ws://cluster2",
+      "webSocketUrl": "http://localhost:8080/socket",
       "serverType": "CLUSTER",
       "serverStatus": "ENABLE"
     },
     {
       "name": "Cluster 2",
-      "webSocketUrl": "ws://cluster3",
+      "webSocketUrl": "http://localhost:8080/socket",
       "serverType": "CLUSTER",
       "serverStatus": "ENABLE"
     }

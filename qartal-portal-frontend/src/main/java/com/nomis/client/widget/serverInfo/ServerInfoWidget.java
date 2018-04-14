@@ -9,6 +9,7 @@ import com.gwtplatform.mvp.client.View;
 import com.nomis.client.css.QartalPortalBundle;
 import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.model.ServerStatus;
+import org.realityforge.gwt.websockets.client.WebSocket;
 
 /**
  * ServerInfoWidget.
@@ -29,6 +30,7 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
   private QartalPortalBundle qartalPortalBundle;
 
   private ServerInfo serverInfo;
+  private WebSocket webSocket;
 
   @Inject
   ServerInfoWidget(EventBus eventBus, MyView view) {
@@ -41,6 +43,24 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
     this.serverInfo = serverInfo;
     setImage(serverInfo.getServerStatus());
     getView().setText(serverInfo.getName(), serverInfo.getWebSocketUrl());
+
+    /*
+    webSocket = WebSocket.newWebSocketIfSupported();
+    if (null != webSocket) {
+      webSocket.setListener(new WebSocketListenerAdapter() {
+        @Override
+        public void onOpen(final WebSocket webSocket) {
+          webSocket.send("Test");
+        }
+
+        @Override
+        public void onMessage(final WebSocket webSocket, final String data) {
+          getView().setText(data, "Hello");
+        }
+      });
+      webSocket.connect(serverInfo.getWebSocketUrl());
+    }
+    */
   }
 
   private void setImage(ServerStatus serverStatus) {
@@ -58,4 +78,8 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
         break;
     }
   }
+
+  //      if (!event.isAttached() && webSocket != null && webSocket.isConnected()) {
+  //    webSocket.close();
+  //  }
 }
