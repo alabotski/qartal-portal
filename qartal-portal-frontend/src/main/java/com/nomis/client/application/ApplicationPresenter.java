@@ -10,11 +10,15 @@ import com.gwtplatform.mvp.client.annotations.ProxyStandard;
 import com.gwtplatform.mvp.client.presenter.slots.NestedSlot;
 import com.gwtplatform.mvp.client.presenter.slots.SingleSlot;
 import com.gwtplatform.mvp.client.proxy.LockInteractionEvent;
-import com.gwtplatform.mvp.client.proxy.ProxyPlace;
+import com.gwtplatform.mvp.client.proxy.PlaceManager;
+import com.gwtplatform.mvp.client.proxy.Proxy;
+import com.gwtplatform.mvp.shared.proxy.PlaceRequest;
 import com.nomis.client.event.LoadingEvent;
 import com.nomis.client.event.LoadingHandler;
 import com.nomis.client.event.MessageEvent;
 import com.nomis.client.event.MessageHandler;
+import com.nomis.client.model.Person;
+import com.nomis.client.place.NameTokens;
 import com.nomis.client.widget.loading.LoadingWidget;
 import gwt.material.design.client.ui.MaterialToast;
 
@@ -29,7 +33,7 @@ public class ApplicationPresenter extends
     LoadingHandler, MessageHandler {
 
   @ProxyStandard
-  interface MyProxy extends ProxyPlace<ApplicationPresenter> {
+  interface MyProxy extends Proxy<ApplicationPresenter> {
 
   }
 
@@ -41,11 +45,20 @@ public class ApplicationPresenter extends
   public static final NestedSlot SLOT_MAIN_CONTENT = new NestedSlot();
 
   @Inject
-  LoadingWidget loadingWidget;
+  private Person person;
 
   @Inject
-  ApplicationPresenter(EventBus eventBus, MyView view, MyProxy proxy) {
+  private ApplicationConstants applicationConstants;
+
+  @Inject
+  private LoadingWidget loadingWidget;
+
+  private final PlaceManager placeManager;
+
+  @Inject
+  ApplicationPresenter(EventBus eventBus, MyView view, MyProxy proxy, PlaceManager placeManage) {
     super(eventBus, view, proxy, RevealType.Root);
+    this.placeManager = placeManage;
     getView().setUiHandlers(this);
   }
 
@@ -62,7 +75,11 @@ public class ApplicationPresenter extends
 
   @Override
   public void logout() {
-    LoadingEvent.fire(this, true);
+    person.setAuthorization(false);
+    PlaceRequest placeRequest = new PlaceRequest.Builder().nameToken(NameTokens.getLogin())
+        .build();
+    placeManager.revealPlace(placeRequest);
+    MessageEvent.fire(this, applicationConstants.authorizationSuccess());
   }
 
   @Override

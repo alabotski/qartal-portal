@@ -43,8 +43,6 @@ public class AuthorizationControllerTest {
   private MockMvc mockMvc;
 
   @Mock
-  private LoginRequest loginRequest;
-  @Mock
   private AuthorizationService authorizationService;
 
   @InjectMocks
@@ -56,14 +54,14 @@ public class AuthorizationControllerTest {
 
     mockMvc = MockMvcBuilders.standaloneSetup(authorizationController)
         .build();
-
-    loginRequest = new LoginRequest();
-    loginRequest.setLogin("Admin123");
-    loginRequest.setPassword("Admin123");
   }
 
   @Test
   public void should_login() throws Exception {
+    LoginRequest loginRequest = new LoginRequest();
+    loginRequest.setLogin("Admin123");
+    loginRequest.setPassword("Admin123");
+
     when(authorizationService.login(any())).thenReturn(true);
 
     mockMvc.perform(post("/authorization/login").contentType(MediaType.APPLICATION_JSON_UTF8)

@@ -13,4 +13,6 @@ public interface ApplicationConstants extends Constants {
   @DefaultStringValue("caption")
   String caption();
 
+  @DefaultStringValue("logoutSuccess")
+  String logoutSuccess();
 }

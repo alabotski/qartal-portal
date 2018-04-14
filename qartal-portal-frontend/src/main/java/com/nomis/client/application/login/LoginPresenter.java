@@ -81,10 +81,10 @@ public class LoginPresenter extends Presenter<LoginPresenter.MyView, LoginPresen
         public void onSuccess(Method method, LoginResponse response) {
           if (response.isAuthorization()) {
             person.setAuthorization(true);
-            MessageEvent.fire(LoginPresenter.this, loginConstants.authorizationSuccess());
             PlaceRequest placeRequest = new PlaceRequest.Builder().nameToken(NameTokens.getHome())
                 .build();
             placeManager.revealPlace(placeRequest);
+            MessageEvent.fire(LoginPresenter.this, loginConstants.authorizationSuccess());
           } else {
             MessageEvent.fire(LoginPresenter.this, loginConstants.authorizationError());
           }
