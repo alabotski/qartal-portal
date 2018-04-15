@@ -1,5 +1,8 @@
 package com.nomis.service;
 
+import java.util.List;
+import org.springframework.web.socket.WebSocketSession;
+
 /**
  * SocketService.
  *
@@ -8,4 +11,5 @@ package com.nomis.service;
  */
 public interface SocketService {
 
+  List<WebSocketSession> getWebSocketSessionList();
 }

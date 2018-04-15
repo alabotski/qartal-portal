@@ -23,7 +23,7 @@ public class LoadingEvent extends GwtEvent<LoadingHandler> {
     handler.onLoading(this);
   }
 
-  LoadingEvent(boolean showLoading) {
+  public LoadingEvent(boolean showLoading) {
     this.showLoading = showLoading;
   }
 

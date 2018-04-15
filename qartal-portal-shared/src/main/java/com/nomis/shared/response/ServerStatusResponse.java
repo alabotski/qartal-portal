@@ -4,15 +4,14 @@ import com.nomis.shared.model.ServerInfo;
 import java.util.List;
 
 /**
- * ServerInfoResponse.
+ * ServerStatusResponse.
  *
  * @author Aliaksei Labotski.
- * @since 4/14/18.
+ * @since 4/15/18.
  */
-public class ServerInfoResponse {
+public class ServerStatusResponse {
 
   private List<ServerInfo> serverInfoList;
-  private String webSocketUrl;
 
   public List<ServerInfo> getServerInfoList() {
     return serverInfoList;
@@ -20,13 +19,5 @@ public class ServerInfoResponse {
 
   public void setServerInfoList(List<ServerInfo> serverInfoList) {
     this.serverInfoList = serverInfoList;
-  }
-
-  public String getWebSocketUrl() {
-    return webSocketUrl;
-  }
-
-  public void setWebSocketUrl(String webSocketUrl) {
-    this.webSocketUrl = webSocketUrl;
   }
 }

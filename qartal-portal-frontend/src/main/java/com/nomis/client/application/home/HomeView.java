@@ -33,5 +33,4 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
     bindSlot(HomePresenter.SLOT_CLUSTER_CONTENT, clusterCollection);
   }
 
-
 }

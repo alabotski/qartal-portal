@@ -22,7 +22,7 @@ public class ResourcesUtil {
   }
 
   public InputStream getResource(String fileName) {
-    log.info("File name = " + fileName);
+    //    log.info("File name = " + fileName);
     return ResourcesUtil.class.getClassLoader()
         .getResourceAsStream(fileName);
   }

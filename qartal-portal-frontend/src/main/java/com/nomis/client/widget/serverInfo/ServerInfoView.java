@@ -48,9 +48,8 @@ public class ServerInfoView extends ViewWithUiHandlers<ServerInfoUiHandlers> imp
   }
 
   @Override
-  public void setText(String name, String wsUrl) {
-    serverName.setText(name);
-    serverWebSocketUrl.setText(wsUrl);
+  public void setServerInfoName(String serverInfoName) {
+    serverName.setText(serverInfoName);
   }
 
   @Override
@@ -59,5 +58,9 @@ public class ServerInfoView extends ViewWithUiHandlers<ServerInfoUiHandlers> imp
         .asString());
   }
 
+  @Override
+  public void setServerStatusText(String serverStatusName) {
+    serverWebSocketUrl.setText(serverStatusName);
+  }
 
 }

@@ -10,6 +10,7 @@ import com.nomis.client.css.ResourceLoader;
 import com.nomis.client.model.ModelModule;
 import com.nomis.client.place.NameTokens;
 import com.nomis.client.rest.RestModule;
+import com.nomis.client.rest.codec.CodecModule;
 import com.nomis.client.widget.loading.LoadingModule;
 import com.nomis.client.widget.serverInfo.ServerInfoModule;
 
@@ -39,6 +40,7 @@ public class ClientModule extends AbstractPresenterModule {
 
     install(new ModelModule());
     install(new RestModule());
+    install(new CodecModule());
 
     bind(ResourceLoader.class).asEagerSingleton();
   }

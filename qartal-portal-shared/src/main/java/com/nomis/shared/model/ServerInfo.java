@@ -8,10 +8,18 @@ package com.nomis.shared.model;
  */
 public class ServerInfo {
 
+  private Integer id;
   private String name;
   private ServerType serverType;
-  private String webSocketUrl;
   private ServerStatus serverStatus;
+
+  public Integer getId() {
+    return id;
+  }
+
+  public void setId(Integer id) {
+    this.id = id;
+  }
 
   public String getName() {
     return name;
@@ -27,14 +35,6 @@ public class ServerInfo {
 
   public void setServerType(ServerType serverType) {
     this.serverType = serverType;
-  }
-
-  public String getWebSocketUrl() {
-    return webSocketUrl;
-  }
-
-  public void setWebSocketUrl(String webSocketUrl) {
-    this.webSocketUrl = webSocketUrl;
   }
 
   public ServerStatus getServerStatus() {

@@ -29,6 +29,6 @@ public class ServerServiceTest {
   @Test
   public void should_serverInfo() throws IOException, URISyntaxException {
     ServerInfoResponse serverInfoResponse = serverService.getServerInfo();
-    Assert.assertEquals(serverInfoResponse.getCount(), 2);
+    Assert.assertEquals(serverInfoResponse.getServerInfoList().size(), 2);
   }
 }

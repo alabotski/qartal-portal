@@ -1,15 +1,15 @@
 {
-  "count": 2,
+  "webSocketUrl": "ws://localhost:8080/statusInfo",
   "serverInfoList": [
     {
+      "id": 1,
       "name": "Server 1",
-      "webSocketUrl": "ws://localhost:8080/server1",
       "serverType": "SERVER",
       "serverStatus": "ENABLE"
     },
     {
+      "id": 2,
       "name": "Cluster 1",
-      "webSocketUrl": "ws://localhost:8080/server2",
       "serverType": "CLUSTER",
       "serverStatus": "ENABLE"
     }

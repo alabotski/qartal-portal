@@ -10,8 +10,6 @@ import com.nomis.client.css.QartalPortalBundle;
 import com.nomis.client.event.MessageEvent;
 import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.model.ServerStatus;
-import org.realityforge.gwt.websockets.client.WebSocket;
-import org.realityforge.gwt.websockets.client.WebSocketListenerAdapter;
 
 /**
  * ServerInfoWidget.
@@ -23,9 +21,11 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
 
   interface MyView extends View, HasUiHandlers<ServerInfoUiHandlers> {
 
-    void setText(String name, String wsUrl);
-
     void setImage(DataResource image);
+
+    void setServerInfoName(String serverInfoName);
+
+    void setServerStatusText(String serverStatusName);
   }
 
   @Inject
@@ -36,7 +36,6 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
 
   private ServerStatus serverStatus;
   private ServerInfo serverInfo;
-  private WebSocket webSocket;
 
   @Inject
   ServerInfoWidget(EventBus eventBus, MyView view) {
@@ -47,20 +46,10 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
   @Override
   public void setServerInfo(ServerInfo serverInfo) {
     this.serverInfo = serverInfo;
-    setImage(serverInfo.getServerStatus());
-    getView().setText(serverInfo.getName(), serverInfo.getWebSocketUrl());
-
-    webSocket = WebSocket.newWebSocketIfSupported();
-    if (null != webSocket) {
-      webSocket.setListener(new WebSocketListenerAdapter() {
-        @Override
-        public void onMessage(final WebSocket webSocket, final String data) {
-          serverStatus = ServerStatus.valueOf(data);
-          setImage(serverStatus);
-        }
-      });
-      webSocket.connect(serverInfo.getWebSocketUrl());
-    }
+    setServerStatus(serverInfo.getServerStatus());
+    getView().setServerInfoName(serverInfo.getName());
+    getView().setServerStatusText(serverInfo.getServerStatus()
+        .name());
   }
 
   @Override
@@ -72,7 +61,9 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
     }
   }
 
-  private void setImage(ServerStatus serverStatus) {
+  @Override
+  public void setServerStatus(ServerStatus serverStatus) {
+    this.serverStatus = serverStatus;
     switch (serverStatus) {
       case ENABLE:
         getView().setImage(qartalPortalBundle.enable());
@@ -86,9 +77,11 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
       default:
         break;
     }
+    getView().setServerStatusText(serverStatus.name());
   }
 
-  //      if (!event.isAttached() && webSocket != null && webSocket.isConnected()) {
-  //    webSocket.close();
-  //  }
+  @Override
+  public int getServerId() {
+    return serverInfo.getId();
+  }
 }
