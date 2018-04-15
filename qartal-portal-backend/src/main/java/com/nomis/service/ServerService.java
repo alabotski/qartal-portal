@@ -1,6 +1,8 @@
 package com.nomis.service;
 
+import com.nomis.shared.request.ServerInfoRequest;
 import com.nomis.shared.response.ServerInfoResponse;
+import com.nomis.shared.response.ServerStatusResponse;
 import java.io.IOException;
 
 /**
@@ -11,5 +13,7 @@ import java.io.IOException;
  */
 public interface ServerService {
 
-  ServerInfoResponse getServerInfo() throws IOException;
+  ServerStatusResponse getServerStatus() throws IOException;
+
+  ServerInfoResponse getServerInfo(ServerInfoRequest serverInfoRequest);
 }

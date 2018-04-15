@@ -22,8 +22,7 @@ import com.nomis.client.widget.loginfo.LogInfoWidget;
 import com.nomis.client.widget.logoption.LogOptionWidget;
 import com.nomis.client.widget.serverinfo.ServerInfoWidget;
 import com.nomis.client.widget.serverstatus.ServerStatusWidget;
-import com.nomis.shared.model.ServerInfo;
-import com.nomis.shared.response.ServerInfoResponse;
+import com.nomis.shared.model.ServerStatusInfo;
 import com.nomis.shared.response.ServerStatusResponse;
 import java.util.LinkedList;
 import java.util.List;
@@ -102,15 +101,15 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
   @Override
   protected void onReveal() {
-    serverService.serverInfo(new MethodCallback<ServerInfoResponse>() {
+    serverService.serverStatus(new MethodCallback<ServerStatusResponse>() {
       @Override
       public void onFailure(Method method, Throwable exception) {
-        MessageEvent.fire(HomePresenter.this, homeConstants.serverInfoError());
+        MessageEvent.fire(HomePresenter.this, homeConstants.serverStatusError());
       }
 
       @Override
-      public void onSuccess(Method method, ServerInfoResponse response) {
-        addServerInfo(response.getServerInfoList());
+      public void onSuccess(Method method, ServerStatusResponse response) {
+        addServerInfo(response.getServerStatusList());
         wsServerStatus = WebSocket.newWebSocketIfSupported();
         if (null != wsServerStatus) {
           wsServerStatus.setListener(new WebSocketListenerAdapter() {
@@ -122,7 +121,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
           });
           wsServerStatus.connect(response.getWebSocketUrl());
         }
-        MessageEvent.fire(HomePresenter.this, homeConstants.serverInfoSuccess());
+        MessageEvent.fire(HomePresenter.this, homeConstants.serverStatusSuccess());
       }
     });
     super.onReveal();
@@ -136,15 +135,15 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
     super.onReset();
   }
 
-  private void addServerInfo(List<ServerInfo> serverInfoList) {
-    serverList.clear();
-    clusterList.clear();
-    clearSlot(SLOT_SERVER_CONTENT);
-    clearSlot(SLOT_CLUSTER_CONTENT);
+  private void addServerInfo(List<ServerStatusInfo> serverStatusInfoList) {
+    //    serverList.clear();
+    //    clusterList.clear();
+    //    clearSlot(SLOT_SERVER_CONTENT);
+    //    clearSlot(SLOT_CLUSTER_CONTENT);
 
-    serverInfoList.forEach(serverInfo -> {
+    serverStatusInfoList.forEach(serverInfo -> {
       ServerStatusWidget serverInfoWidget = serverStatusWidgetProvider.get();
-      serverInfoWidget.setServerInfo(serverInfo);
+      serverInfoWidget.setServerStatusInfo(serverInfo);
       switch (serverInfo.getServerType()) {
         case SERVER:
           addToSlot(SLOT_SERVER_CONTENT, serverInfoWidget);
@@ -161,7 +160,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
   }
 
   private void updateServerStatus(ServerStatusResponse serverStatusResponse) {
-    serverStatusResponse.getServerInfoList()
+    serverStatusResponse.getServerStatusList()
         .forEach(serverInfo -> {
           List<ServerStatusWidget> serverInfoWidgetList = new LinkedList<>();
           switch (serverInfo.getServerType()) {

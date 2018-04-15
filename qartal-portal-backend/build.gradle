@@ -4,8 +4,8 @@ plugins {
 }
 
 apply plugin: "io.spring.dependency-management"
-apply plugin: "net.ltgt.apt"
-apply plugin: "net.ltgt.apt-idea"
+//apply plugin: "net.ltgt.apt"
+//apply plugin: "net.ltgt.apt-idea"
 
 dependencies {
   compile project(":qartal-portal-shared")
@@ -20,22 +20,20 @@ dependencies {
   }
   annotationProcessor('org.springframework.boot:spring-boot-configuration-processor')
 
+  // Other
+  compile("org.apache.commons:commons-lang3:$commonsLang3Version")
+  compile("com.google.code.gson:gson:$gsonVersion")
+
   // Lombok
   compileOnly("org.projectlombok:lombok:$lombokVersion")
   annotationProcessor("org.projectlombok:lombok:$lombokVersion")
 
-  // Other
-  compileOnly("org.apache.commons:commons-lang3:$commonsLang3Version")
-  compile("com.google.code.gson:gson:$gsonVersion")
-
   // Test
   testCompile("org.projectlombok:lombok:$lombokVersion")
   annotationProcessor("org.projectlombok:lombok:$lombokVersion")
-
   testCompile("junit:junit:$junitVersion")
   testCompile("org.mockito:mockito-core:$mockitoVersion")
   testCompile("org.springframework.boot:spring-boot-starter-test")
-  testCompile("org.apache.commons:commons-lang3:$commonsLang3Version")
 }
 
 bootJar {

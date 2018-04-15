@@ -5,11 +5,13 @@
   <ui:with field="lang" type="com.nomis.client.widget.loading.LoadingConstants"/>
 
   <ui:style gss="true">
+    .panel {
+      padding: 20px;
+      margin: 20px;
+      margin-top: 20px;
+    }
   </ui:style>
 
-  <m:MaterialCollectionItem type="AVATAR" ui:field="serverInfo">
-    <m:MaterialImage type="CIRCLE" ui:field="serverStatus"/>
-    <m:MaterialLabel fontSize="2em" ui:field="serverName"/>
-    <m:MaterialLabel ui:field="serverWebSocketUrl"/>
-  </m:MaterialCollectionItem>
+  <m:MaterialPanel addStyleNames="{style.panel}"/>
+
 </ui:UiBinder>

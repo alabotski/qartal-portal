@@ -12,4 +12,7 @@ public interface ServerStatusConstants extends Constants {
 
   @DefaultStringValue("isDisable")
   String isDisable();
+
+  @DefaultStringValue("isRunning")
+  String isRunning();
 }

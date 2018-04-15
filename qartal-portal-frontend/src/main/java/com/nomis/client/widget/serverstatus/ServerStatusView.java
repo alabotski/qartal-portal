@@ -24,10 +24,10 @@ public class ServerStatusView extends ViewWithUiHandlers<ServerStatusUiHandlers>
   }
 
   @UiField
-  MaterialCollectionItem serverInfo;
+  MaterialCollectionItem serverStatus;
 
   @UiField
-  MaterialImage serverStatus;
+  MaterialImage serverIcon;
 
   @UiField
   MaterialLabel serverName;
@@ -39,7 +39,7 @@ public class ServerStatusView extends ViewWithUiHandlers<ServerStatusUiHandlers>
   ServerStatusView(Binder binder) {
     initWidget(binder.createAndBindUi(this));
 
-    serverInfo.addClickHandler(new ClickHandler() {
+    serverStatus.addClickHandler(new ClickHandler() {
       @Override
       public void onClick(ClickEvent event) {
         getUiHandlers().getServerInfo();
@@ -54,7 +54,7 @@ public class ServerStatusView extends ViewWithUiHandlers<ServerStatusUiHandlers>
 
   @Override
   public void setImage(DataResource image) {
-    serverStatus.setUrl(image.getSafeUri()
+    serverIcon.setUrl(image.getSafeUri()
         .asString());
   }
 

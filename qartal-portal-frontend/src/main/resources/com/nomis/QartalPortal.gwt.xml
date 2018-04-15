@@ -23,7 +23,8 @@
   <inherits name="gwt.material.design.GwtMaterialWithJQuery"/>
   <inherits name="gwt.material.design.GwtMaterialDesignBasic"/>
   <inherits name="gwt.material.design.themes.ThemeBlue"/>
-  <!--<inherits name="gwt.material.design.addins.GwtMaterialAddins"/>-->
+  <inherits name="gwt.material.design.GwtMaterialTable"/>
+  <inherits name="gwt.material.design.addins.GwtMaterialAddins"/>
 
   <!--RestyGWT-->
   <inherits name="org.fusesource.restygwt.RestyGWT"/>

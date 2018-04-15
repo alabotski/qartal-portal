@@ -10,4 +10,12 @@ import com.google.gwt.i18n.client.Constants;
  */
 public interface LogOptionConstants extends Constants {
 
+  @DefaultStringValue("logLevel")
+  String logLevel();
+
+  @DefaultStringValue("aplay")
+  String aplay();
+
+  @DefaultStringValue("show")
+  String show();
 }

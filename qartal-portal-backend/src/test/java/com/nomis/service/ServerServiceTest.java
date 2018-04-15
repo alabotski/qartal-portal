@@ -2,7 +2,9 @@ package com.nomis.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nomis.config.JacksonConfiguration;
+import com.nomis.shared.request.ServerInfoRequest;
 import com.nomis.shared.response.ServerInfoResponse;
+import com.nomis.shared.response.ServerStatusResponse;
 import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Before;
@@ -35,9 +37,20 @@ public class ServerServiceTest {
   }
 
   @Test
-  public void should_serverInfo() throws IOException {
-    ServerInfoResponse serverInfoResponse = serverServiceImpl.getServerInfo();
-    Assert.assertEquals(serverInfoResponse.getServerInfoList()
+  public void should_serverStatus() throws IOException {
+    ServerStatusResponse serverStatusResponse = serverServiceImpl.getServerStatus();
+    Assert.assertEquals(serverStatusResponse.getServerStatusList()
         .size(), 2);
+  }
+
+
+  @Test
+  public void should_serverInfo() throws IOException {
+    ServerInfoRequest serverInfoRequest = new ServerInfoRequest();
+    serverInfoRequest.setId(1);
+
+    ServerInfoResponse serverInfoResponse = serverServiceImpl.getServerInfo(serverInfoRequest);
+    Assert.assertEquals(serverInfoResponse.getServerInfoList()
+        .size(), 10);
   }
 }

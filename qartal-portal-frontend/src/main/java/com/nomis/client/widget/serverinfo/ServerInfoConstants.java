@@ -10,4 +10,15 @@ import com.google.gwt.i18n.client.Constants;
  */
 public interface ServerInfoConstants extends Constants {
 
+  @DefaultStringValue("keyCaption")
+  String keyCaption();
+
+  @DefaultStringValue("valueCaption")
+  String valueCaption();
+
+  @DefaultStringValue("serverInfoSuccess")
+  String serverInfoSuccess();
+
+  @DefaultStringValue("serverInfoError")
+  String serverInfoError();
 }

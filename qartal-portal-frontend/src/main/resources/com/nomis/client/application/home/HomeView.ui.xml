@@ -5,17 +5,31 @@
 
   <m:MaterialPanel>
     <m:MaterialRow>
-      <m:MaterialColumn width="300">
+      <m:MaterialColumn grid="s2">
         <m:MaterialCollection header="{lang.serverHeaderText}" width="100%" ui:field="serverCollection"/>
         <m:MaterialCollection header="{lang.clusterHeaderText}" width="100%" ui:field="clusterCollection"/>
       </m:MaterialColumn>
-      <m:MaterialColumn>
-        <m:MaterialRow height="400">
-          <m:MaterialColumn grid="s8" shadow="1" ui:field="serverInfo"/>
-          <m:MaterialColumn grid="s4" shadow="1" ui:field="logOption"/>
-        </m:MaterialRow>
+
+      <m:MaterialColumn grid="s10">
         <m:MaterialRow>
-          <m:MaterialColumn grid="s12" shadow="1" ui:field="logInfo"/>
+          <m:MaterialColumn grid="s12">
+            <m:MaterialTab ui:field="tab" indicatorColor="YELLOW" shadow="1">
+              <m:MaterialTabItem waves="YELLOW" grid="s6">
+                <m:MaterialLink text="{lang.serverInfo}" href="#tab1" textColor="WHITE"/>
+              </m:MaterialTabItem>
+              <m:MaterialTabItem waves="YELLOW" grid="s6">
+                <m:MaterialLink text="{lang.serverLog}" href="#tab2" textColor="WHITE"/>
+              </m:MaterialTabItem>
+            </m:MaterialTab>
+          </m:MaterialColumn>
+
+          <m:MaterialColumn m:id="tab1" grid="s12">
+            <m:MaterialPanel shadow="1" ui:field="serverInfo"/>
+          </m:MaterialColumn>
+          <m:MaterialColumn m:id="tab2" grid="s12">
+            <m:MaterialRow shadow="1" ui:field="logOption"/>
+            <m:MaterialPanel shadow="1" ui:field="logInfo"/>
+          </m:MaterialColumn>
         </m:MaterialRow>
       </m:MaterialColumn>
     </m:MaterialRow>

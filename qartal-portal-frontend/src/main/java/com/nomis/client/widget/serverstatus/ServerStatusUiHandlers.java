@@ -1,7 +1,7 @@
 package com.nomis.client.widget.serverstatus;
 
 import com.gwtplatform.mvp.client.UiHandlers;
-import com.nomis.shared.model.ServerInfo;
+import com.nomis.shared.model.ServerStatusInfo;
 import com.nomis.shared.model.ServerStatus;
 
 /**
@@ -12,7 +12,7 @@ import com.nomis.shared.model.ServerStatus;
  */
 public interface ServerStatusUiHandlers extends UiHandlers {
 
-  void setServerInfo(ServerInfo serverInfo);
+  void setServerStatusInfo(ServerStatusInfo serverStatusInfo);
 
   void getServerInfo();
 

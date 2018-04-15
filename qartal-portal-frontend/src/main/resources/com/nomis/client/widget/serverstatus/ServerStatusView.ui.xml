@@ -2,13 +2,13 @@
   xmlns:m='urn:import:gwt.material.design.client.ui'
 >
 
-  <ui:with field="lang" type="com.nomis.client.widget.loading.LoadingConstants"/>
+  <ui:with field="lang" type="com.nomis.client.widget.serverstatus.ServerStatusConstants"/>
 
   <ui:style gss="true">
   </ui:style>
 
-  <m:MaterialCollectionItem type="AVATAR" ui:field="serverInfo">
-    <m:MaterialImage type="CIRCLE" ui:field="serverStatus"/>
+  <m:MaterialCollectionItem type="AVATAR" ui:field="serverStatus">
+    <m:MaterialImage type="CIRCLE" ui:field="serverIcon"/>
     <m:MaterialLabel fontSize="2em" ui:field="serverName"/>
     <m:MaterialLabel ui:field="serverWebSocketUrl"/>
   </m:MaterialCollectionItem>

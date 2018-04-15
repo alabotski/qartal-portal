@@ -1,8 +1,8 @@
 package com.nomis.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.model.ServerStatus;
+import com.nomis.shared.model.ServerStatusInfo;
 import com.nomis.shared.response.ServerStatusResponse;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -34,8 +34,8 @@ public class SocketServiceImpl implements SocketService {
 
   @Scheduled(fixedRate = 3000)
   public void updateServerStatus() throws IOException {
-    ServerStatusResponse serverStatusResponse = generateServerStatusResponse(serverService.getServerInfo()
-        .getServerInfoList());
+    ServerStatusResponse serverStatusResponse = generateServerStatusResponse(serverService.getServerStatus()
+        .getServerStatusList());
     webSocketSessionList.forEach(webSocketSession -> {
       try {
         webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(serverStatusResponse)));
@@ -50,20 +50,20 @@ public class SocketServiceImpl implements SocketService {
     return webSocketSessionList;
   }
 
-  private ServerStatusResponse generateServerStatusResponse(List<ServerInfo> serverInfoList) {
+  private ServerStatusResponse generateServerStatusResponse(List<ServerStatusInfo> serverStatusInfoList) {
     ServerStatusResponse serverStatusResponse = new ServerStatusResponse();
-    List<ServerInfo> serverInfoListGen = new ArrayList<>();
+    List<ServerStatusInfo> serverStatusInfoListGen = new ArrayList<>();
 
-    serverInfoList.forEach(serverInfo -> {
+    serverStatusInfoList.forEach(serverInfo -> {
       ServerStatus serverStatus = ServerStatus.getRandomStatus();
-      ServerInfo serverInfoGen = new ServerInfo();
-      serverInfoGen.setId(serverInfo.getId());
-      serverInfoGen.setServerType(serverInfo.getServerType());
-      serverInfoGen.setServerStatus(serverStatus);
-      serverInfoListGen.add(serverInfoGen);
+      ServerStatusInfo serverStatusInfoGen = new ServerStatusInfo();
+      serverStatusInfoGen.setId(serverInfo.getId());
+      serverStatusInfoGen.setServerType(serverInfo.getServerType());
+      serverStatusInfoGen.setServerStatus(serverStatus);
+      serverStatusInfoListGen.add(serverStatusInfoGen);
     });
 
-    serverStatusResponse.setServerInfoList(serverInfoListGen);
+    serverStatusResponse.setServerStatusList(serverStatusInfoListGen);
     return serverStatusResponse;
   }
 }

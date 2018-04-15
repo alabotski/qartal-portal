@@ -3,7 +3,7 @@ package com.nomis.client.widget.loginfo;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
-import gwt.material.design.client.ui.MaterialCollectionItem;
+import gwt.material.design.client.ui.MaterialPanel;
 
 /**
  * LogInfoView.
@@ -13,7 +13,7 @@ import gwt.material.design.client.ui.MaterialCollectionItem;
  */
 public class LogInfoView extends ViewWithUiHandlers<LogInfoUiHandlers> implements LogInfoWidget.MyView {
 
-  interface Binder extends UiBinder<MaterialCollectionItem, LogInfoView> {
+  interface Binder extends UiBinder<MaterialPanel, LogInfoView> {
 
   }
 

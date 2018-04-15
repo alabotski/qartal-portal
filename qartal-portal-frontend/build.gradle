@@ -26,7 +26,8 @@ dependencies {
 
   // GMD framework
   compileOnly("com.github.gwtmaterialdesign:gwt-material:$gwtMaterialVersion")
-  // compileOnly("com.github.gwtmaterialdesign:gwt-material-addins:$gwtMaterialAddinsVersion")
+  compileOnly("com.github.gwtmaterialdesign:gwt-material-table:$gwtMaterialTableVersion")
+  compileOnly("com.github.gwtmaterialdesign:gwt-material-addins:$gwtMaterialAddinsVersion")
   compileOnly("com.github.gwtmaterialdesign:gwt-material-themes:$gwtMaterialThemesVersion")
 
   // Test

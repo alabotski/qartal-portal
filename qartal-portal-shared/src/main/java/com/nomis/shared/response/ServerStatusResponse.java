@@ -1,6 +1,6 @@
 package com.nomis.shared.response;
 
-import com.nomis.shared.model.ServerInfo;
+import com.nomis.shared.model.ServerStatusInfo;
 import java.util.List;
 
 /**
@@ -11,13 +11,23 @@ import java.util.List;
  */
 public class ServerStatusResponse {
 
-  private List<ServerInfo> serverInfoList;
+  private List<ServerStatusInfo> serverStatusList;
+  private String webSocketUrl;
 
-  public List<ServerInfo> getServerInfoList() {
-    return serverInfoList;
+
+  public List<ServerStatusInfo> getServerStatusList() {
+    return serverStatusList;
   }
 
-  public void setServerInfoList(List<ServerInfo> serverInfoList) {
-    this.serverInfoList = serverInfoList;
+  public void setServerStatusList(List<ServerStatusInfo> serverStatusList) {
+    this.serverStatusList = serverStatusList;
+  }
+
+  public String getWebSocketUrl() {
+    return webSocketUrl;
+  }
+
+  public void setWebSocketUrl(String webSocketUrl) {
+    this.webSocketUrl = webSocketUrl;
   }
 }

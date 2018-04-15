@@ -4,44 +4,26 @@ package com.nomis.shared.model;
  * ServerInfo.
  *
  * @author Aliaksei Labotski.
- * @since 4/14/18.
+ * @since 4/15/18.
  */
 public class ServerInfo {
 
-  private Integer id;
-  private String name;
-  private ServerType serverType;
-  private ServerStatus serverStatus;
+  private String key;
+  private String value;
 
-  public Integer getId() {
-    return id;
+  public String getKey() {
+    return key;
   }
 
-  public void setId(Integer id) {
-    this.id = id;
+  public void setKey(String key) {
+    this.key = key;
   }
 
-  public String getName() {
-    return name;
+  public String getValue() {
+    return value;
   }
 
-  public void setName(String name) {
-    this.name = name;
-  }
-
-  public ServerType getServerType() {
-    return serverType;
-  }
-
-  public void setServerType(ServerType serverType) {
-    this.serverType = serverType;
-  }
-
-  public ServerStatus getServerStatus() {
-    return serverStatus;
-  }
-
-  public void setServerStatus(ServerStatus serverStatus) {
-    this.serverStatus = serverStatus;
+  public void setValue(String value) {
+    this.value = value;
   }
 }

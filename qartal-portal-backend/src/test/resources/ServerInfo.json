@@ -1,6 +1,6 @@
 {
-  "webSocketUrl": "ws://localhost:8080/statusInfo",
-  "serverInfoList": [
+  "webSocketUrl": "ws://localhost:8080/serverStatus",
+  "serverStatusList": [
     {
       "id": 1,
       "name": "Server 1",

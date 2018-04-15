@@ -8,8 +8,9 @@ import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
 import com.nomis.client.css.QartalPortalBundle;
 import com.nomis.client.event.MessageEvent;
-import com.nomis.shared.model.ServerInfo;
+import com.nomis.client.event.ShowInfoEvent;
 import com.nomis.shared.model.ServerStatus;
+import com.nomis.shared.model.ServerStatusInfo;
 
 /**
  * ServerStatusWidget.
@@ -35,7 +36,7 @@ public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyVie
   private QartalPortalBundle qartalPortalBundle;
 
   private ServerStatus serverStatus;
-  private ServerInfo serverInfo;
+  private ServerStatusInfo serverStatusInfo;
 
   @Inject
   ServerStatusWidget(EventBus eventBus, MyView view) {
@@ -44,22 +45,30 @@ public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyVie
   }
 
   @Override
-  public void setServerInfo(ServerInfo serverInfo) {
-    this.serverInfo = serverInfo;
-    setServerStatus(serverInfo.getServerStatus());
-    getView().setServerInfoName(serverInfo.getName());
-    getView().setServerStatusText(serverInfo.getServerStatus()
+  public void setServerStatusInfo(ServerStatusInfo serverStatusInfo) {
+    this.serverStatusInfo = serverStatusInfo;
+    setServerStatus(serverStatusInfo.getServerStatus());
+    getView().setServerInfoName(serverStatusInfo.getName());
+    getView().setServerStatusText(serverStatusInfo.getServerStatus()
         .name());
   }
 
   @Override
   public void getServerInfo() {
-    if (serverStatus == ServerStatus.DISABLE) {
-      MessageEvent.fire(this, serverInfo.getServerType()
-          .name() + " " + serverStatusConstants.isDisable());
+    switch (serverStatus) {
+      case DISABLE:
+        MessageEvent.fire(this, serverStatusInfo.getServerType()
+            .name() + " " + serverStatusConstants.isDisable());
+        break;
+      case RUNNING:
+        MessageEvent.fire(this, serverStatusInfo.getServerType()
+            .name() + " " + serverStatusConstants.isRunning());
+        break;
+      case ENABLE:
+        ShowInfoEvent.fire(this, getServerId());
+      default:
+        break;
     }
-    //    else {
-    //    }
   }
 
   @Override
@@ -83,6 +92,6 @@ public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyVie
 
   @Override
   public int getServerId() {
-    return serverInfo.getId();
+    return serverStatusInfo.getId();
   }
 }
