@@ -9,6 +9,7 @@ import com.gwtplatform.mvp.client.View;
 import com.gwtplatform.mvp.client.annotations.NameToken;
 import com.gwtplatform.mvp.client.annotations.ProxyCodeSplit;
 import com.gwtplatform.mvp.client.annotations.UseGatekeeper;
+import com.gwtplatform.mvp.client.presenter.slots.SingleSlot;
 import com.gwtplatform.mvp.client.presenter.slots.Slot;
 import com.gwtplatform.mvp.client.proxy.ProxyPlace;
 import com.nomis.client.application.ApplicationPresenter;
@@ -17,7 +18,10 @@ import com.nomis.client.place.NameTokens;
 import com.nomis.client.rest.ServerService;
 import com.nomis.client.rest.codec.ServerStatusCodec;
 import com.nomis.client.security.LoggedInGatekeeper;
-import com.nomis.client.widget.serverInfo.ServerInfoWidget;
+import com.nomis.client.widget.loginfo.LogInfoWidget;
+import com.nomis.client.widget.logoption.LogOptionWidget;
+import com.nomis.client.widget.serverinfo.ServerInfoWidget;
+import com.nomis.client.widget.serverstatus.ServerStatusWidget;
 import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.response.ServerInfoResponse;
 import com.nomis.shared.response.ServerStatusResponse;
@@ -48,7 +52,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
   }
 
   @Inject
-  private Provider<ServerInfoWidget> serverInfoWidgetProvider;
+  private Provider<ServerStatusWidget> serverStatusWidgetProvider;
 
   @Inject
   private ServerStatusCodec serverStatusCodec;
@@ -59,13 +63,25 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
   @Inject
   private ServerService serverService;
 
+  @Inject
+  private ServerInfoWidget serverInfoWidget;
+
+  @Inject
+  private LogOptionWidget logOptionWidget;
+
+  @Inject
+  private LogInfoWidget logInfoWidget;
+
   private WebSocket wsServerStatus;
 
-  private List<ServerInfoWidget> serverList;
-  private List<ServerInfoWidget> clusterList;
+  private List<ServerStatusWidget> serverList;
+  private List<ServerStatusWidget> clusterList;
 
   public static final Slot SLOT_SERVER_CONTENT = new Slot();
   public static final Slot SLOT_CLUSTER_CONTENT = new Slot();
+  public static final SingleSlot SLOT_SERVER_INFO_CONTENT = new SingleSlot();
+  public static final SingleSlot SLOT_LOG_OPTION_CONTENT = new SingleSlot();
+  public static final SingleSlot SLOT_LOG_INFO_CONTENT = new SingleSlot();
 
   @Inject
   HomePresenter(EventBus eventBus, MyView view, MyProxy proxy) {
@@ -78,7 +94,9 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
 
   @Override
   protected void onBind() {
-
+    setInSlot(SLOT_SERVER_INFO_CONTENT, serverInfoWidget);
+    setInSlot(SLOT_LOG_OPTION_CONTENT, logOptionWidget);
+    setInSlot(SLOT_LOG_INFO_CONTENT, logInfoWidget);
     super.onBind();
   }
 
@@ -121,9 +139,11 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
   private void addServerInfo(List<ServerInfo> serverInfoList) {
     serverList.clear();
     clusterList.clear();
+    clearSlot(SLOT_SERVER_CONTENT);
+    clearSlot(SLOT_CLUSTER_CONTENT);
 
     serverInfoList.forEach(serverInfo -> {
-      ServerInfoWidget serverInfoWidget = serverInfoWidgetProvider.get();
+      ServerStatusWidget serverInfoWidget = serverStatusWidgetProvider.get();
       serverInfoWidget.setServerInfo(serverInfo);
       switch (serverInfo.getServerType()) {
         case SERVER:
@@ -143,7 +163,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
   private void updateServerStatus(ServerStatusResponse serverStatusResponse) {
     serverStatusResponse.getServerInfoList()
         .forEach(serverInfo -> {
-          List<ServerInfoWidget> serverInfoWidgetList = new LinkedList<>();
+          List<ServerStatusWidget> serverInfoWidgetList = new LinkedList<>();
           switch (serverInfo.getServerType()) {
             case SERVER:
               serverInfoWidgetList = serverList;

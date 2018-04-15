@@ -1,16 +1,17 @@
 package com.nomis.service;
 
-import com.nomis.application.QartalPortalBootApplication;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nomis.config.JacksonConfiguration;
 import com.nomis.shared.response.ServerInfoResponse;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
+import org.mockito.junit.MockitoJUnitRunner;
 
 /**
  * ServerServiceTest.
@@ -18,17 +19,25 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  * @author Aliaksei Labotski.
  * @since 4/14/18.
  */
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = {QartalPortalBootApplication.class})
-@ActiveProfiles("test")
+
+@RunWith(MockitoJUnitRunner.class)
 public class ServerServiceTest {
 
-  @Autowired
-  private ServerService serverService;
+  @InjectMocks
+  private ServerServiceImpl serverServiceImpl;
+
+  @Spy
+  private ObjectMapper objectMapper = new JacksonConfiguration().objectMapper();
+
+  @Before
+  public void init() {
+    MockitoAnnotations.initMocks(this);
+  }
 
   @Test
-  public void should_serverInfo() throws IOException, URISyntaxException {
-    ServerInfoResponse serverInfoResponse = serverService.getServerInfo();
-    Assert.assertEquals(serverInfoResponse.getServerInfoList().size(), 2);
+  public void should_serverInfo() throws IOException {
+    ServerInfoResponse serverInfoResponse = serverServiceImpl.getServerInfo();
+    Assert.assertEquals(serverInfoResponse.getServerInfoList()
+        .size(), 2);
   }
 }

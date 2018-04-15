@@ -29,10 +29,13 @@ dependencies {
   compile("com.google.code.gson:gson:$gsonVersion")
 
   // Test
-  testCompile("org.apache.commons:commons-lang3:$commonsLang3Version")
-  testCompile("org.springframework.boot:spring-boot-starter-test")
   testCompile("org.projectlombok:lombok:$lombokVersion")
   annotationProcessor("org.projectlombok:lombok:$lombokVersion")
+
+  testCompile("junit:junit:$junitVersion")
+  testCompile("org.mockito:mockito-core:$mockitoVersion")
+  testCompile("org.springframework.boot:spring-boot-starter-test")
+  testCompile("org.apache.commons:commons-lang3:$commonsLang3Version")
 }
 
 bootJar {

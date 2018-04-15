@@ -1,4 +1,4 @@
-package com.nomis.client.widget.serverInfo;
+package com.nomis.client.widget.serverinfo;
 
 import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
 
@@ -6,7 +6,7 @@ import com.gwtplatform.mvp.client.gin.AbstractPresenterModule;
  * ServerInfoModule.
  *
  * @author Aliaksei Labotski.
- * @since 4/14/18.
+ * @since 4/15/18.
  */
 public class ServerInfoModule extends AbstractPresenterModule {
 
@@ -16,4 +16,5 @@ public class ServerInfoModule extends AbstractPresenterModule {
 
     bind(ServerInfoConstants.class).asEagerSingleton();
   }
+
 }

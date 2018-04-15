@@ -1,16 +1,16 @@
-package com.nomis.client.widget.serverInfo;
+package com.nomis.client.widget.serverstatus;
 
 import com.gwtplatform.mvp.client.UiHandlers;
 import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.model.ServerStatus;
 
 /**
- * ServerInfoUiHandlers.
+ * ServerStatusUiHandlers.
  *
  * @author Aliaksei Labotski.
  * @since 4/14/18.
  */
-public interface ServerInfoUiHandlers extends UiHandlers {
+public interface ServerStatusUiHandlers extends UiHandlers {
 
   void setServerInfo(ServerInfo serverInfo);
 

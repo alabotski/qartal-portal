@@ -25,7 +25,7 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
   private ServerInfoHandler serverInfoHandler;
 
   public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-    registry.addHandler(serverInfoHandler, "/statusInfo")
+    registry.addHandler(serverInfoHandler, "/serverstatus")
         .setAllowedOrigins("*");
   }
 

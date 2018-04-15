@@ -1,4 +1,4 @@
-package com.nomis.client.widget.serverInfo;
+package com.nomis.client.widget.serverstatus;
 
 import com.google.gwt.resources.client.DataResource;
 import com.google.inject.Inject;
@@ -12,14 +12,14 @@ import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.model.ServerStatus;
 
 /**
- * ServerInfoWidget.
+ * ServerStatusWidget.
  *
  * @author Aliaksei Labotski.
  * @since 4/14/18.
  */
-public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> implements ServerInfoUiHandlers {
+public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyView> implements ServerStatusUiHandlers {
 
-  interface MyView extends View, HasUiHandlers<ServerInfoUiHandlers> {
+  interface MyView extends View, HasUiHandlers<ServerStatusUiHandlers> {
 
     void setImage(DataResource image);
 
@@ -29,7 +29,7 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
   }
 
   @Inject
-  private ServerInfoConstants serverInfoConstants;
+  private ServerStatusConstants serverStatusConstants;
 
   @Inject
   private QartalPortalBundle qartalPortalBundle;
@@ -38,7 +38,7 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
   private ServerInfo serverInfo;
 
   @Inject
-  ServerInfoWidget(EventBus eventBus, MyView view) {
+  ServerStatusWidget(EventBus eventBus, MyView view) {
     super(eventBus, view);
     getView().setUiHandlers(this);
   }
@@ -56,9 +56,10 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
   public void getServerInfo() {
     if (serverStatus == ServerStatus.DISABLE) {
       MessageEvent.fire(this, serverInfo.getServerType()
-          .name() + " " + serverInfoConstants.isDisable());
-    } else {
+          .name() + " " + serverStatusConstants.isDisable());
     }
+    //    else {
+    //    }
   }
 
   @Override

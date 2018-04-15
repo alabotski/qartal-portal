@@ -10,7 +10,13 @@
         <m:MaterialCollection header="{lang.clusterHeaderText}" width="100%" ui:field="clusterCollection"/>
       </m:MaterialColumn>
       <m:MaterialColumn>
-        <m:MaterialPanel/>
+        <m:MaterialRow height="400">
+          <m:MaterialColumn grid="s8" shadow="1" ui:field="serverInfo"/>
+          <m:MaterialColumn grid="s4" shadow="1" ui:field="logOption"/>
+        </m:MaterialRow>
+        <m:MaterialRow>
+          <m:MaterialColumn grid="s12" shadow="1" ui:field="logInfo"/>
+        </m:MaterialRow>
       </m:MaterialColumn>
     </m:MaterialRow>
   </m:MaterialPanel>

@@ -15,6 +15,6 @@ import org.fusesource.restygwt.client.RestService;
 public interface ServerService extends RestService {
 
   @GET
-  @Path("/server/serverInfo")
+  @Path("/server/serverstatus")
   void serverInfo(MethodCallback<ServerInfoResponse> callback);
 }

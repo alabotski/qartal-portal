@@ -1,0 +1,15 @@
+<ui:UiBinder xmlns:ui='urn:ui:com.google.gwt.uibinder'
+  xmlns:m='urn:import:gwt.material.design.client.ui'
+>
+
+  <ui:with field="lang" type="com.nomis.client.widget.loading.LoadingConstants"/>
+
+  <ui:style gss="true">
+  </ui:style>
+
+  <m:MaterialCollectionItem type="AVATAR" ui:field="serverInfo">
+    <m:MaterialImage type="CIRCLE" ui:field="serverStatus"/>
+    <m:MaterialLabel fontSize="2em" ui:field="serverName"/>
+    <m:MaterialLabel ui:field="serverWebSocketUrl"/>
+  </m:MaterialCollectionItem>
+</ui:UiBinder>

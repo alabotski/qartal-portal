@@ -16,11 +16,6 @@ allprojects {
 
   apply from: "$rootDir/gradle/java.gradle"
   apply from: "$rootDir/gradle/codeQuality.gradle"
-
-  dependencies {
-    // Test
-    testCompile("junit:junit:$junitVersion")
-  }
 }
 
 subprojects {

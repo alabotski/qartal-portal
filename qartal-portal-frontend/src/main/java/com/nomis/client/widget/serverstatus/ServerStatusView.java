@@ -1,4 +1,4 @@
-package com.nomis.client.widget.serverInfo;
+package com.nomis.client.widget.serverstatus;
 
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
@@ -12,14 +12,14 @@ import gwt.material.design.client.ui.MaterialImage;
 import gwt.material.design.client.ui.MaterialLabel;
 
 /**
- * ServerInfoView.
+ * ServerStatusView.
  *
  * @author Aliaksei Labotski.
  * @since 4/14/18.
  */
-public class ServerInfoView extends ViewWithUiHandlers<ServerInfoUiHandlers> implements ServerInfoWidget.MyView {
+public class ServerStatusView extends ViewWithUiHandlers<ServerStatusUiHandlers> implements ServerStatusWidget.MyView {
 
-  interface Binder extends UiBinder<MaterialCollectionItem, ServerInfoView> {
+  interface Binder extends UiBinder<MaterialCollectionItem, ServerStatusView> {
 
   }
 
@@ -36,7 +36,7 @@ public class ServerInfoView extends ViewWithUiHandlers<ServerInfoUiHandlers> imp
   MaterialLabel serverWebSocketUrl;
 
   @Inject
-  ServerInfoView(Binder binder) {
+  ServerStatusView(Binder binder) {
     initWidget(binder.createAndBindUi(this));
 
     serverInfo.addClickHandler(new ClickHandler() {
