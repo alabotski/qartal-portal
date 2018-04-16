@@ -1,11 +1,14 @@
 package com.nomis.client.widget.serverinfo;
 
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import com.nomis.shared.model.ServerInfo;
-import gwt.material.design.client.data.ListDataSource;
+import gwt.material.design.client.data.BaseRenderer;
 import gwt.material.design.client.ui.MaterialPanel;
+import gwt.material.design.client.ui.table.MaterialDataTable;
+import gwt.material.design.client.ui.table.cell.TextColumn;
 
 /**
  * ServerInfoView.
@@ -19,49 +22,45 @@ public class ServerInfoView extends ViewWithUiHandlers<ServerInfoUiHandlers> imp
 
   }
 
-  //  @UiField
-  //  MaterialDataTable<ServerInfo> serverInfo;
-  //  private ListDataSource<ServerInfo> listDataSource;
+  @UiField
+  MaterialDataTable<ServerInfo> serverInfo;
 
   @Inject
   ServerInfoView(Binder binder) {
     initWidget(binder.createAndBindUi(this));
-
-    //    listDataSource = new ListDataSource<>();
-    //    serverInfo.setDataSource(listDataSource);
-    //    serverInfo.setRenderer(new BaseRenderer<>());
+    serverInfo.setVisibleRange(0, 100);
+    serverInfo.setRenderer(new BaseRenderer<>());
   }
 
   @Override
   public void addColumnKey(String caption) {
-    //    serverInfo.addColumn(new TextColumn<ServerInfo>() {
-    //      @Override
-    //      public String getValue(ServerInfo object) {
-    //        return object.getKey();
-    //      }
-    //    }, caption);
+    serverInfo.addColumn(new TextColumn<ServerInfo>() {
+      @Override
+      public String getValue(ServerInfo object) {
+        return object.getKey();
+      }
+    }, caption);
   }
 
   @Override
   public void addColumnValue(String caption) {
-    //    serverInfo.addColumn(new TextColumn<ServerInfo>() {
-    //      @Override
-    //      public String getValue(ServerInfo object) {
-    //        return object.getValue();
-    //      }
-    //    }, caption);
+    serverInfo.addColumn(new TextColumn<ServerInfo>() {
+      @Override
+      public String getValue(ServerInfo object) {
+        return object.getValue();
+      }
+    }, caption);
   }
 
   @Override
   public void setTableTitle(String title) {
-    //    serverInfo.getTableTitle()
-    //        .setText(title);
+    serverInfo.getTableTitle()
+        .setText(title);
   }
 
   @Override
-  public ListDataSource<ServerInfo> getDataSource() {
-    //    return listDataSource;
-    return null;
+  public MaterialDataTable<ServerInfo> getServerInfo() {
+    return serverInfo;
   }
 
 }

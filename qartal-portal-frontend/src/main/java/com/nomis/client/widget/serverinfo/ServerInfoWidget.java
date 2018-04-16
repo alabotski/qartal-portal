@@ -12,7 +12,7 @@ import com.nomis.client.rest.ServerService;
 import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.request.ServerInfoRequest;
 import com.nomis.shared.response.ServerInfoResponse;
-import gwt.material.design.client.data.ListDataSource;
+import gwt.material.design.client.ui.table.MaterialDataTable;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
 
@@ -33,7 +33,7 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
 
     void setTableTitle(String title);
 
-    ListDataSource<ServerInfo> getDataSource();
+    MaterialDataTable<ServerInfo> getServerInfo();
 
   }
 
@@ -46,13 +46,14 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
   @Inject
   ServerInfoWidget(EventBus eventBus, ServerInfoWidget.MyView view) {
     super(eventBus, view);
+    getView().setUiHandlers(this);
   }
 
   @Override
   protected void onBind() {
     getView().addColumnKey(serverInfoConstants.keyCaption());
     getView().addColumnValue(serverInfoConstants.valueCaption());
-    //    getView().setTableTitle(serverInfoConstants.serverInfoHeader());
+    getView().setTableTitle(serverInfoConstants.serverInfoHeader());
 
     addRegisteredHandler(ShowInfoEvent.TYPE, this);
     super.onBind();
@@ -71,7 +72,8 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
 
       @Override
       public void onSuccess(Method method, ServerInfoResponse response) {
-        //        getView().getDataSource().add(0, response.getServerInfoList());
+        getView().getServerInfo()
+            .setRowData(0, response.getServerInfoList());
         MessageEvent.fire(ServerInfoWidget.this, serverInfoConstants.serverInfoSuccess());
       }
     });

@@ -1,8 +1,10 @@
 package com.nomis.client.widget.loginfo;
 
 import com.google.gwt.uibinder.client.UiBinder;
+import com.google.gwt.uibinder.client.UiField;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
+import gwt.material.design.addins.client.richeditor.MaterialRichEditor;
 import gwt.material.design.client.ui.MaterialPanel;
 
 /**
@@ -17,9 +19,17 @@ public class LogInfoView extends ViewWithUiHandlers<LogInfoUiHandlers> implement
 
   }
 
+  @UiField
+  MaterialRichEditor logInfo;
+
   @Inject
   LogInfoView(Binder binder) {
     initWidget(binder.createAndBindUi(this));
+  }
+
+  @Override
+  public MaterialRichEditor getLogInfo() {
+    return logInfo;
   }
 
 }

@@ -10,4 +10,7 @@ import com.gwtplatform.mvp.client.UiHandlers;
  */
 public interface LogOptionUiHandlers extends UiHandlers {
 
+  void show();
+
+  void aplay(String singleValue);
 }

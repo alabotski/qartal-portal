@@ -7,6 +7,7 @@ import com.gwtplatform.mvp.client.HasUiHandlers;
 import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
 import com.nomis.client.css.QartalPortalBundle;
+import com.nomis.client.event.LogOptionEvent;
 import com.nomis.client.event.MessageEvent;
 import com.nomis.client.event.ShowInfoEvent;
 import com.nomis.shared.model.ServerStatus;
@@ -65,7 +66,9 @@ public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyVie
             .name() + " " + serverStatusConstants.isRunning());
         break;
       case ENABLE:
+        LogOptionEvent.fire(this, getServerId());
         ShowInfoEvent.fire(this, getServerId());
+        break;
       default:
         break;
     }

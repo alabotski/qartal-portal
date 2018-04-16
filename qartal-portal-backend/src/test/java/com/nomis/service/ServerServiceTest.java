@@ -51,6 +51,6 @@ public class ServerServiceTest {
 
     ServerInfoResponse serverInfoResponse = serverServiceImpl.getServerInfo(serverInfoRequest);
     Assert.assertEquals(serverInfoResponse.getServerInfoList()
-        .size(), 10);
+        .size(), 20);
   }
 }

@@ -13,9 +13,15 @@
     }
   </ui:style>
 
-  <m:MaterialPanel>
-    <ma:combobox.MaterialComboBox ui:field="logLevel" label="{lang.logLevel}" addStyleNames="{style.panel}"/>
-    <m:MaterialButton text="{lang.aplay}" ui:field="btnAplay" marginRight="20"/>
-    <m:MaterialButton text="{lang.show}" ui:field="btnShow"/>
+  <m:MaterialPanel addStyleNames="{style.panel}">
+    <m:MaterialColumn grid="s10">
+      <ma:combobox.MaterialComboBox ui:field="logLevel" label="{lang.logLevel}"/>
+    </m:MaterialColumn>
+    <m:MaterialColumn grid="s2">
+      <m:MaterialPanel textAlign="RIGHT">
+        <m:MaterialButton text="{lang.aplay}" ui:field="btnAplay" marginRight="20"/>
+        <m:MaterialButton text="{lang.show}" ui:field="btnShow"/>
+      </m:MaterialPanel>
+    </m:MaterialColumn>
   </m:MaterialPanel>
 </ui:UiBinder>

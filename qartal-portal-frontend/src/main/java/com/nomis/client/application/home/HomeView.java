@@ -27,13 +27,13 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
   MaterialCollection clusterCollection;
 
   @UiField
-  MaterialPanel serverInfo;
+  MaterialRow serverInfo;
 
   @UiField
   MaterialRow logOption;
 
   @UiField
-  MaterialPanel logInfo;
+  MaterialRow logInfo;
 
   @Inject
   HomeView(HomeView.Binder uiBinder) {

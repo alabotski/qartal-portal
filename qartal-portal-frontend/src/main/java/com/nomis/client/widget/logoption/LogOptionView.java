@@ -1,7 +1,9 @@
 package com.nomis.client.widget.logoption;
 
+import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import gwt.material.design.addins.client.combobox.MaterialComboBox;
@@ -40,4 +42,18 @@ public class LogOptionView extends ViewWithUiHandlers<LogOptionUiHandlers> imple
     levelList.forEach(level -> logLevel.addItem(level, level));
   }
 
+  @Override
+  public void resetLogLevel() {
+    logLevel.setSelectedIndex(0);
+  }
+
+  @UiHandler("btnAplay")
+  void onAplayClicked(ClickEvent event) {
+    getUiHandlers().aplay(logLevel.getSingleValue());
+  }
+
+  @UiHandler("btnShow")
+  void onShowClicked(ClickEvent event) {
+    getUiHandlers().show();
+  }
 }

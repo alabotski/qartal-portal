@@ -24,11 +24,11 @@
           </m:MaterialColumn>
 
           <m:MaterialColumn m:id="tab1" grid="s12">
-            <m:MaterialPanel shadow="1" ui:field="serverInfo"/>
+            <m:MaterialRow shadow="1" ui:field="serverInfo"/>
           </m:MaterialColumn>
           <m:MaterialColumn m:id="tab2" grid="s12">
             <m:MaterialRow shadow="1" ui:field="logOption"/>
-            <m:MaterialPanel shadow="1" ui:field="logInfo"/>
+            <m:MaterialRow shadow="1" ui:field="logInfo"/>
           </m:MaterialColumn>
         </m:MaterialRow>
       </m:MaterialColumn>

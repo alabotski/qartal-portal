@@ -11,7 +11,7 @@ import com.google.gwt.event.shared.HasHandlers;
  */
 public class ShowInfoEvent extends GwtEvent<ShowInfoHandler> {
 
-  public static Type<ShowInfoHandler> TYPE = new Type<ShowInfoHandler>();
+  public static final Type<ShowInfoHandler> TYPE = new Type<ShowInfoHandler>();
 
   public Type<ShowInfoHandler> getAssociatedType() {
     return TYPE;

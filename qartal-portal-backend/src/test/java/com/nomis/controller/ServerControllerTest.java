@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -59,7 +60,6 @@ public class ServerControllerTest {
 
   @Spy
   private ObjectMapper objectMapper = new JacksonConfiguration().objectMapper();
-  ;
 
   @Before
   public void init() {
@@ -89,19 +89,20 @@ public class ServerControllerTest {
 
   @Test
   public void should_serverInfo() throws Exception {
-    ServerInfoRequest serverInfoRequest = new ServerInfoRequest();
-    serverInfoRequest.setId(1);
-
-    ServerInfoResponse serverInfoResponse = new ServerInfoResponse();
     List<ServerInfo> serverInfoList = new ArrayList<>();
     ServerInfo serverInfo = new ServerInfo();
     serverInfo.setKey("KEY");
     serverInfo.setValue("VALUE");
     serverInfoList.add(serverInfo);
+
+    ServerInfoResponse serverInfoResponse = new ServerInfoResponse();
     serverInfoResponse.setServerInfoList(serverInfoList);
     when(serverService.getServerInfo(any())).thenReturn(serverInfoResponse);
 
-    mockMvc.perform(get("/server/serverInfo").contentType(MediaType.APPLICATION_JSON_UTF8)
+    ServerInfoRequest serverInfoRequest = new ServerInfoRequest();
+    serverInfoRequest.setId(1);
+
+    mockMvc.perform(post("/server/serverInfo").contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(asJsonString(serverInfoRequest))
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
@@ -109,6 +110,6 @@ public class ServerControllerTest {
         .andExpect(jsonPath("$.serverInfoList", hasSize(1)));
 
     verify(serverService, times(1)).getServerInfo(refEq(serverInfoRequest));
-    verifyNoMoreInteractions(serverInfoRequest);
+    verifyNoMoreInteractions(serverService);
   }
 }

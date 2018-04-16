@@ -37,7 +37,7 @@ public class ServerServiceImpl implements ServerService {
   public ServerInfoResponse getServerInfo(ServerInfoRequest serverInfoRequest) {
     ServerInfoResponse serverInfoResponse = new ServerInfoResponse();
     List<ServerInfo> serverInfoList = new ArrayList<>();
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 20; i++) {
       ServerInfo serverInfo = new ServerInfo();
       serverInfo.setKey("Key for ID = " + serverInfoRequest.getId());
       serverInfo.setValue(RandomStringUtils.randomAlphabetic(20));
