@@ -1,6 +1,7 @@
 package com.nomis.controller;
 
 import static com.nomis.TestUtil.asJsonString;
+import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.refEq;
@@ -17,9 +18,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nomis.config.JacksonConfiguration;
 import com.nomis.service.ServerService;
+import com.nomis.shared.model.LogLevel;
 import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.request.ServerInfoRequest;
 import com.nomis.shared.response.ServerInfoResponse;
+import com.nomis.shared.response.ServerLogOptionResponse;
 import com.nomis.shared.response.ServerStatusResponse;
 import com.nomis.util.ResourcesUtil;
 import java.util.ArrayList;
@@ -72,7 +75,7 @@ public class ServerControllerTest {
   @Test
   public void should_serverStatus() throws Exception {
     ServerStatusResponse serverStatusResponse = objectMapper.readValue(ResourcesUtil.getInstance()
-        .getResource("ServerInfo.json"), ServerStatusResponse.class);
+        .getResource("ServerStatus.json"), ServerStatusResponse.class);
 
     when(serverService.getServerStatus()).thenReturn(serverStatusResponse);
 
@@ -110,6 +113,23 @@ public class ServerControllerTest {
         .andExpect(jsonPath("$.serverInfoList", hasSize(1)));
 
     verify(serverService, times(1)).getServerInfo(refEq(serverInfoRequest));
+    verifyNoMoreInteractions(serverService);
+  }
+
+  @Test
+  public void should_serverLogOption() throws Exception {
+    ServerLogOptionResponse serverLogOptionResponse = objectMapper.readValue(ResourcesUtil.getInstance()
+        .getResource("ServerLogOption.json"), ServerLogOptionResponse.class);
+
+    when(serverService.getServerLogOption()).thenReturn(serverLogOptionResponse);
+
+    mockMvc.perform(get("/server/serverLogOption").contentType(MediaType.APPLICATION_JSON_UTF8)
+        .accept(MediaType.APPLICATION_JSON))
+        .andExpect(status().isOk())
+        .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
+        .andExpect(jsonPath("$.logLevel", is(LogLevel.ALL.name())));
+
+    verify(serverService, times(1)).getServerLogOption();
     verifyNoMoreInteractions(serverService);
   }
 }

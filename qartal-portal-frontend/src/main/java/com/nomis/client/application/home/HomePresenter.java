@@ -16,7 +16,7 @@ import com.nomis.client.application.ApplicationPresenter;
 import com.nomis.client.event.MessageEvent;
 import com.nomis.client.place.NameTokens;
 import com.nomis.client.rest.ServerService;
-import com.nomis.client.rest.codec.ServerStatusCodec;
+import com.nomis.client.rest.codec.ServerStatusResponseCodec;
 import com.nomis.client.security.LoggedInGatekeeper;
 import com.nomis.client.widget.loginfo.LogInfoWidget;
 import com.nomis.client.widget.logoption.LogOptionWidget;
@@ -54,7 +54,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
   private Provider<ServerStatusWidget> serverStatusWidgetProvider;
 
   @Inject
-  private ServerStatusCodec serverStatusCodec;
+  private ServerStatusResponseCodec serverStatusResponseCodec;
 
   @Inject
   private HomeConstants homeConstants;
@@ -115,7 +115,7 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
           wsServerStatus.setListener(new WebSocketListenerAdapter() {
             @Override
             public void onMessage(final WebSocket webSocket, final String data) {
-              ServerStatusResponse serverStatusResponse = serverStatusCodec.decode(data);
+              ServerStatusResponse serverStatusResponse = serverStatusResponseCodec.decode(data);
               updateServerStatus(serverStatusResponse);
             }
           });

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.request.ServerInfoRequest;
 import com.nomis.shared.response.ServerInfoResponse;
+import com.nomis.shared.response.ServerLogOptionResponse;
 import com.nomis.shared.response.ServerStatusResponse;
 import com.nomis.util.ResourcesUtil;
 import java.io.IOException;
@@ -30,7 +31,7 @@ public class ServerServiceImpl implements ServerService {
   @Override
   public ServerStatusResponse getServerStatus() throws IOException {
     return objectMapper.readValue(ResourcesUtil.getInstance()
-        .getResource("ServerInfo.json"), ServerStatusResponse.class);
+        .getResource("ServerStatus.json"), ServerStatusResponse.class);
   }
 
   @Override
@@ -45,5 +46,11 @@ public class ServerServiceImpl implements ServerService {
     }
     serverInfoResponse.setServerInfoList(serverInfoList);
     return serverInfoResponse;
+  }
+
+  @Override
+  public ServerLogOptionResponse getServerLogOption() throws IOException {
+    return objectMapper.readValue(ResourcesUtil.getInstance()
+        .getResource("ServerLogOption.json"), ServerLogOptionResponse.class);
   }
 }

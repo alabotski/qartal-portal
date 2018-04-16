@@ -1,0 +1,4 @@
+{
+  "webSocketUrl": "ws://localhost:8080/logInfo",
+  "logLevel": "ALL"
+}

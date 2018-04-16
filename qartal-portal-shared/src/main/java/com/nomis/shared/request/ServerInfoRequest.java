@@ -1,7 +1,7 @@
 package com.nomis.shared.request;
 
 /**
- * Please enter description.
+ * ServerInfoRequest.
  *
  * @author Aliaksei Labotski.
  * @since 4/15/18.

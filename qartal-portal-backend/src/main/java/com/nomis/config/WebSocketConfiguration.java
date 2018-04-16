@@ -1,5 +1,6 @@
 package com.nomis.config;
 
+import com.nomis.handler.LogInfoHandler;
 import com.nomis.handler.ServerInfoHandler;
 import java.util.concurrent.Executors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,13 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
   @Autowired
   private ServerInfoHandler serverInfoHandler;
 
+  @Autowired
+  private LogInfoHandler logInfoHandler;
+
   public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
     registry.addHandler(serverInfoHandler, "/serverStatus")
+        .setAllowedOrigins("*");
+    registry.addHandler(logInfoHandler, "/logInfo")
         .setAllowedOrigins("*");
   }
 

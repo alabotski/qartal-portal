@@ -12,7 +12,9 @@ public class CodecModule extends AbstractPresenterModule {
 
   @Override
   protected void configure() {
-    bind(ServerStatusCodec.class).asEagerSingleton();
+    bind(ServerStatusResponseCodec.class).asEagerSingleton();
+    bind(LogInfoResponseCodec.class).asEagerSingleton();
+    bind(LogInfoRequestCodec.class).asEagerSingleton();
   }
 
 }

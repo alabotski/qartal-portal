@@ -21,4 +21,10 @@ public interface LogOptionConstants extends Constants {
 
   @DefaultStringValue("setLogLevel")
   String setLogLevel();
+
+  @DefaultStringValue("serverLogOptionSuccess")
+  String serverLogOptionSuccess();
+
+  @DefaultStringValue("serverLogOptionError")
+  String serverLogOptionError();
 }

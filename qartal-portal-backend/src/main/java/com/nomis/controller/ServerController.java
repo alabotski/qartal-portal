@@ -5,6 +5,7 @@ import static org.springframework.http.HttpStatus.OK;
 import com.nomis.service.ServerService;
 import com.nomis.shared.request.ServerInfoRequest;
 import com.nomis.shared.response.ServerInfoResponse;
+import com.nomis.shared.response.ServerLogOptionResponse;
 import com.nomis.shared.response.ServerStatusResponse;
 import java.io.IOException;
 import lombok.extern.slf4j.Slf4j;
@@ -42,5 +43,11 @@ public class ServerController {
   public ResponseEntity<ServerInfoResponse> serverInfo(@RequestBody ServerInfoRequest serverInfoRequest) {
     ServerInfoResponse serverInfoResponse = serverService.getServerInfo(serverInfoRequest);
     return new ResponseEntity<>(serverInfoResponse, OK);
+  }
+
+  @GetMapping(value = "/serverLogOption", produces = MediaType.APPLICATION_JSON_VALUE)
+  public ResponseEntity<ServerLogOptionResponse> serverLogOption() throws IOException {
+    ServerLogOptionResponse serverLogOptionResponse = serverService.getServerLogOption();
+    return new ResponseEntity<>(serverLogOptionResponse, OK);
   }
 }

@@ -1,6 +1,8 @@
 package com.nomis.service;
 
+import com.nomis.shared.model.LogLevel;
 import java.util.List;
+import java.util.Map;
 import org.springframework.web.socket.WebSocketSession;
 
 /**
@@ -12,4 +14,7 @@ import org.springframework.web.socket.WebSocketSession;
 public interface SocketService {
 
   List<WebSocketSession> getWebSocketSessionList();
+
+  Map<WebSocketSession, LogLevel> getWebSocketSessionMap();
+
 }

@@ -2,8 +2,10 @@ package com.nomis.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nomis.config.JacksonConfiguration;
+import com.nomis.shared.model.LogLevel;
 import com.nomis.shared.request.ServerInfoRequest;
 import com.nomis.shared.response.ServerInfoResponse;
+import com.nomis.shared.response.ServerLogOptionResponse;
 import com.nomis.shared.response.ServerStatusResponse;
 import java.io.IOException;
 import org.junit.Assert;
@@ -45,12 +47,18 @@ public class ServerServiceTest {
 
 
   @Test
-  public void should_serverInfo() throws IOException {
+  public void should_serverInfo() {
     ServerInfoRequest serverInfoRequest = new ServerInfoRequest();
     serverInfoRequest.setId(1);
 
     ServerInfoResponse serverInfoResponse = serverServiceImpl.getServerInfo(serverInfoRequest);
     Assert.assertEquals(serverInfoResponse.getServerInfoList()
         .size(), 20);
+  }
+
+  @Test
+  public void should_serverLogOption() throws IOException {
+    ServerLogOptionResponse serverLogOptionResponse = serverServiceImpl.getServerLogOption();
+    Assert.assertEquals(serverLogOptionResponse.getLogLevel(), LogLevel.ALL);
   }
 }

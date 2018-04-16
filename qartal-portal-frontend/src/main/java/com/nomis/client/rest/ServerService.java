@@ -2,6 +2,7 @@ package com.nomis.client.rest;
 
 import com.nomis.shared.request.ServerInfoRequest;
 import com.nomis.shared.response.ServerInfoResponse;
+import com.nomis.shared.response.ServerLogOptionResponse;
 import com.nomis.shared.response.ServerStatusResponse;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -24,4 +25,8 @@ public interface ServerService extends RestService {
   @POST
   @Path("/server/serverInfo")
   void serverInfo(ServerInfoRequest serverInfoRequest, MethodCallback<ServerInfoResponse> callback);
+
+  @GET
+  @Path("/server/serverLogOption")
+  void serverLogOption(MethodCallback<ServerLogOptionResponse> callback);
 }

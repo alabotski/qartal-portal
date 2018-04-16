@@ -4,31 +4,31 @@ import com.google.gwt.event.shared.GwtEvent;
 import com.google.gwt.event.shared.HasHandlers;
 
 /**
- * LogRowEvent.
+ * LogInfoEvent.
  *
  * @author Aliaksei Labotski.
  * @since 4/16/18.
  */
-public class LogRowEvent extends GwtEvent<LogRowHandler> {
+public class LogInfoEvent extends GwtEvent<LogInfoHandler> {
 
-  public static final Type<LogRowHandler> TYPE = new Type<LogRowHandler>();
+  public static final Type<LogInfoHandler> TYPE = new Type<LogInfoHandler>();
 
-  public Type<LogRowHandler> getAssociatedType() {
+  public Type<LogInfoHandler> getAssociatedType() {
     return TYPE;
   }
 
-  protected void dispatch(LogRowHandler handler) {
+  protected void dispatch(LogInfoHandler handler) {
     handler.onLogRow(this);
   }
 
   private String logRow;
 
-  LogRowEvent(String logRow) {
+  LogInfoEvent(String logRow) {
     this.logRow = logRow;
   }
 
   public static void fire(HasHandlers source, String logRow) {
-    source.fireEvent(new LogRowEvent(logRow));
+    source.fireEvent(new LogInfoEvent(logRow));
   }
 
   public String getLogRow() {
