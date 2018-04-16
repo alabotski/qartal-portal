@@ -39,6 +39,10 @@ public class LogOptionWidget extends PresenterWidget<LogOptionWidget.MyView> imp
     void setLevel(List<String> levelList);
 
     void resetLogLevel();
+
+    void setEnabled(boolean enabled);
+
+    void setShowBtnText(String caption);
   }
 
   @Inject
@@ -53,6 +57,7 @@ public class LogOptionWidget extends PresenterWidget<LogOptionWidget.MyView> imp
   @Inject
   private LogInfoRequestCodec logInfoRequestCodec;
 
+  private boolean enabled;
   private String webSocketUrl;
   private WebSocket wsServerLog;
 
@@ -68,6 +73,7 @@ public class LogOptionWidget extends PresenterWidget<LogOptionWidget.MyView> imp
         .map(Enum::name)
         .collect(Collectors.toList());
     getView().setLevel(levelList);
+    setEnabled(false);
 
     addRegisteredHandler(LogOptionEvent.TYPE, this);
     super.onBind();
@@ -82,17 +88,20 @@ public class LogOptionWidget extends PresenterWidget<LogOptionWidget.MyView> imp
   @Override
   public void show() {
     wsDisconnect();
-    wsServerLog = WebSocket.newWebSocketIfSupported();
-    if (null != wsServerLog) {
-      wsServerLog.setListener(new WebSocketListenerAdapter() {
-        @Override
-        public void onMessage(final WebSocket webSocket, final String data) {
-          LogInfoResponse logInfoResponse = logInfoResponseCodec.decode(data);
-          LogInfoEvent.fire(LogOptionWidget.this, formatMessage(logInfoResponse));
-        }
-      });
-      wsServerLog.connect(webSocketUrl);
-      //      changeLogLevel();
+    setEnabled(!enabled);
+    if (enabled) {
+      wsServerLog = WebSocket.newWebSocketIfSupported();
+      if (null != wsServerLog) {
+        wsServerLog.setListener(new WebSocketListenerAdapter() {
+          @Override
+          public void onMessage(final WebSocket webSocket, final String data) {
+            LogInfoResponse logInfoResponse = logInfoResponseCodec.decode(data);
+            LogInfoEvent.fire(LogOptionWidget.this, formatMessage(logInfoResponse));
+          }
+        });
+        wsServerLog.connect(webSocketUrl);
+        //      changeLogLevel();
+      }
     }
     ClearEvent.fire(this);
   }
@@ -116,6 +125,7 @@ public class LogOptionWidget extends PresenterWidget<LogOptionWidget.MyView> imp
         wsDisconnect();
         webSocketUrl = response.getWebSocketUrl();
         getView().resetLogLevel();
+        setEnabled(false);
         ClearEvent.fire(LogOptionWidget.this);
         MessageEvent.fire(LogOptionWidget.this, logOptionConstants.serverLogOptionSuccess());
       }
@@ -149,5 +159,11 @@ public class LogOptionWidget extends PresenterWidget<LogOptionWidget.MyView> imp
       wsServerLog.send(logInfoRequestCodec.encode(logInfoRequest)
           .toString());
     }
+  }
+
+  private void setEnabled(boolean enabled) {
+    this.enabled = enabled;
+    getView().setEnabled(enabled);
+    getView().setShowBtnText(enabled ? logOptionConstants.stop() : logOptionConstants.start());
   }
 }

@@ -20,7 +20,7 @@
     <m:MaterialColumn grid="s2">
       <m:MaterialPanel textAlign="RIGHT">
         <m:MaterialButton text="{lang.aplay}" ui:field="btnAplay" marginRight="20"/>
-        <m:MaterialButton text="{lang.show}" ui:field="btnShow"/>
+        <m:MaterialButton text="{lang.start}" ui:field="btnShow"/>
       </m:MaterialPanel>
     </m:MaterialColumn>
   </m:MaterialPanel>

@@ -16,8 +16,11 @@ public interface LogOptionConstants extends Constants {
   @DefaultStringValue("aplay")
   String aplay();
 
-  @DefaultStringValue("show")
-  String show();
+  @DefaultStringValue("start")
+  String start();
+
+  @DefaultStringValue("stop")
+  String stop();
 
   @DefaultStringValue("setLogLevel")
   String setLogLevel();
