@@ -47,6 +47,17 @@ public class LogOptionView extends ViewWithUiHandlers<LogOptionUiHandlers> imple
     logLevel.setSelectedIndex(0);
   }
 
+  @Override
+  public void setEnabled(boolean enabled) {
+    logLevel.setEnabled(enabled);
+    btnAplay.setEnabled(enabled);
+  }
+
+  @Override
+  public void setShowBtnText(String caption) {
+    btnShow.setText(caption);
+  }
+
   @UiHandler("btnAplay")
   void onAplayClicked(ClickEvent event) {
     getUiHandlers().aplay(logLevel.getSingleValue());
