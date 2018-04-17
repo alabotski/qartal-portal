@@ -1,7 +1,6 @@
 package com.nomis.service;
 
 import com.nomis.dto.NodeDto;
-import java.util.Objects;
 
 /**
  * @author Artur Kushner
@@ -14,5 +13,7 @@ public interface NodesService {
   void removeNodeById(long id);
 
   NodeDto getNodeById(long id);
+
+  NodeDto getNodeByNodeType(String nodeType);
 
 }
