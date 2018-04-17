@@ -7,8 +7,10 @@ import java.util.Objects;
 import lombok.Data;
 
 /**
- * @author Artur Kushner
- * @since 4/17/18
+ * NodeDto.
+ *
+ * @author Artur Kushner.
+ * @since 4/17/18.
  */
 @Data
 public class NodeDto {
