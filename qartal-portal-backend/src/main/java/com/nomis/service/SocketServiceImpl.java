@@ -136,7 +136,7 @@ public class SocketServiceImpl implements SocketService {
               .stream()
               .filter(node -> node.getNodeType()
                   .equalsIgnoreCase(NodeName.NPO.toString()))
-              .map(node -> node.getStatus())
+              .map(NodeDto::getStatus)
               .findFirst()
               .orElse(ServerStatus.NOT_ACTUAL);
           break;
@@ -145,7 +145,7 @@ public class SocketServiceImpl implements SocketService {
               .stream()
               .filter(node -> node.getNodeType()
                   .equalsIgnoreCase(NodeName.Jobmanager.toString()))
-              .map(node -> node.getStatus())
+              .map(NodeDto::getStatus)
               .findFirst()
               .orElse(ServerStatus.NOT_ACTUAL);
           break;
@@ -154,7 +154,7 @@ public class SocketServiceImpl implements SocketService {
               .stream()
               .filter(node -> node.getNodeType()
                   .equalsIgnoreCase(NodeName.RabbitMQ.toString()))
-              .map(node -> node.getStatus())
+              .map(NodeDto::getStatus)
               .findFirst()
               .orElse(ServerStatus.NOT_ACTUAL);
           break;
@@ -163,7 +163,7 @@ public class SocketServiceImpl implements SocketService {
               .stream()
               .filter(node -> node.getNodeType()
                   .equalsIgnoreCase(NodeName.Service.toString()))
-              .map(node -> node.getStatus())
+              .map(NodeDto::getStatus)
               .findFirst()
               .orElse(ServerStatus.NOT_ACTUAL);
           break;
