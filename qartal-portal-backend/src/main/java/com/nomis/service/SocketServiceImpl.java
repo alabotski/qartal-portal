@@ -1,7 +1,6 @@
 package com.nomis.service;
 
 import static com.nomis.shared.model.ServerStatus.NOT_ACTUAL;
-import static com.nomis.shared.model.ServerStatus.RUNNING;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nomis.shared.model.LogLevel;
@@ -50,7 +49,7 @@ public class SocketServiceImpl implements SocketService {
   private ObjectMapper objectMapper;
 
   @Inject
-  private JobManagerClientService jobManagerClientService;
+  private NodesServiceImpl nodesService;
 
   @Scheduled(fixedRate = 3000)
   public void updateServerStatus() throws IOException {
@@ -122,21 +121,12 @@ public class SocketServiceImpl implements SocketService {
 
     serverStatusInfoList.forEach(serverInfo -> {
       ServerStatus serverStatus = NOT_ACTUAL;
-      switch (serverInfo.getId()) {
-        case 1:
-          serverStatus = RUNNING;
+      switch (serverInfo.getName()) {
+        case "NPO":
           break;
-        case 2:
+        case "JM":
           break;
-        case 3:
-          break;
-        case 4:
-          break;
-        case 5:
-          break;
-        case 6:
-          break;
-        case 7:
+        case "RabbitMQ":
           break;
         default:
           serverStatus = NOT_ACTUAL;
