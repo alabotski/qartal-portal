@@ -1,5 +1,7 @@
 package com.nomis.shared.model;
 
+import static org.apache.commons.lang3.StringUtils.isNotBlank;
+
 /**
  * ServerStatusInfo.
  *
@@ -27,8 +29,7 @@ public class ServerStatusInfo {
 
   public void setName(String name) {
     this.name = name;
-    if (name.toUpperCase()
-        .equals("SERVICES")) {
+    if (isNotBlank(name) && name.equals("SERVICES")) {
       setServerType(ServerType.CLUSTER);
     } else {
       setServerType(ServerType.SERVER);
