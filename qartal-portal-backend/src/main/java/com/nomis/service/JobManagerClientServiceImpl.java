@@ -74,16 +74,33 @@ public class JobManagerClientServiceImpl implements JobManagerClientService {
   private void pollForUpdate() {
     if (healthy()) {
       try {
-        jobManagerNode.setStatus(ServerStatus.ENABLE);
         listAllSimulatedJobs();
         listAllBaselinesJobs();
-
+        changeJobmanagerStatus();
       } catch (Exception ex) {
         log.error(ex.getMessage(), ex);
       }
     } else {
       jobManagerNode.setStatus(ServerStatus.DISABLED);
     }
+  }
+
+  private void changeJobmanagerStatus() {
+    SimulationJobs simulationJobs = getSimulationJobs();
+    BaselineJobs baselineJobs = getBaselineJobs();
+    if (!simulationJobs.getQueued()
+        .isEmpty()
+        || !simulationJobs.getRunning()
+        .isEmpty()
+        || !baselineJobs.getQueued()
+        .isEmpty()
+        || !baselineJobs.getRunning()
+        .isEmpty()) {
+      jobManagerNode.setStatus(ServerStatus.RUNNING);
+    } else {
+      jobManagerNode.setStatus(ServerStatus.ENABLE);
+    }
+
   }
 
   //TODO changeTo real healthCheck endpoint
