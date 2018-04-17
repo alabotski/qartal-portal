@@ -92,24 +92,27 @@ public class SocketServiceImpl implements SocketService {
       ServerInfoResponse serverInfoResponse = new ServerInfoResponse();
       List<ServerInfo> serverInfoList = new ArrayList<>();
       NodeDto nodeDto = nodesService.getNodeById(id.longValue());
-      nodeDto.getNodeInfo()
-          .entrySet()
-          .stream()
-          .filter(Objects::nonNull)
-          .forEach(entry -> {
-            ServerInfo info = new ServerInfo();
-            info.setKey(entry.getKey());
-            info.setValue(entry.getValue()
-                .toString());
-            serverInfoList.add(info);
-          });
-      serverInfoResponse.setServerInfoList(serverInfoList);
-      try {
-        webSocketSession
-            .sendMessage(new TextMessage(objectMapper.writeValueAsString(serverInfoResponse)));
-      } catch (IOException e) {
-        log.error("updateServiceInfo", e);
+      if(Objects.nonNull(nodeDto)) {
+        nodeDto.getNodeInfo()
+            .entrySet()
+            .stream()
+            .filter(Objects::nonNull)
+            .forEach(entry -> {
+              ServerInfo info = new ServerInfo();
+              info.setKey(entry.getKey());
+              info.setValue(entry.getValue()
+                  .toString());
+              serverInfoList.add(info);
+            });
+        serverInfoResponse.setServerInfoList(serverInfoList);
+        try {
+          webSocketSession
+              .sendMessage(new TextMessage(objectMapper.writeValueAsString(serverInfoResponse)));
+        } catch (IOException e) {
+          log.error("updateServiceInfo", e);
+        }
       }
+
     });
   }
 
