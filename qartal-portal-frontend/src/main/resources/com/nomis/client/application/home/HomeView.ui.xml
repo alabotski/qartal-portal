@@ -3,18 +3,25 @@
 
   <ui:with field="lang" type="com.nomis.client.application.home.HomeConstants"/>
 
-  <m:MaterialPanel>
-    <m:MaterialRow>
-      <m:MaterialColumn grid="s3">
-        <m:MaterialRow>
-          <m:MaterialColumn grid="s12 m12 l12" ui:field="serverCollection"/>
-        </m:MaterialRow>
-        <m:MaterialRow>
-          <m:MaterialColumn grid="s12 m12 l12" ui:field="clusterCollection"/>
-        </m:MaterialRow>
-      </m:MaterialColumn>
+  <ui:style gss="true">
+    .serverCollectionWrapper {
+      display: flex;
+      justify-content: center;
+    }
+  </ui:style>
 
-      <m:MaterialColumn grid="s9">
+  <m:MaterialPanel>
+    <m:MaterialRow addStyleNames="valign-wrapper">
+      <m:MaterialColumn grid="s9 m9 l9">
+        <m:MaterialRow addStyleNames="valign-wrapper" ui:field="serverCollection"/>
+      </m:MaterialColumn>
+      <m:MaterialColumn grid="s3 m3 l3">
+        <m:MaterialRow ui:field="clusterCollection"/>
+      </m:MaterialColumn>
+    </m:MaterialRow>
+
+    <m:MaterialRow>
+      <m:MaterialColumn grid="s12 m12 l12">
         <m:MaterialRow>
           <m:MaterialColumn grid="s12">
             <m:MaterialTab ui:field="tab" indicatorColor="YELLOW" shadow="1">

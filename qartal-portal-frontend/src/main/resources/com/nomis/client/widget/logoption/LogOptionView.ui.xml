@@ -14,14 +14,12 @@
   </ui:style>
 
   <m:MaterialPanel addStyleNames="{style.panel}">
-    <m:MaterialColumn grid="s10">
+    <m:MaterialColumn grid="s9 m9 l9">
       <ma:combobox.MaterialComboBox ui:field="logLevel" label="{lang.logLevel}"/>
     </m:MaterialColumn>
-    <m:MaterialColumn grid="s2">
+    <m:MaterialColumn grid="s3 m3 l3">
       <m:MaterialPanel textAlign="RIGHT">
-        <m:MaterialButton text="{lang.apply}" ui:field="btnAplay" marginRight="10"/>
-        <m:MaterialButton text="{lang.show}" ui:field="btnShow"/>
-        <m:MaterialButton text="{lang.aplay}" ui:field="btnAplay" marginRight="20"/>
+        <m:MaterialButton text="{lang.apply}" ui:field="btnAplay" marginRight="20"/>
         <m:MaterialButton text="{lang.start}" ui:field="btnShow"/>
       </m:MaterialPanel>
     </m:MaterialColumn>

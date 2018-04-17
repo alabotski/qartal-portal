@@ -30,6 +30,10 @@ public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyVie
     void setServerStatusText(String serverStatusName);
 
     void setServerStatusColor(Color color);
+
+    void setGrid(String grid);
+
+    void setWidth(String width);
   }
 
   //  @Inject
@@ -90,12 +94,16 @@ public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyVie
         getView().setServerStatusColor(Color.GREEN);
         break;
       case DISABLED:
-        getView().setImage(qartalPortalBundle.disable());
+        getView().setImage(qartalPortalBundle.disabled());
         getView().setServerStatusColor(Color.RED);
         break;
       case RUNNING:
         getView().setImage(qartalPortalBundle.running());
         getView().setServerStatusColor(Color.BLUE);
+        break;
+      case NOT_ACTUAL:
+        getView().setImage(qartalPortalBundle.notActual());
+        getView().setServerStatusColor(Color.GREY);
         break;
       default:
         break;
@@ -106,5 +114,15 @@ public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyVie
   @Override
   public int getServerId() {
     return serverStatusInfo.getId();
+  }
+
+  @Override
+  public void setGrid(String grid) {
+    getView().setGrid(grid);
+  }
+
+  @Override
+  public void setWidth(String width) {
+    getView().setWidth(width);
   }
 }

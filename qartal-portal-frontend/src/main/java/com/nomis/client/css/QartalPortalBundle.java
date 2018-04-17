@@ -8,20 +8,26 @@ import com.google.gwt.resources.client.ImageResource;
 
 public interface QartalPortalBundle extends ClientBundle {
 
+  String MIME_TYPE = "image/svg+xml";
+
   @Source("404.jpg")
   ImageResource error();
 
   @Source("running.svg")
-  @MimeType("image/svg+xml")
+  @MimeType(MIME_TYPE)
   DataResource running();
 
   @Source("enable.svg")
-  @MimeType("image/svg+xml")
+  @MimeType(MIME_TYPE)
   DataResource enable();
 
-  @Source("disable.svg")
-  @MimeType("image/svg+xml")
-  DataResource disable();
+  @Source("disabled.svg")
+  @MimeType(MIME_TYPE)
+  DataResource disabled();
+
+  @Source("notactual.svg")
+  @MimeType(MIME_TYPE)
+  DataResource notActual();
 
   @Source("QartalPortal.gss")
   Style style();

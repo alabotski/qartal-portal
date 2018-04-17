@@ -8,8 +8,8 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import gwt.material.design.client.constants.Color;
-import gwt.material.design.client.ui.MaterialCard;
 import gwt.material.design.client.ui.MaterialCardTitle;
+import gwt.material.design.client.ui.MaterialColumn;
 import gwt.material.design.client.ui.MaterialImage;
 import gwt.material.design.client.ui.MaterialLabel;
 import gwt.material.design.client.ui.MaterialLink;
@@ -22,9 +22,12 @@ import gwt.material.design.client.ui.MaterialLink;
  */
 public class ServerStatusView extends ViewWithUiHandlers<ServerStatusUiHandlers> implements ServerStatusWidget.MyView {
 
-  interface Binder extends UiBinder<MaterialCard, ServerStatusView> {
+  interface Binder extends UiBinder<MaterialColumn, ServerStatusView> {
 
   }
+
+  @UiField
+  MaterialColumn serverStatusWrapper;
 
   @UiField
   MaterialImage serverIcon;
@@ -57,7 +60,6 @@ public class ServerStatusView extends ViewWithUiHandlers<ServerStatusUiHandlers>
   @Override
   public void setServerStatusText(String serverStatusName) {
     serverStatus.setText(serverStatusName);
-
   }
 
   @Override
@@ -65,8 +67,19 @@ public class ServerStatusView extends ViewWithUiHandlers<ServerStatusUiHandlers>
     serverStatus.setTextColor(color);
   }
 
+  @Override
+  public void setGrid(String grid) {
+    serverStatusWrapper.setGrid(grid);
+  }
+
+  @Override
+  public void setWidth(String width) {
+    serverStatusWrapper.setWidth(width);
+  }
+
   @UiHandler("showInfo")
   void onShowInfoClicked(ClickEvent event) {
     getUiHandlers().getServerInfo();
   }
+
 }

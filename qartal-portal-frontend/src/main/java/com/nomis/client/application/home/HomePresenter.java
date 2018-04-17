@@ -141,17 +141,19 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
     //    clearSlot(SLOT_SERVER_CONTENT);
     //    clearSlot(SLOT_CLUSTER_CONTENT);
 
-    serverStatusInfoList.forEach(serverInfo -> {
-      ServerStatusWidget serverInfoWidget = serverStatusWidgetProvider.get();
-      serverInfoWidget.setServerStatusInfo(serverInfo);
-      switch (serverInfo.getServerType()) {
+    serverStatusInfoList.forEach(serverStatusInfo -> {
+      ServerStatusWidget serverStatusWidget = serverStatusWidgetProvider.get();
+      serverStatusWidget.setServerStatusInfo(serverStatusInfo);
+      switch (serverStatusInfo.getServerType()) {
         case SERVER:
+          //          serverStatusWidget.setWidth("100%");
           addToSlot(SLOT_SERVER_CONTENT, serverInfoWidget);
-          serverList.add(serverInfoWidget);
+          serverList.add(serverStatusWidget);
           break;
         case CLUSTER:
+          serverStatusWidget.setGrid("s12 m12 l12");
           addToSlot(SLOT_CLUSTER_CONTENT, serverInfoWidget);
-          clusterList.add(serverInfoWidget);
+          clusterList.add(serverStatusWidget);
           break;
         default:
           break;
