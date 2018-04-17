@@ -7,14 +7,18 @@
         "vertical": "DEPOSITS",
         "product": "Nomis Price Optimizer",
         "customer": "Nomis Solutions",
-        "version": "4.10 (379, 2018-02-27)"
+        "version": "4.10 (379, 2018-02-27)",
+        "npoUi": "http://192.168.50.142:7001/nomis/plan#"
       }
     },
     {
       "ipAddress": "192.168.50.142",
       "nodeType": "JM",
       "status": "DISABLED",
-      "nodeProperties": {}
+      "nodeProperties": {
+        "profile": "dev",
+        "services": "true"
+      }
     },
     {
       "ipAddress": "192.168.50.142",
@@ -22,7 +26,8 @@
       "status": "DISABLED",
       "nodeProperties": {
         "user" : "nomisadmin",
-        "password" : "nomis"
+        "password" : "nomis",
+        "rabbitMq": "http://192.168.50.142:15672/#/queues"
       }
     }
 ]
