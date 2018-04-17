@@ -2,8 +2,8 @@ package com.nomis.config;
 
 import com.nomis.rabbit.converter.ActionType;
 import com.nomis.rabbit.exception.CustomExceptionStrategy;
-import com.nomis.rabbit.service.AMQPRoutingKeysService;
 import com.nomis.rabbit.service.AmqpPropertyService;
+import com.nomis.rabbit.service.AmqpRoutingKeysService;
 import com.nomis.rabbit.status.TaskStatusManager;
 import com.nomis.rabbit.status.TaskStatusManagerImpl;
 import java.util.ArrayList;
@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.core.Binding;
 import org.springframework.amqp.core.BindingBuilder;
@@ -24,47 +25,43 @@ import org.springframework.amqp.rabbit.connection.CachingConnectionFactory;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitAdmin;
 import org.springframework.amqp.rabbit.listener.ConditionalRejectingErrorHandler;
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 
 
 /**
- * @author Sokolov
+ * RabbitConfiguration.
+ *
+ * @author Sokolov.
  */
-@Configuration
+@SpringBootConfiguration
 @EnableRabbit
-@ComponentScan(
-    value = {"com.nomis"})
+@Slf4j
 public class RabbitConfiguration {
-
 
   @Inject
   private AmqpPropertyService propertyService;
 
   @Inject
-  private AMQPRoutingKeysService routingKeysService;
+  private AmqpRoutingKeysService routingKeysService;
 
   @Inject
-  CustomExceptionStrategy customExceptionStrategy;
+  private CustomExceptionStrategy customExceptionStrategy;
 
   private Map<ActionType, Queue> queuesMap;
 
 
   @Bean
   public ConnectionFactory rabbitConnectionFactory() {
-    CachingConnectionFactory connectionFactory = new CachingConnectionFactory(
-        propertyService.getAmqpHost());
-    connectionFactory.setCacheMode(
-        CachingConnectionFactory.CacheMode.CHANNEL); // Mandatory option. Only this cash mode permit auto-declaring of queues in rabbitMq broker.
+    CachingConnectionFactory connectionFactory = new CachingConnectionFactory(propertyService.getAmqpHost());
+    // Mandatory option. Only this cash mode permit auto-declaring of queues in rabbitMq broker.
+    connectionFactory.setCacheMode(CachingConnectionFactory.CacheMode.CHANNEL);
     connectionFactory.setPort(propertyService.getAmqpPort());
     connectionFactory.setUsername(propertyService.getAmqpUser());
     connectionFactory.setPassword(propertyService.getAmqpPassword());
-
     return connectionFactory;
   }
-
 
   @Bean
   public AmqpAdmin rabbitAdmin(ConnectionFactory factory) {
@@ -80,7 +77,6 @@ public class RabbitConfiguration {
 
   }
 
-
   @Bean
   Exchange exchange() {
     TopicExchange exchange = new TopicExchange(propertyService.getTopicExchangeName(), true,
@@ -88,7 +84,6 @@ public class RabbitConfiguration {
     exchange.setShouldDeclare(true);
     return exchange;
   }
-
 
   @Bean
   @DependsOn("queues")
@@ -109,10 +104,8 @@ public class RabbitConfiguration {
     return handler;
   }
 
-
   @Bean
   public SimpleRabbitListenerContainerFactory rabbitListenerContainerFactory(ConnectionFactory connectionFactory) {
-
     SimpleRabbitListenerContainerFactory factory = new SimpleRabbitListenerContainerFactory();
     factory.setConnectionFactory(connectionFactory);
     factory.setConcurrentConsumers(1);
@@ -121,7 +114,6 @@ public class RabbitConfiguration {
     factory.setErrorHandler(conditionalRejectingErrorHandler());
     return factory;
   }
-
 
   @Bean
   public TaskStatusManager taskStatusManager() {
@@ -137,8 +129,6 @@ public class RabbitConfiguration {
    * @return List of {@link Binding} for RabbitMq
    */
   private List<Binding> getBindingByServiceType() {
-    ActionType serviceType = propertyService.getServiceType();
-
     List<Binding> bindingList = new ArrayList<>(3);
 
     //add binding for STATUS queue
@@ -157,6 +147,7 @@ public class RabbitConfiguration {
         .with(propertyService.getDefaultConfigQueue())
         .noargs());
 
+    ActionType serviceType = propertyService.getServiceType();
     if (serviceType.equals(ActionType.NOMISSERVICES)) {
 
       //add binding for OPTIMIZATION queue
@@ -194,17 +185,14 @@ public class RabbitConfiguration {
           .noargs());
 
     } else if (serviceType.equals(ActionType.BASELINE)) {
-
       //add binding for BASELINE queue
       bindingList.add(BindingBuilder.bind(queuesMap.get(ActionType.BASELINE))
           .to(exchange())
           .with(propertyService.getBaselineResponseQueue())
           .noargs());
-
     } else {
-
-      throw new RuntimeException(
-          "Unknown service type in application.yml file - " + serviceType);
+      log.error("Unknown service type in application.yml file - " + serviceType);
+      //      throw new RuntimeException("Unknown service type in application.yml file - " + serviceType);
     }
 
     return bindingList;
@@ -220,8 +208,6 @@ public class RabbitConfiguration {
    * @return List of {@link Binding} for RabbitMq
    */
   public List<Queue> getQueuesByServiceType() {
-    ActionType serviceType = propertyService.getServiceType();
-
     queuesMap = new HashMap<>(3);
 
     Queue statusQueue = new Queue(routingKeysService.defaultStatusQueue(), true, false, false);
@@ -240,6 +226,7 @@ public class RabbitConfiguration {
     queuesMap.put(ActionType.LOG, logQueue);
     queuesMap.put(ActionType.CONFIG, configQueue);
 
+    ActionType serviceType = propertyService.getServiceType();
     if (serviceType.equals(ActionType.NOMISSERVICES)) {
       //add OPTIMIZATION queue
       queuesMap.put(ActionType.OPTIMIZATION, optimizationQueue);
@@ -266,9 +253,8 @@ public class RabbitConfiguration {
       queuesMap.put(ActionType.BASELINE, baselineQueue);
 
     } else {
-
-      throw new RuntimeException(
-          "Unknown service type in application.yml file - " + serviceType);
+      log.error("Unknown service type in application.yml file - " + serviceType);
+      //      throw new RuntimeException("Unknown service type in application.yml file - " + serviceType);
     }
 
     return queuesMap.entrySet()

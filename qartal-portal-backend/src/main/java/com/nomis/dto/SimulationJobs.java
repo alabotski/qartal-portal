@@ -10,6 +10,6 @@ import lombok.Data;
 @Data
 public class SimulationJobs {
 
-  List<Simulation> queued;
-  List<Simulation> running;
+  private List<Simulation> queued;
+  private List<Simulation> running;
 }

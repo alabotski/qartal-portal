@@ -10,6 +10,6 @@ import lombok.Data;
 @Data
 public class BaselineJobs {
 
-  List<Baseline> queued;
-  List<Baseline> running;
+  private List<Baseline> queued;
+  private List<Baseline> running;
 }

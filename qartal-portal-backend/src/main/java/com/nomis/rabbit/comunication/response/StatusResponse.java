@@ -4,7 +4,9 @@ import com.nomis.rabbit.comunication.ServiceStatus;
 import com.nomis.rabbit.comunication.ServiceStatusInfo;
 
 /**
- * @author Alexander Sokolov
+ * StatusResponse.
+ *
+ * @author Alexander Sokolov.
  */
 public class StatusResponse extends ServiceQueueResponse {
 
@@ -35,16 +37,10 @@ public class StatusResponse extends ServiceQueueResponse {
 
   @Override
   public String toString() {
-    return "StatusResponse{" +
-        "serviceStatus=" + serviceStatus.getStatus() +
-        "documentId="
+    return "StatusResponse{ serviceStatus=" + serviceStatus.getStatus() + "documentId="
         + (serviceStatus.getDocumentId() != null ? serviceStatus.getDocumentId() : "null")
-        + "tenantId="
-        + (serviceStatus.getTenantId() != null ? serviceStatus.getTenantId() : "null")
-        + "documentName="
-        + (serviceStatus.getDocumentName() != null ? serviceStatus.getDocumentName() : "null")
-        + ", message='" + message + '\'' +
-        ", IP='" + super.getIP() + '\'' +
-        '}';
+        + "tenantId=" + (serviceStatus.getTenantId() != null ? serviceStatus.getTenantId() : "null")
+        + "documentName=" + (serviceStatus.getDocumentName() != null ? serviceStatus.getDocumentName() : "null")
+        + ", message='" + message + "'\' IP='" + super.getIpAddress() + " '\'}";
   }
 }

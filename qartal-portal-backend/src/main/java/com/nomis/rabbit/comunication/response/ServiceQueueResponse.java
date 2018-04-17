@@ -2,31 +2,34 @@ package com.nomis.rabbit.comunication.response;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * @author Alexander Sokolov
+ * ServiceQueueResponse.
+ *
+ * @author Alexander Sokolov.
  */
+@Slf4j
 public abstract class ServiceQueueResponse {
 
-  private String IP;
+  private String ipAddress;
 
   {
     try {
-      this.IP = InetAddress.getLocalHost()
+      this.ipAddress = InetAddress.getLocalHost()
           .getHostAddress();
     } catch (UnknownHostException ex) {
-      throw new RuntimeException(ex);
+      log.error("ServiceQueueResponse", ex);
     }
   }
 
 
-  public String getIP() {
-    return IP;
+  public String getIpAddress() {
+    return ipAddress;
   }
 
-  public void setIP(String IP) {
-    this.IP = IP;
+  public void setIpAddress(String ipAddress) {
+    this.ipAddress = ipAddress;
   }
-
 
 }

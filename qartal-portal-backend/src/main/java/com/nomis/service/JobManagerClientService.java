@@ -8,7 +8,6 @@ import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import lombok.Data;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -17,7 +16,7 @@ import org.springframework.web.client.RestTemplate;
  * Created by Eugene Tsydzik
  * on 4/14/18.
  */
-@Log4j2
+@Slf4j
 @Service
 @Data
 public class JobManagerClientService {
@@ -40,10 +39,10 @@ public class JobManagerClientService {
   private void pollForUpdate() {
 
     simulationJobs = listAllSimulatedJobs();
-//    log.info(simulationJobs);
+    //    log.info(simulationJobs);
 
     baselineJobs = listAllBaselinesJobs();
-//    log.info(baselineJobs);
+    //    log.info(baselineJobs);
   }
 
   private SimulationJobs listAllSimulatedJobs() {

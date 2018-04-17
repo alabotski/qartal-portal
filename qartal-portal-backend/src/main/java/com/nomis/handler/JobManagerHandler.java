@@ -6,10 +6,9 @@ import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.CloseStatus;
-import org.springframework.web.socket.WebSocketHandler;
 import org.springframework.web.socket.WebSocketMessage;
 import org.springframework.web.socket.WebSocketSession;
-import org.springframework.web.socket.handler.AbstractWebSocketHandler;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 /**
  * Created by Eugene Tsydzik
@@ -17,7 +16,7 @@ import org.springframework.web.socket.handler.AbstractWebSocketHandler;
  */
 @Component
 @Slf4j
-public class JobmanagerWebSocketHandler extends AbstractWebSocketHandler implements WebSocketHandler {
+public class JobManagerHandler extends TextWebSocketHandler {
 
   @Inject
   private JobmanagerSessionService jobmanagerSessionService;

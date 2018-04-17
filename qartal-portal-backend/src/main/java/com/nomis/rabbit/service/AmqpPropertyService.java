@@ -3,13 +3,18 @@ package com.nomis.rabbit.service;
 
 import com.nomis.rabbit.converter.ActionType;
 import javax.validation.constraints.NotNull;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Alexander Sokolov
+ * AmqpPropertyService.
+ *
+ * @author Alexander Sokolov.
  */
 @Service
+@Slf4j
 public class AmqpPropertyService {
 
   @Value("${spring.rabbitmq.amqpHost}")
@@ -26,7 +31,6 @@ public class AmqpPropertyService {
 
   @Value("${spring.rabbitmq.amqpPort}")
   private int amqpPort;
-
 
   @Value("${spring.rabbitmq.topic.exchange}")
   @NotNull
@@ -119,27 +123,23 @@ public class AmqpPropertyService {
 
   public String getResponseQueue(ActionType actionType) {
     if (serviceType.equals(ActionType.NOMISSERVICES)) {
-
       return getResponseQueueForCombinedService(actionType);
-
     } else if (serviceType.equals(ActionType.OPTIMIZATION)
         || serviceType.equals(ActionType.SIMULATION)
         || serviceType.equals(ActionType.BASELINE)) {
-
       return getResponseQueueForSingleService(actionType);
     } else if (serviceType.equals(ActionType.UNDEFINED)) {
-
       return getDefaultStatusQueue();
-
     } else {
-      throw new RuntimeException(
-          "Unknown service type in application.yml file - " + serviceType);
+      log.error("Unknown service type in application.yml file - " + serviceType);
+      return StringUtils.EMPTY;
+      //      throw new RuntimeException("Unknown service type in application.yml file - " + serviceType);
     }
   }
 
   /**
-   * This method is used to get response queue name when application is running as
-   * single service (can execute OPTIMIZATION or SIMULATION, but not both)
+   * This method is used to get response queue name when application is running as single service (can execute
+   * OPTIMIZATION or SIMULATION, but not both).
    */
   private String getResponseQueueForSingleService(ActionType actionType) {
 
@@ -155,17 +155,19 @@ public class AmqpPropertyService {
       return "Baseline";
 
     } else {
-
-      throw new RuntimeException(
-          "Mismatch for service and action types. Service of type " + serviceType + "cant perform action of type "
-              + actionType);
+      log.error("Mismatch for service and action types. Service of type " + serviceType + "cant perform action of type "
+          + actionType);
+      return StringUtils.EMPTY;
+      //      throw new RuntimeException(
+      //        "Mismatch for service and action types. Service of type " + serviceType + "cant perform action of type "
+      //              + actionType);
 
     }
   }
 
   /**
-   * This method is used to get response queue name when application is running as
-   * combined service (can execute OPTIMIZATION and SIMULATION)
+   * This method is used to get response queue name when application is running as combined service (can execute
+   * OPTIMIZATION and SIMULATION).
    */
   private String getResponseQueueForCombinedService(ActionType actionType) {
     switch (actionType) {
@@ -191,7 +193,9 @@ public class AmqpPropertyService {
         return getDefaultConfigQueue();
 
       default:
-        throw new RuntimeException("Failed to get response queue name");
+        log.error("Failed to get response queue name");
+        // throw new RuntimeException("Failed to get response queue name");
+        return StringUtils.EMPTY;
     }
   }
 }

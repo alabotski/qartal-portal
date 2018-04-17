@@ -1,7 +1,9 @@
 package com.nomis.rabbit.comunication;
 
 /**
- * @author Alexander Sokolov
+ * ServiceStatus.
+ *
+ * @author Alexander Sokolov.
  */
 public enum ServiceStatus {
   READY, BUSY, ERROR, CANCELLING

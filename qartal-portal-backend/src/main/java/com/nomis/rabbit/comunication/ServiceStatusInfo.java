@@ -1,7 +1,9 @@
 package com.nomis.rabbit.comunication;
 
 /**
- * @author Alexander Sokolov
+ * ServiceStatusInfo.
+ *
+ * @author Alexander Sokolov.
  */
 public class ServiceStatusInfo {
 

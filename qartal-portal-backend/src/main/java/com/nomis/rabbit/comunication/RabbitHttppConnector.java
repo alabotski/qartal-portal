@@ -6,7 +6,6 @@ import com.rabbitmq.http.client.domain.QueueInfo;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javax.inject.Inject;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -19,18 +18,15 @@ public class RabbitHttppConnector {
   private AmqpPropertyService propertyService;
 
   public void itit() throws IOException, URISyntaxException {
-    Client client = new Client(getURI(),
-        propertyService.getAmqpUser(), propertyService.getAmqpPassword());
-
+    Client client = new Client(getUri(), propertyService.getAmqpUser(), propertyService.getAmqpPassword());
     log.info("ClusterName:" + client.getOverview()
         .getClusterName());
-    for (QueueInfo i :
-        client.getQueues()) {
+    for (QueueInfo i : client.getQueues()) {
       log.info(" queue with name: " + i.getName());
     }
   }
 
-  private String getURI() {
+  private String getUri() {
     return "http://" + propertyService.getAmqpHost() + ":15672/api/";
   }
 

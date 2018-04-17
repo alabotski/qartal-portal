@@ -1,7 +1,9 @@
 package com.nomis.rabbit.status;
 
 /**
- * @author Alexander Sokolov
+ * TaskStatusManager.
+ *
+ * @author Alexander Sokolov.
  */
 public interface TaskStatusManager {
 

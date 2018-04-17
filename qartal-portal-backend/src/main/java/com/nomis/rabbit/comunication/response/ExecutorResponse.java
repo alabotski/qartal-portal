@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 
 
 /**
- * @author Sokolov
+ * ExecutorResponse.
+ *
+ * @author Sokolov.
  */
 @JsonInclude(JsonInclude.Include.ALWAYS)
 public class ExecutorResponse extends ServiceQueueResponse {
@@ -68,10 +70,6 @@ public class ExecutorResponse extends ServiceQueueResponse {
     return asynchStatus;
   }
 
-  public void setAsynchStatus(int asynchStatus) {
-    this.asynchStatus = asynchStatus;
-  }
-
   public Integer getSolutionStatus() {
     return solutionStatus;
   }
@@ -95,7 +93,6 @@ public class ExecutorResponse extends ServiceQueueResponse {
   public void setActionType(String actionType) {
     this.actionType = actionType;
   }
-
 
   public void setAsynchStatus(Integer asynchStatus) {
     this.asynchStatus = asynchStatus;

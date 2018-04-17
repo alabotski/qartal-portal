@@ -4,26 +4,26 @@ package com.nomis.rabbit.listeners;
 import com.nomis.rabbit.comunication.RabbitHttppConnector;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import javax.inject.Inject;
-import lombok.extern.log4j.Log4j2;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.Message;
-import org.springframework.amqp.rabbit.annotation.EnableRabbit;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Alexander Sokolov
+ * RabbitMqListener.
+ *
+ * @author Alexander Sokolov.
  */
 @Slf4j
-@EnableRabbit
 @Component
 public class RabbitMqListener {
 
-  private HashMap<String, String> mapOfMessages = new HashMap<>();
+  private Map<String, String> mapOfMessages = new HashMap<>();
 
   @Inject
   private RabbitHttppConnector rabbitHttppConnector;
@@ -31,23 +31,20 @@ public class RabbitMqListener {
   @RabbitListener(queues = {"logmessages", "basResponseQueue", "simResponseQueue"})
   public void processQueue1(Message message) {
     mapOfMessages.put(getKey(message.getMessageProperties()
-        .getReceivedRoutingKey()), decodeUTF8(message.getBody()));
+        .getReceivedRoutingKey()), decodeUtf8(message.getBody()));
     log.info("Received from queue: " + message.getMessageProperties()
-        .toString() + "  with body" + decodeUTF8
-        (message.getBody()));
+        .toString() + "  with body" + decodeUtf8(message.getBody()));
     try {
       rabbitHttppConnector.itit();
     } catch (IOException e) {
-      e.printStackTrace();
+      log.error("processQueue1", e);
     } catch (URISyntaxException e) {
-      e.printStackTrace();
+      log.error("processQueue1", e);
     }
   }
 
-  private final Charset UTF8_CHARSET = Charset.forName("UTF-8");
-
-  private String decodeUTF8(byte[] bytes) {
-    return new String(bytes, UTF8_CHARSET);
+  private String decodeUtf8(byte[] bytes) {
+    return new String(bytes, StandardCharsets.UTF_8);
   }
 
   private String getKey(String receivedRoutingKey) {

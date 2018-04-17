@@ -1,8 +1,13 @@
 package com.nomis.rabbit.converter;
 
+import lombok.extern.slf4j.Slf4j;
+
 /**
- * @author Alexander Sokolov
+ * ActionType.
+ *
+ * @author Alexander Sokolov.
  */
+@Slf4j
 public enum ActionType {
 
   SIMULATION, OPTIMIZATION, BASELINE, NOMISSERVICES, CONFIG, STATUS, ERROR, LOG, CANCEL, UNDEFINED;
@@ -15,10 +20,10 @@ public enum ActionType {
    */
   public static ActionType getFromRoutingKey(String routingKey) {
     try {
-      return ActionType.valueOf(
-          routingKey.toUpperCase()
-              .substring(routingKey.lastIndexOf(".") + 1));
+      return ActionType.valueOf(routingKey.toUpperCase()
+          .substring(routingKey.lastIndexOf('.') + 1));
     } catch (IllegalArgumentException e) {
+      log.error("getFromRoutingKey", e);
       return UNDEFINED;
     }
   }

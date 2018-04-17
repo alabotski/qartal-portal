@@ -6,24 +6,23 @@ import com.nomis.rabbit.comunication.response.StatusResponse;
 import com.nomis.rabbit.converter.ActionType;
 import com.nomis.rabbit.service.AmqpPropertyService;
 import javax.inject.Inject;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.listener.ConditionalRejectingErrorHandler;
 import org.springframework.amqp.rabbit.listener.exception.ListenerExecutionFailedException;
 import org.springframework.stereotype.Component;
 
 /**
- * @author Alexander Sokolov
+ * CustomExceptionStrategy.
+ *
+ * @author Alexander Sokolov.
  */
 @Component
+@Slf4j
 public class CustomExceptionStrategy extends ConditionalRejectingErrorHandler.DefaultExceptionStrategy {
 
-  private static final Logger log = LogManager.getLogger(
-      CustomExceptionStrategy.class);
-
   @Inject
-  AmqpPropertyService propertyService;
+  private AmqpPropertyService propertyService;
 
   @Inject
   private RabbitTemplate rabbitTemplate;
@@ -38,8 +37,7 @@ public class CustomExceptionStrategy extends ConditionalRejectingErrorHandler.De
    * Because we use exclusive queues such behaviour may lead to infinite cycle
    * of redispatching message which throws exception to the same queue.
    *
-   * @param cause {@link Throwable} object which was thrown during message convertation to Java
-   * type
+   * @param cause {@link Throwable} object which was thrown during message convertation to Java type.
    * @return always return 'false'.
    */
   @Override
@@ -49,8 +47,8 @@ public class CustomExceptionStrategy extends ConditionalRejectingErrorHandler.De
 
 
   /**
-   * Marks all exceptions which can be thrown during request processing as fatal which prevents
-   * messages from requeueing
+   * Marks all exceptions which can be thrown during request processing as fatal which prevents messages from
+   * requeueing.
    */
   @Override
   public boolean isFatal(Throwable t) {
@@ -72,12 +70,6 @@ public class CustomExceptionStrategy extends ConditionalRejectingErrorHandler.De
     return true;
   }
 
-  /**
-   * Sends responce to RabbitMQ with 'error' status if {@link org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer}
-   *
-   * @param actionType type of incoming request
-   * @param message error message for response
-   */
   public void sendInputError(ActionType actionType, String message) {
 
     StatusResponse inputError = new StatusResponse();
