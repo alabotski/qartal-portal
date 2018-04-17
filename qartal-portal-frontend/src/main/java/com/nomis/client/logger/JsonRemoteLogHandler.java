@@ -1,8 +1,6 @@
 package com.nomis.client.logger;
 
-import com.google.gwt.core.client.GWT;
 import com.google.gwt.logging.client.RemoteLogHandlerBase;
-import com.nomis.client.rest.LoggerService;
 import java.util.logging.LogRecord;
 
 /**
@@ -13,7 +11,7 @@ import java.util.logging.LogRecord;
  */
 public class JsonRemoteLogHandler extends RemoteLogHandlerBase {
 
-  private static final LoggerService loggerService = GWT.create(LoggerService.class);
+  //  private static final LoggerService loggerService = GWT.create(LoggerService.class);
 
   @Override
   public void publish(LogRecord logRecord) {

@@ -15,9 +15,6 @@ public enum NodeName {
 
   private final String text;
 
-  /**
-   * @param text
-   */
   NodeName(final String text) {
     this.text = text;
   }

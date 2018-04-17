@@ -41,13 +41,11 @@ public class RabbitHttppConnector {
   public synchronized Client getClient() {
     if (client == null) {
       try {
-        client = new Client(getURI(),
-            propertyService.getAmqpUser(), propertyService.getAmqpPassword());
+        client = new Client(getUri(), propertyService.getAmqpUser(), propertyService.getAmqpPassword());
         log.info("ClusterName:" + client.getOverview()
             .getClusterName());
         status = "CONNECTED";
-        for (QueueInfo i :
-            client.getQueues()) {
+        for (QueueInfo i : client.getQueues()) {
           log.info(" queue with name: " + i.getName());
         }
 
@@ -60,15 +58,15 @@ public class RabbitHttppConnector {
             try {
               reachable = hasService(InetAddress.getByName(entry.getValue()), entry.getKey());
             } catch (IOException e) {
-              e.printStackTrace();
+              log.error("getClient", e);
             }
             log.info(entry.getValue() + " is reachable: " + reachable);
           }
         }
       } catch (MalformedURLException e) {
-        e.printStackTrace();
+        log.error("getClient", e);
       } catch (URISyntaxException e) {
-        e.printStackTrace();
+        log.error("getClient", e);
       }
     }
     return client;
@@ -85,7 +83,7 @@ public class RabbitHttppConnector {
         .collect(Collectors.toList());
   }
 
-  private String getURI() {
+  private String getUri() {
     return "http://" + propertyService.getAmqpHost() + ":15672/api/";
   }
 

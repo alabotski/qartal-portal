@@ -92,7 +92,7 @@ public class SocketServiceImpl implements SocketService {
       ServerInfoResponse serverInfoResponse = new ServerInfoResponse();
       List<ServerInfo> serverInfoList = new ArrayList<>();
       NodeDto nodeDto = nodesService.getNodeById(id.longValue());
-      if(Objects.nonNull(nodeDto)) {
+      if (Objects.nonNull(nodeDto)) {
         nodeDto.getNodeInfo()
             .entrySet()
             .stream()

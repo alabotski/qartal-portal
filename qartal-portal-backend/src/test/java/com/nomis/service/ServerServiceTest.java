@@ -1,5 +1,7 @@
 package com.nomis.service;
 
+import static org.mockito.Mockito.when;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nomis.config.JacksonConfiguration;
 import com.nomis.shared.model.LogLevel;
@@ -13,6 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
@@ -27,6 +30,12 @@ import org.mockito.junit.MockitoJUnitRunner;
 @RunWith(MockitoJUnitRunner.class)
 public class ServerServiceTest {
 
+  @Mock
+  private NodesService nodesService;
+
+  @Mock
+  private PropertyService propertyService;
+
   @InjectMocks
   private ServerServiceImpl serverServiceImpl;
 
@@ -40,9 +49,12 @@ public class ServerServiceTest {
 
   @Test
   public void should_serverStatus() throws IOException {
+    when(propertyService.getStatusSocketUrl()).thenReturn("TestWS");
+
     ServerStatusResponse serverStatusResponse = serverServiceImpl.getServerStatus();
+    Assert.assertEquals(serverStatusResponse.getWebSocketUrl(), "TestWS");
     Assert.assertEquals(serverStatusResponse.getServerStatusList()
-        .size(), 2);
+        .size(), 0);
   }
 
 
