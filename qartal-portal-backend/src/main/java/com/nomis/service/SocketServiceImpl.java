@@ -1,6 +1,13 @@
 package com.nomis.service;
 
+import static com.nomis.shared.model.ServerStatus.DISABLED;
+import static com.nomis.shared.model.ServerStatus.ENABLE;
+import static com.nomis.shared.model.ServerStatus.NOT_ACTUAL;
+import static com.nomis.shared.model.ServerStatus.RUNNING;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nomis.dto.BaselineJobs;
+import com.nomis.dto.SimulationJobs;
 import com.nomis.shared.model.LogLevel;
 import com.nomis.shared.model.ServerStatus;
 import com.nomis.shared.model.ServerStatusInfo;
@@ -13,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
@@ -40,6 +48,9 @@ public class SocketServiceImpl implements SocketService {
 
   @Autowired
   private ObjectMapper objectMapper;
+
+  @Inject
+  private JobManagerClientService jobManagerClientService;
 
   @Scheduled(fixedRate = 3000)
   public void updateServerStatus() throws IOException {
@@ -85,7 +96,46 @@ public class SocketServiceImpl implements SocketService {
     List<ServerStatusInfo> serverStatusInfoListGen = new ArrayList<>();
 
     serverStatusInfoList.forEach(serverInfo -> {
-      ServerStatus serverStatus = ServerStatus.getRandomStatus();
+      ServerStatus serverStatus = NOT_ACTUAL;
+      switch (serverInfo.getId()) {
+        case 1:
+          serverStatus = RUNNING;
+          break;
+        case 2:
+          BaselineJobs baselineJobs = jobManagerClientService.getBaselineJobs();
+          SimulationJobs simulationJobs = jobManagerClientService.getSimulationJobs();
+          if (baselineJobs != null && simulationJobs != null) {
+            if (!baselineJobs.getQueued()
+                .isEmpty()
+                || !baselineJobs.getRunning()
+                .isEmpty()
+                || !simulationJobs.getRunning()
+                .isEmpty()
+                || !simulationJobs.getQueued()
+                .isEmpty()) {
+              serverStatus = RUNNING;
+            } else {
+              serverStatus = ENABLE;
+            }
+          } else {
+            serverStatus = DISABLED;
+          }
+          break;
+        case 3:
+          break;
+        case 4:
+          break;
+        case 5:
+          break;
+        case 6:
+          break;
+        case 7:
+          break;
+        default:
+          serverStatus = NOT_ACTUAL;
+      }
+
+      //      ServerStatus serverStatus = ServerStatus.getRandomStatus();
       ServerStatusInfo serverStatusInfoGen = new ServerStatusInfo();
       serverStatusInfoGen.setId(serverInfo.getId());
       serverStatusInfoGen.setServerType(serverInfo.getServerType());

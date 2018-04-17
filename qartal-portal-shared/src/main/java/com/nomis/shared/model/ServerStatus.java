@@ -9,7 +9,7 @@ import java.util.Random;
  * @since 4/14/18.
  */
 public enum ServerStatus {
-  ENABLE, DISABLED, RUNNING;
+  ENABLE, DISABLED, RUNNING, NOT_ACTUAL;
 
   public static ServerStatus getRandomStatus() {
     Random random = new Random();

@@ -38,6 +38,7 @@ public class JobmanagerSessionServiceImpl implements JobmanagerSessionService {
   @Override
   public void newMessage(WebSocketSession session, WebSocketMessage<?> message) throws IOException {
     session.sendMessage(new TextMessage(mapper.writeValueAsString(jobManagerClientService.getBaselineJobs())));
+    session.sendMessage(new TextMessage(mapper.writeValueAsString(jobManagerClientService.getSimulationJobs())));
   }
 
 
