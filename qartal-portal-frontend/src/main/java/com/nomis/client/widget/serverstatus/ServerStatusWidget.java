@@ -62,8 +62,8 @@ public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyVie
 
   @Override
   public void getServerInfo() {
-    LogOptionEvent.fire(this, getServerId());
     ShowInfoEvent.fire(this, getServerId());
+    LogOptionEvent.fire(this, getServerId());
 
     /*
       switch (serverStatus) {
