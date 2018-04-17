@@ -55,7 +55,7 @@ public class RabbitMqClientServiceImpl implements RabbitMqClientService {
   private void discoverServices() {
 
     List<NodeDto> servicesList = nodesService.getNodeListByNodeType("SERVICES");
-    servicesList.forEach(service -> nodesService.removeNodeById(service.getId()));
+    //servicesList.forEach(service -> nodesService.removeNodeById(service.getId()));
 
     if (rabbitMqHttpService.isRabbitHealthy()) {
       rabbitMq.setStatus(ServerStatus.ENABLE);
@@ -72,7 +72,21 @@ public class RabbitMqClientServiceImpl implements RabbitMqClientService {
             servicesNodes.add(nodeDto);
           });
 
-      servicesNodes.forEach(service -> nodesService.addNode(service));
+      servicesNodes
+          .forEach(service -> {
+                NodeDto nodeDto = servicesList.stream()
+                    .filter(node -> node.getIpAddress().equalsIgnoreCase(service.getIpAddress()))
+                    .findFirst().orElse(null);
+                if (Objects.isNull(nodeDto)) {
+                  nodesService.addNode(service);
+                }
+              }
+          );
+
+      servicesList.stream()
+          .filter(node -> servicesNodes.stream()
+              .noneMatch(service -> service.getIpAddress().equalsIgnoreCase(node.getIpAddress())))
+          .forEach(node -> node.setStatus(ServerStatus.NOT_ACTUAL));
     } else {
       rabbitMq.setStatus(ServerStatus.DISABLED);
     }

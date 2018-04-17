@@ -27,12 +27,6 @@ public class ServerStatusInfo {
 
   public void setName(String name) {
     this.name = name;
-    if (name.toUpperCase()
-        .equals("SERVICES")) {
-      setServerType(ServerType.CLUSTER);
-    } else {
-      setServerType(ServerType.SERVER);
-    }
   }
 
   public ServerType getServerType() {

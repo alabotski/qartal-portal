@@ -52,6 +52,13 @@
   <set-property name="gwt.logging.enabled" value="TRUE"/>
   <set-property name="gwt.logging.consoleHandler" value="ENABLED"/>
   <set-property name="gwt.logging.simpleRemoteHandler" value="ENABLED"/>
+  <replace-with class="com.nomis.client.logger.JsonRemoteLogHandler">
+    <when-type-is class="com.google.gwt.logging.client.SimpleRemoteLogHandler" />
+    <any>
+      <when-property-is name="gwt.logging.enabled" value="TRUE" />
+      <when-property-is name="gwt.logging.simpleRemoteHandler" value="ENABLED" />
+    </any>
+  </replace-with>
   <!--<set-property name="compiler.useSourceMaps" value="true"/>-->
   <!--<set-configuration-property name="includeSourceMapUrl"-->
   <!--value="extra/QartalPortal/symbolMaps/__HASH___sourceMap__FRAGMENT__.json"/>-->

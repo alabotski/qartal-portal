@@ -14,5 +14,6 @@ public class RestModule extends AbstractPresenterModule {
   protected void configure() {
     bind(AuthorizationService.class).asEagerSingleton();
     bind(ServerService.class).asEagerSingleton();
+    bind(LoggerService.class).asEagerSingleton();
   }
 }

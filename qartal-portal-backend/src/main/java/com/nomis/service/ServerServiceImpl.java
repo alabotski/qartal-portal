@@ -3,6 +3,7 @@ package com.nomis.service;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nomis.dto.NodeDto;
 import com.nomis.shared.model.ServerStatusInfo;
+import com.nomis.shared.model.ServerType;
 import com.nomis.shared.response.ServerInfoResponse;
 import com.nomis.shared.response.ServerLogOptionResponse;
 import com.nomis.shared.response.ServerStatusResponse;
@@ -48,9 +49,16 @@ public class ServerServiceImpl implements ServerService {
 
   private ServerStatusInfo getInfoFromNode(NodeDto node) {
     ServerStatusInfo info = new ServerStatusInfo();
-    info.setId(node.getId().intValue());
+    info.setId(node.getId()
+        .intValue());
     info.setName(node.getNodeType());
     info.setServerStatus(node.getStatus());
+    if (node.getNodeType()
+        .equals("SERVICES")) {
+      info.setServerType(ServerType.CLUSTER);
+    } else {
+      info.setServerType(ServerType.SERVER);
+    }
     return info;
   }
 
