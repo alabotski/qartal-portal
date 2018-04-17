@@ -15,6 +15,7 @@ import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.request.ServerInfoRequest;
 import com.nomis.shared.response.ServerInfoResponse;
 import gwt.material.design.client.ui.table.MaterialDataTable;
+import javax.annotation.Nonnull;
 import org.fusesource.restygwt.client.Method;
 import org.fusesource.restygwt.client.MethodCallback;
 import org.realityforge.gwt.websockets.client.WebSocket;
@@ -91,15 +92,18 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
               getView().getServerInfo()
                   .setRowData(0, serverInfoResponse.getServerInfoList());
             }
+
+            @Override
+            public void onOpen(@Nonnull final WebSocket webSocket) {
+              if (null != wsServerLog) {
+                ServerInfoRequest serverInfoRequest = new ServerInfoRequest();
+                serverInfoRequest.setId(event.getId());
+                wsServerLog.send(serverInfoRequestCodec.encode(serverInfoRequest)
+                    .toString());
+              }
+            }
           });
           wsServerLog.connect(response.getWebSocketUrl());
-
-          if (null != wsServerLog) {
-            ServerInfoRequest serverInfoRequest = new ServerInfoRequest();
-            serverInfoRequest.setId(event.getId());
-            wsServerLog.send(serverInfoRequestCodec.encode(serverInfoRequest)
-                .toString());
-          }
         }
         MessageEvent.fire(ServerInfoWidget.this, serverInfoConstants.serverInfoSuccess());
       }
