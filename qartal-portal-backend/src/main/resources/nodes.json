@@ -1,0 +1,25 @@
+[
+    {
+      "ipAddress": "192.168.50.142",
+      "nodeType": "NPO",
+      "status": "DISABLED",
+      "nodeProperties": {
+        "vertical": "DEPOSITS",
+        "product": "Nomis Price Optimizer",
+        "customer": "Nomis Solutions",
+        "version": "4.10 (379, 2018-02-27)"
+      }
+    },
+    {
+      "ipAddress": "192.168.50.142",
+      "nodeType": "JM",
+      "status": "DISABLED",
+      "nodeProperties": {}
+    },
+    {
+      "ipAddress": "192.168.50.142",
+      "nodeType": "RabbitMQ",
+      "status": "DISABLED",
+      "nodeProperties": {}
+    }
+]
