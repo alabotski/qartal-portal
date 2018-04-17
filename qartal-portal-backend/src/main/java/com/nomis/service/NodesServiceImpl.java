@@ -3,20 +3,16 @@ package com.nomis.service;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nomis.dto.NodeDto;
-import com.nomis.shared.response.ServerStatusResponse;
 import com.nomis.util.ResourcesUtil;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.function.Function;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
-import javax.xml.soap.Node;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
 /**
@@ -34,12 +30,12 @@ public class NodesServiceImpl implements NodesService {
 
   @PostConstruct
   @SuppressWarnings("unchecked")
-  public void init() throws IOException{
+  public void init() throws IOException {
     nodes = new HashMap<>();
 
     List<NodeDto> nodeList = objectMapper.readValue(ResourcesUtil.getInstance()
-        .getResource("nodes.json"), new TypeReference<List<NodeDto>>(){});
-
+        .getResource("nodes.json"), new TypeReference<List<NodeDto>>() {
+    });
 
     nodeList.stream()
         .filter(Objects::nonNull)
@@ -48,12 +44,13 @@ public class NodesServiceImpl implements NodesService {
 
   }
 
-  public void addNode(NodeDto node) {
+  public long addNode(NodeDto node) {
     long id = nodes.keySet().stream()
         .mapToLong(Long::longValue)
         .max().orElse(0) + 1;
     node.setId(id);
     nodes.put(id, node);
+    return id;
   }
 
   public void removeNodeById(long id) {
@@ -62,5 +59,15 @@ public class NodesServiceImpl implements NodesService {
 
   public NodeDto getNodeById(long id) {
     return nodes.get(id);
+  }
+
+  public NodeDto getNodeByNodeType(String nodeType) {
+    if(Strings.isNotEmpty(nodeType)) {
+      return null;
+    }
+    return nodes.values().stream()
+        .filter(Objects::nonNull)
+        .filter(node -> nodeType.equalsIgnoreCase(node.getNodeType()))
+      .findFirst().orElse(null);
   }
 }

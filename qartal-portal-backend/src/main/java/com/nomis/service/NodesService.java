@@ -9,7 +9,7 @@ import java.util.Objects;
  */
 public interface NodesService {
 
-  void addNode(NodeDto node);
+  long addNode(NodeDto node);
 
   void removeNodeById(long id);
 
