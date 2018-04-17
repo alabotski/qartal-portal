@@ -19,5 +19,7 @@ public interface SocketService {
 
   Map<WebSocketSession, Integer> getWebSocketSessionInfoMap();
 
+  void updateLogInfo(String msg);
+
 
 }

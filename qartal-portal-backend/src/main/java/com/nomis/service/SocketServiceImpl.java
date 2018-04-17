@@ -38,7 +38,8 @@ import org.springframework.web.socket.WebSocketSession;
 @Slf4j
 public class SocketServiceImpl implements SocketService {
 
-  private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+  private static final DateTimeFormatter formatter = DateTimeFormatter
+      .ofPattern("yyyy-MM-dd HH:mm:ss");
 
   private List<WebSocketSession> webSocketSessionList = new ArrayList<>();
   private Map<WebSocketSession, LogLevel> webSocketSessionLogMap = new HashMap<>();
@@ -50,32 +51,38 @@ public class SocketServiceImpl implements SocketService {
   @Inject
   private NodesService nodesService;
 
+
   @Autowired
   private ObjectMapper objectMapper;
 
+
   @Scheduled(fixedRate = 3000)
   public void updateServerStatus() throws IOException {
-    ServerStatusResponse serverStatusResponse = generateServerStatusResponse(serverService.getServerStatus()
-        .getServerStatusList());
+    ServerStatusResponse serverStatusResponse = generateServerStatusResponse(
+        serverService.getServerStatus()
+            .getServerStatusList());
     webSocketSessionList.forEach(webSocketSession -> {
       try {
-        webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(serverStatusResponse)));
+        webSocketSession
+            .sendMessage(new TextMessage(objectMapper.writeValueAsString(serverStatusResponse)));
       } catch (IOException e) {
         log.error("updateServerStatus", e);
       }
     });
   }
 
-  @Scheduled(fixedRate = 3000)
-  public void updateLogInfo() {
+  public void updateLogInfo(String msg) {
+
     webSocketSessionLogMap.forEach((webSocketSession, logLevel) -> {
+
       LogInfoResponse logInfoResponse = new LogInfoResponse();
       logInfoResponse.setCurrentTime(formatter.format(LocalDateTime.now()));
       logInfoResponse.setLogLevel(logLevel);
-      logInfoResponse.setMessage("Message from server");
+      logInfoResponse.setMessage(msg);
       logInfoResponse.setSessionId(webSocketSession.getId());
       try {
-        webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(logInfoResponse)));
+        webSocketSession
+            .sendMessage(new TextMessage(objectMapper.writeValueAsString(logInfoResponse)));
       } catch (IOException e) {
         log.error("updateLogInfo", e);
       }
@@ -101,7 +108,8 @@ public class SocketServiceImpl implements SocketService {
           });
       serverInfoResponse.setServerInfoList(serverInfoList);
       try {
-        webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(serverInfoResponse)));
+        webSocketSession
+            .sendMessage(new TextMessage(objectMapper.writeValueAsString(serverInfoResponse)));
       } catch (IOException e) {
         log.error("updateServiceInfo", e);
       }
@@ -123,7 +131,8 @@ public class SocketServiceImpl implements SocketService {
     return webSocketSessionInfoMap;
   }
 
-  private ServerStatusResponse generateServerStatusResponse(List<ServerStatusInfo> serverStatusInfoList) {
+  private ServerStatusResponse generateServerStatusResponse(
+      List<ServerStatusInfo> serverStatusInfoList) {
     ServerStatusResponse serverStatusResponse = new ServerStatusResponse();
     List<ServerStatusInfo> serverStatusInfoListGen = new ArrayList<>();
 
