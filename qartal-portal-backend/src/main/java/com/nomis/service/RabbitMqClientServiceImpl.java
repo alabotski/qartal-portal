@@ -1,8 +1,8 @@
 package com.nomis.service;
 
 import com.nomis.dto.NodeDto;
-import com.nomis.rabbit.comunication.RabbitHttppConnector;
 import com.nomis.rabbit.comunication.RabbitMqHttpServiceImpl;
+import com.nomis.shared.model.NodeName;
 import com.nomis.shared.model.ServerStatus;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +34,7 @@ public class RabbitMqClientServiceImpl implements RabbitMqClientService {
 
   @PostConstruct
   public void init() {
-    rabbitMq = nodesService.getNodeByNodeType("RabbitMQ");
+    rabbitMq = nodesService.getNodeByNodeType(NodeName.RabbitMQ.toString());
     String uri = getRabbitUrl(rabbitMq);
     rabbitMqHttpService = new RabbitMqHttpServiceImpl();
     rabbitMqHttpService.init(uri,
@@ -57,7 +57,7 @@ public class RabbitMqClientServiceImpl implements RabbitMqClientService {
     List<NodeDto> servicesList = nodesService.getNodeListByNodeType("SERVICES");
     servicesList.forEach(service -> nodesService.removeNodeById(service.getId()));
 
-    if(rabbitMqHttpService.isRabbitHealthy()) {
+    if (rabbitMqHttpService.isRabbitHealthy()) {
       rabbitMq.setStatus(ServerStatus.ENABLE);
       List<NodeDto> servicesNodes = new ArrayList<>();
       Set<String> connectedHosts = rabbitMqHttpService.getConnections();
@@ -72,10 +72,8 @@ public class RabbitMqClientServiceImpl implements RabbitMqClientService {
             servicesNodes.add(nodeDto);
           });
 
-
       servicesNodes.forEach(service -> nodesService.addNode(service));
-    }
-    else {
+    } else {
       rabbitMq.setStatus(ServerStatus.DISABLED);
     }
 

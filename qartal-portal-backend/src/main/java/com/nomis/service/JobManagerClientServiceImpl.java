@@ -6,6 +6,7 @@ import static com.nomis.util.CommonConstants.SIMULATIONS;
 import com.nomis.dto.BaselineJobs;
 import com.nomis.dto.NodeDto;
 import com.nomis.dto.SimulationJobs;
+import com.nomis.shared.model.NodeName;
 import com.nomis.shared.model.ServerStatus;
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +50,7 @@ public class JobManagerClientServiceImpl implements JobManagerClientService {
 
   @PostConstruct
   public void init() {
-    jobManagerNode = nodesService.getNodeByNodeType("JM");
+    jobManagerNode = nodesService.getNodeByNodeType(NodeName.Jobmanager.toString());
 
     restTemplate = new RestTemplateBuilder()
         .rootUri(propertyService.getJobManagerProtocol()
