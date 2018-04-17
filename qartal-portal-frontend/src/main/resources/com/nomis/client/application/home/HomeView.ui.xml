@@ -11,7 +11,7 @@
   </ui:style>
 
   <m:MaterialPanel>
-    <m:MaterialRow addStyleNames="valign-wrapper">
+    <m:MaterialRow addStyleNames="valign-wrapper" shadow="1">
       <m:MaterialColumn grid="s9 m9 l9">
         <m:MaterialRow addStyleNames="valign-wrapper" ui:field="serverCollection"/>
       </m:MaterialColumn>

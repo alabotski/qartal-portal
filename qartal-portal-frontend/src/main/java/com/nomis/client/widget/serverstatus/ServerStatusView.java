@@ -8,11 +8,11 @@ import com.google.gwt.uibinder.client.UiHandler;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import gwt.material.design.client.constants.Color;
+import gwt.material.design.client.ui.MaterialCard;
 import gwt.material.design.client.ui.MaterialCardTitle;
 import gwt.material.design.client.ui.MaterialColumn;
 import gwt.material.design.client.ui.MaterialImage;
 import gwt.material.design.client.ui.MaterialLabel;
-import gwt.material.design.client.ui.MaterialLink;
 
 /**
  * ServerStatusView.
@@ -39,7 +39,7 @@ public class ServerStatusView extends ViewWithUiHandlers<ServerStatusUiHandlers>
   MaterialLabel serverStatus;
 
   @UiField
-  MaterialLink showInfo;
+  MaterialCard showInfo;
 
   @Inject
   ServerStatusView(Binder binder) {

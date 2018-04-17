@@ -11,7 +11,7 @@
     }
 
     .serverIconWrapper {
-      height: 85px;
+      height: 65px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -19,17 +19,14 @@
   </ui:style>
 
   <m:MaterialColumn ui:field="serverStatusWrapper">
-    <m:MaterialCard backgroundColor="WHITE" orientation="LANDSCAPE">
+    <m:MaterialCard backgroundColor="WHITE" orientation="LANDSCAPE" ui:field="showInfo" shadow="1" display="FLEX">
       <m:MaterialCardImage waves="LIGHT" addStyleNames="{style.serverIconWrapper}">
         <m:MaterialImage ui:field="serverIcon" addStyleNames="{style.serverIcon}"/>
       </m:MaterialCardImage>
-      <m:MaterialCardContent textColor="BLACK" padding="10">
+      <m:MaterialCardContent textColor="BLACK" padding="0">
         <m:MaterialCardTitle iconPosition="RIGHT" ui:field="serverName"/>
         <m:MaterialLabel ui:field="serverStatus"/>
       </m:MaterialCardContent>
-      <m:MaterialCardAction>
-        <m:MaterialLink text="{lang.showInfo}" textColor="BLUE" iconType="POLYMER" ui:field="showInfo"/>
-      </m:MaterialCardAction>
     </m:MaterialCard>
   </m:MaterialColumn>
 </ui:UiBinder>
