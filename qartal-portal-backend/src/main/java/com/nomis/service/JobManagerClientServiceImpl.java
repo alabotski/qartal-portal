@@ -6,7 +6,9 @@ import static com.nomis.util.CommonConstants.SIMULATIONS;
 import com.nomis.dto.BaselineJobs;
 import com.nomis.dto.NodeDto;
 import com.nomis.dto.SimulationJobs;
-import com.nomis.util.CommonConstants;
+import com.nomis.shared.model.ServerStatus;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -14,6 +16,12 @@ import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -46,6 +54,8 @@ public class JobManagerClientServiceImpl implements JobManagerClientService {
             + jobManagerNode.getIpAddress()
             + ":" + propertyService.getJobManagerPort()
             + propertyService.getJobManagerApiPath())
+        .setConnectTimeout(2000)
+        .setReadTimeout(2000)
         .build();
 
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);
@@ -53,19 +63,43 @@ public class JobManagerClientServiceImpl implements JobManagerClientService {
   }
 
   private void pollForUpdate() {
-    listAllSimulatedJobs();
-    listAllBaselinesJobs();
+    if (healthy()) {
+      jobManagerNode.setStatus(ServerStatus.ENABLE);
+      listAllSimulatedJobs();
+      listAllBaselinesJobs();
+    } else {
+      jobManagerNode.setStatus(ServerStatus.DISABLED);
+    }
+  }
+
+  //TODO changeTo real healthCheck endpoint
+  private boolean healthy() {
+    HttpHeaders headers = new HttpHeaders();
+    headers.setContentType(MediaType.APPLICATION_JSON);
+    Map<String, Object> uriVars = new HashMap<>();
+    HttpEntity<Object> entity = new HttpEntity<>(headers);
+
+    ResponseEntity<String> responseEntity = restTemplate
+        .exchange("/simulation/allSimulations/", HttpMethod.GET, entity, String.class, uriVars);
+    if (responseEntity.getStatusCode().equals(HttpStatus.OK)) {
+      return true;
+    } else {
+      return false;
+    }
+
   }
 
   private void listAllSimulatedJobs() {
     SimulationJobs simulations = restTemplate
         .getForObject("/simulation/allSimulations/", SimulationJobs.class);
+    log.info(simulations.toString());
     jobManagerNode.addProperty(SIMULATIONS, simulations);
   }
 
   private void listAllBaselinesJobs() {
     BaselineJobs baseLines = restTemplate
         .getForObject("/baseline/allBaselines", BaselineJobs.class);
+    log.info(baseLines.toString());
     jobManagerNode.addProperty(BASELINES, baseLines);
   }
 
