@@ -22,6 +22,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.client.ClientHttpRequestFactory;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -54,19 +56,31 @@ public class JobManagerClientServiceImpl implements JobManagerClientService {
             + jobManagerNode.getIpAddress()
             + ":" + propertyService.getJobManagerPort()
             + propertyService.getJobManagerApiPath())
-        .setConnectTimeout(2000)
-        .setReadTimeout(2000)
+        .requestFactory(this::getClientHttpRequestFactory)
         .build();
 
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);
     executorService.scheduleAtFixedRate((this::pollForUpdate), 0, 1, TimeUnit.SECONDS);
   }
 
+  private ClientHttpRequestFactory getClientHttpRequestFactory() {
+    int timeout = 2000;
+    HttpComponentsClientHttpRequestFactory clientHttpRequestFactory =
+        new HttpComponentsClientHttpRequestFactory();
+    clientHttpRequestFactory.setConnectTimeout(timeout);
+    return clientHttpRequestFactory;
+  }
+
   private void pollForUpdate() {
     if (healthy()) {
-      jobManagerNode.setStatus(ServerStatus.ENABLE);
-      listAllSimulatedJobs();
-      listAllBaselinesJobs();
+      try {
+        jobManagerNode.setStatus(ServerStatus.ENABLE);
+        listAllSimulatedJobs();
+        listAllBaselinesJobs();
+
+      } catch (Exception ex) {
+        log.error(ex.getMessage(), ex);
+      }
     } else {
       jobManagerNode.setStatus(ServerStatus.DISABLED);
     }
@@ -79,37 +93,37 @@ public class JobManagerClientServiceImpl implements JobManagerClientService {
     Map<String, Object> uriVars = new HashMap<>();
     HttpEntity<Object> entity = new HttpEntity<>(headers);
 
-    ResponseEntity<String> responseEntity = restTemplate
-        .exchange("/simulation/allSimulations/", HttpMethod.GET, entity, String.class, uriVars);
-    if (responseEntity.getStatusCode().equals(HttpStatus.OK)) {
-      return true;
-    } else {
+    try {
+      ResponseEntity<String> responseEntity = restTemplate
+          .exchange("/simulation/allSimulations/", HttpMethod.GET, entity, String.class, uriVars);
+      return responseEntity.getStatusCode()
+          .equals(HttpStatus.OK);
+    } catch (Exception ex) {
       return false;
     }
-
   }
 
   private void listAllSimulatedJobs() {
     SimulationJobs simulations = restTemplate
         .getForObject("/simulation/allSimulations/", SimulationJobs.class);
-    log.info(simulations.toString());
     jobManagerNode.addProperty(SIMULATIONS, simulations);
   }
 
   private void listAllBaselinesJobs() {
     BaselineJobs baseLines = restTemplate
         .getForObject("/baseline/allBaselines", BaselineJobs.class);
-    log.info(baseLines.toString());
     jobManagerNode.addProperty(BASELINES, baseLines);
   }
 
   @Override
   public BaselineJobs getBaselineJobs() {
-    return (BaselineJobs) jobManagerNode.getNodeProperties().get(BASELINES);
+    return (BaselineJobs) jobManagerNode.getNodeProperties()
+        .get(BASELINES);
   }
 
   @Override
   public SimulationJobs getSimulationJobs() {
-    return (SimulationJobs) jobManagerNode.getNodeProperties().get(SIMULATIONS);
+    return (SimulationJobs) jobManagerNode.getNodeProperties()
+        .get(SIMULATIONS);
   }
 }
