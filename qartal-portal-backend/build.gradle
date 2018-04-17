@@ -9,7 +9,6 @@ apply plugin: "io.spring.dependency-management"
 
 dependencies {
   compile project(":qartal-portal-shared")
-  compile project(":qartal-portal-services")
 
   // Spring framework
   compile("org.springframework.boot:spring-boot-starter-jetty")

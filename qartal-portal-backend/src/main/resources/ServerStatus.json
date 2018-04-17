@@ -3,63 +3,39 @@
   "serverStatusList": [
     {
       "id": 1,
-      "name": "Server 1",
+      "name": "NPO",
       "serverType": "SERVER",
-      "serverStatus": "ENABLE"
+      "serverStatus": "DISABLED"
     },
     {
       "id": 2,
-      "name": "Server 2",
+      "name": "JM",
       "serverType": "SERVER",
-      "serverStatus": "ENABLE"
+      "serverStatus": "DISABLED"
     },
     {
       "id": 3,
-      "name": "Server 3",
+      "name": "RabbitMQ",
       "serverType": "SERVER",
-      "serverStatus": "ENABLE"
+      "serverStatus": "DISABLED"
     },
     {
       "id": 4,
-      "name": "Server 4",
-      "serverType": "SERVER",
-      "serverStatus": "ENABLE"
+      "name": "Services Ins#1",
+      "serverType": "CLUSTER",
+      "serverStatus": "DISABLED"
     },
     {
       "id": 5,
-      "name": "Server 5",
-      "serverType": "SERVER",
-      "serverStatus": "ENABLE"
+      "name": "Services Ins#2",
+      "serverType": "CLUSTER",
+      "serverStatus": "DISABLED"
     },
     {
       "id": 6,
-      "name": "Server 6",
-      "serverType": "SERVER",
-      "serverStatus": "ENABLE"
-    },
-    {
-      "id": 7,
-      "name": "Server 7",
-      "serverType": "SERVER",
-      "serverStatus": "ENABLE"
-    },
-    {
-      "id": 8,
-      "name": "Cluster 1",
+      "name": "Services Ins#3",
       "serverType": "CLUSTER",
-      "serverStatus": "ENABLE"
-    },
-    {
-      "id": 9,
-      "name": "Cluster 2",
-      "serverType": "CLUSTER",
-      "serverStatus": "ENABLE"
-    },
-    {
-      "id": 10,
-      "name": "Cluster 2",
-      "serverType": "CLUSTER",
-      "serverStatus": "ENABLE"
+      "serverStatus": "DISABLED"
     }
   ]
 }

@@ -13,8 +13,8 @@ public interface LogOptionConstants extends Constants {
   @DefaultStringValue("logLevel")
   String logLevel();
 
-  @DefaultStringValue("aplay")
-  String aplay();
+  @DefaultStringValue("apply")
+  String apply();
 
   @DefaultStringValue("show")
   String show();

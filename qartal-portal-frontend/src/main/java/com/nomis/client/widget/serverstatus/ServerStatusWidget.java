@@ -57,7 +57,7 @@ public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyVie
   @Override
   public void getServerInfo() {
     switch (serverStatus) {
-      case DISABLE:
+      case DISABLED:
         MessageEvent.fire(this, serverStatusInfo.getServerType()
             .name() + " " + serverStatusConstants.isDisable());
         break;
@@ -81,7 +81,7 @@ public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyVie
       case ENABLE:
         getView().setImage(qartalPortalBundle.enable());
         break;
-      case DISABLE:
+      case DISABLED:
         getView().setImage(qartalPortalBundle.disable());
         break;
       case RUNNING:
