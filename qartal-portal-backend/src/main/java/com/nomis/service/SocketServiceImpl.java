@@ -4,6 +4,7 @@ import static com.nomis.shared.model.ServerStatus.NOT_ACTUAL;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nomis.dto.NodeDto;
+import com.nomis.rabbit.comunication.RabbitMqLogService;
 import com.nomis.shared.model.LogLevel;
 import com.nomis.shared.model.NodeName;
 import com.nomis.shared.model.ServerInfo;
@@ -50,6 +51,9 @@ public class SocketServiceImpl implements SocketService {
   @Inject
   private NodesService nodesService;
 
+  @Inject
+  private RabbitMqLogService rabbitMqLogService;
+
   @Autowired
   private ObjectMapper objectMapper;
 
@@ -66,13 +70,15 @@ public class SocketServiceImpl implements SocketService {
     });
   }
 
-  @Scheduled(fixedRate = 3000)
+  @Scheduled(fixedRate = 1000)
   public void updateLogInfo() {
+
     webSocketSessionLogMap.forEach((webSocketSession, logLevel) -> {
+
       LogInfoResponse logInfoResponse = new LogInfoResponse();
       logInfoResponse.setCurrentTime(formatter.format(LocalDateTime.now()));
       logInfoResponse.setLogLevel(logLevel);
-      logInfoResponse.setMessage("Message from server");
+      logInfoResponse.setMessage(rabbitMqLogService.getLogs().get(0));
       logInfoResponse.setSessionId(webSocketSession.getId());
       try {
         webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(logInfoResponse)));
