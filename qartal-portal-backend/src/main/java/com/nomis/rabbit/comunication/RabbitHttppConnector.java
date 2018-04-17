@@ -1,6 +1,6 @@
 package com.nomis.rabbit.comunication;
 
-import com.nomis.rabbit.service.AmqpPropertyService;
+import com.nomis.service.PropertyService;
 import com.rabbitmq.http.client.Client;
 import com.rabbitmq.http.client.domain.QueueInfo;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 public class RabbitHttppConnector {
 
   @Inject
-  private AmqpPropertyService propertyService;
+  private PropertyService propertyService;
 
   public void itit() throws IOException, URISyntaxException {
     Client client = new Client(getUri(), propertyService.getAmqpUser(), propertyService.getAmqpPassword());

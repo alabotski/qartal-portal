@@ -1,5 +1,6 @@
 package com.nomis.service;
 
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -14,4 +15,28 @@ public class PropertyService {
 
   @Value("${com.rednavis.socket.connectUrl}")
   private String connectUrl;
+
+  @Value("${spring.rabbitmq.amqpHost}")
+  @NotNull
+  private String amqpHost;
+
+  @Value("${spring.rabbitmq.amqpUser}")
+  @NotNull
+  private String amqpUser;
+
+  @Value("${spring.rabbitmq.amqpPassword}")
+  @NotNull
+  private String amqpPassword;
+
+  @Value("${spring.rabbitmq.amqpPort}")
+  private int amqpPort;
+
+
+  @Value("${spring.rabbitmq.topic.exchange}")
+  @NotNull
+  private String topicExchangeName;
+
+  @Value("${spring.rabbitmq.logQueue}")
+  @NotNull
+  private String logQueue;
 }
