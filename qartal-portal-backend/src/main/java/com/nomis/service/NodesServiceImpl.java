@@ -62,12 +62,12 @@ public class NodesServiceImpl implements NodesService {
   }
 
   public NodeDto getNodeByNodeType(String nodeType) {
-    if(Strings.isNotEmpty(nodeType)) {
+    if (Strings.isEmpty(nodeType)) {
       return null;
     }
     return nodes.values().stream()
         .filter(Objects::nonNull)
         .filter(node -> nodeType.equalsIgnoreCase(node.getNodeType()))
-      .findFirst().orElse(null);
+        .findFirst().orElse(null);
   }
 }

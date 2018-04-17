@@ -16,6 +16,15 @@ public class PropertyService {
   @Value("${com.rednavis.socket.connectUrl}")
   private String connectUrl;
 
+  @Value("${com.rednavis.socket.port}")
+  private String jobManagerPort;
+
+  @Value("${com.rednavis.socket.protocol}")
+  private String jobManagerProtocol;
+
+  @Value("${com.rednavis.socket.apiPath}")
+  private String jobManagerApiPath;
+
   @Value("${spring.rabbitmq.amqpHost}")
   @NotNull
   private String amqpHost;

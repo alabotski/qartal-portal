@@ -1,13 +1,19 @@
 package com.nomis.service;
 
+import static com.nomis.util.CommonConstants.BASELINES;
+import static com.nomis.util.CommonConstants.SIMULATIONS;
+
 import com.nomis.dto.BaselineJobs;
+import com.nomis.dto.NodeDto;
 import com.nomis.dto.SimulationJobs;
+import com.nomis.util.CommonConstants;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -21,41 +27,55 @@ import org.springframework.web.client.RestTemplate;
 @Service
 public class JobManagerClientServiceImpl implements JobManagerClientService {
 
-  private BaselineJobs baselineJobs;
-  private SimulationJobs simulationJobs;
+
+  @Inject
+  private NodesService nodesService;
+
+  private NodeDto jobManagerNode;
+  private RestTemplate restTemplate;
 
   @Inject
   private PropertyService propertyService;
 
   @PostConstruct
   public void init() {
+    jobManagerNode = nodesService.getNodeByNodeType("JM");
+
+    restTemplate = new RestTemplateBuilder()
+        .rootUri(propertyService.getJobManagerProtocol()
+            + jobManagerNode.getIpAddress()
+            + ":" + propertyService.getJobManagerPort()
+            + propertyService.getJobManagerApiPath())
+        .build();
+
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);
     executorService.scheduleAtFixedRate((this::pollForUpdate), 0, 1, TimeUnit.SECONDS);
   }
 
   private void pollForUpdate() {
-    simulationJobs = listAllSimulatedJobs();
-    baselineJobs = listAllBaselinesJobs();
+    listAllSimulatedJobs();
+    listAllBaselinesJobs();
   }
 
-  private SimulationJobs listAllSimulatedJobs() {
-    RestTemplate restTemplate = new RestTemplate();
-    return restTemplate.getForObject(propertyService.getConnectUrl() + "/simulation/allSimulations/",
-        SimulationJobs.class);
+  private void listAllSimulatedJobs() {
+    SimulationJobs simulations = restTemplate
+        .getForObject("/simulation/allSimulations/", SimulationJobs.class);
+    jobManagerNode.addProperty(SIMULATIONS, simulations);
   }
 
-  private BaselineJobs listAllBaselinesJobs() {
-    RestTemplate restTemplate = new RestTemplate();
-    return restTemplate.getForObject(propertyService.getConnectUrl() + "/baseline/allBaselines", BaselineJobs.class);
+  private void listAllBaselinesJobs() {
+    BaselineJobs baseLines = restTemplate
+        .getForObject("/baseline/allBaselines", BaselineJobs.class);
+    jobManagerNode.addProperty(BASELINES, baseLines);
   }
 
   @Override
   public BaselineJobs getBaselineJobs() {
-    return baselineJobs;
+    return (BaselineJobs) jobManagerNode.getNodeProperties().get(BASELINES);
   }
 
   @Override
   public SimulationJobs getSimulationJobs() {
-    return simulationJobs;
+    return (SimulationJobs) jobManagerNode.getNodeProperties().get(SIMULATIONS);
   }
 }

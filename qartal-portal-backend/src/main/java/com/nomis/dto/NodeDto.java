@@ -3,6 +3,7 @@ package com.nomis.dto;
 import com.nomis.shared.model.ServerStatus;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import lombok.Data;
 
 /**
@@ -24,6 +25,13 @@ public class NodeDto {
     properties.put("type", nodeType);
     properties.put("status", status);
     return properties;
+  }
+
+  public void addProperty(String key, Object value) {
+    if(Objects.isNull(nodeProperties)) {
+      nodeProperties = new HashMap<>();
+    }
+    nodeProperties.put(key,value);
   }
 
 }
