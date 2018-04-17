@@ -1,5 +1,7 @@
 package com.nomis.service;
 
+import com.nomis.shared.request.LogGwtRequest;
+
 /**
  * LoggerService.
  *
@@ -8,4 +10,5 @@ package com.nomis.service;
  */
 public interface LoggerService {
 
+  void writeLog(LogGwtRequest logGwtRequest);
 }

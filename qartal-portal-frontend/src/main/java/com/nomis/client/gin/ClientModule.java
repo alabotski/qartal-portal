@@ -7,6 +7,7 @@ import com.nomis.client.application.error.ErrorModule;
 import com.nomis.client.application.home.HomeModule;
 import com.nomis.client.application.login.LoginModule;
 import com.nomis.client.css.ResourceLoader;
+import com.nomis.client.logger.LoggerModule;
 import com.nomis.client.model.ModelModule;
 import com.nomis.client.place.NameTokens;
 import com.nomis.client.rest.RestModule;
@@ -47,6 +48,7 @@ public class ClientModule extends AbstractPresenterModule {
     install(new ModelModule());
     install(new RestModule());
     install(new CodecModule());
+    install(new LoggerModule());
 
     bind(ResourceLoader.class).asEagerSingleton();
   }
