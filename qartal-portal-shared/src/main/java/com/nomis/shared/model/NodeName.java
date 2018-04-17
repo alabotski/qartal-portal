@@ -11,7 +11,7 @@ public enum NodeName {
   NPO("NPO"),
   Jobmanager("JM"),
   RabbitMQ("RabbitMQ"),
-  Service("Service");
+  Service("Services");
 
   private final String text;
 

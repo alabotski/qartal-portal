@@ -43,7 +43,8 @@ public class RabbitHttppConnector {
       try {
         client = new Client(getURI(),
             propertyService.getAmqpUser(), propertyService.getAmqpPassword());
-        log.info("ClusterName:" + client.getOverview().getClusterName());
+        log.info("ClusterName:" + client.getOverview()
+            .getClusterName());
         status = "CONNECTED";
         for (QueueInfo i :
             client.getQueues()) {
@@ -51,7 +52,8 @@ public class RabbitHttppConnector {
         }
 
         while (true) {
-          for (Map.Entry<Integer, String> entry : client.getConnections().stream()
+          for (Map.Entry<Integer, String> entry : client.getConnections()
+              .stream()
               .collect(Collectors.toMap(ConnectionInfo::getPeerPort, ConnectionInfo::getPeerHost))
               .entrySet()) {
             boolean reachable = false;
@@ -74,16 +76,17 @@ public class RabbitHttppConnector {
 
   public List<String> getConnections() {
     log.info("getConnections:");
-    for (ConnectionInfo i : getClient().getConnections()
-        ) {
+    for (ConnectionInfo i : getClient().getConnections()) {
       log.info(" connection with name: " + i.toString());
     }
-    return getClient().getConnections().stream().map(c -> c.getHost()).collect(Collectors.toList());
+    return getClient().getConnections()
+        .stream()
+        .map(c -> c.getHost())
+        .collect(Collectors.toList());
   }
 
   private String getURI() {
-    String url = "http://" + propertyService.getAmqpHost() + ":15672/api/";
-    return url;
+    return "http://" + propertyService.getAmqpHost() + ":15672/api/";
   }
 
   private boolean hasService(InetAddress host, int port) throws IOException {

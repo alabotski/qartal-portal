@@ -37,11 +37,9 @@ public class RabbitMqClientServiceImpl implements RabbitMqClientService {
     rabbitMq = nodesService.getNodeByNodeType(NodeName.RabbitMQ.toString());
     String uri = getRabbitUrl(rabbitMq);
     rabbitMqHttpService = new RabbitMqHttpServiceImpl();
-    rabbitMqHttpService.init(uri,
-        (String) rabbitMq.getNodeProperties()
-            .get("user")
-        , (String) rabbitMq.getNodeProperties()
-            .get("password"));
+    rabbitMqHttpService.init(uri, (String) rabbitMq.getNodeProperties()
+        .get("user"), (String) rabbitMq.getNodeProperties()
+        .get("password"));
 
     ScheduledExecutorService executorService = Executors.newScheduledThreadPool(2);
     executorService.scheduleAtFixedRate((this::discoverServices), 0, 2, TimeUnit.SECONDS);
@@ -75,18 +73,21 @@ public class RabbitMqClientServiceImpl implements RabbitMqClientService {
       servicesNodes
           .forEach(service -> {
                 NodeDto nodeDto = servicesList.stream()
-                    .filter(node -> node.getIpAddress().equalsIgnoreCase(service.getIpAddress()))
-                    .findFirst().orElse(null);
+                    .filter(node -> node.getIpAddress()
+                        .equalsIgnoreCase(service.getIpAddress()))
+                    .findFirst()
+                    .orElse(null);
                 if (Objects.isNull(nodeDto)) {
                   nodesService.addNode(service);
                 }
               }
           );
 
-      servicesList.stream()
-          .filter(node -> servicesNodes.stream()
-              .noneMatch(service -> service.getIpAddress().equalsIgnoreCase(node.getIpAddress())))
-          .forEach(node -> node.setStatus(ServerStatus.NOT_ACTUAL));
+      //      servicesList.stream()
+      //          .filter(node -> servicesNodes.stream()
+      //              .noneMatch(service -> service.getIpAddress()
+      //                  .equalsIgnoreCase(node.getIpAddress())))
+      //          .forEach(node -> node.setStatus(ServerStatus.NOT_ACTUAL));
     } else {
       rabbitMq.setStatus(ServerStatus.DISABLED);
     }

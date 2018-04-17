@@ -22,7 +22,7 @@ public class NodeDto {
   private Map<String, Object> nodeProperties;
 
   public Map<String, Object> getNodeInfo() {
-    if(Objects.isNull(nodeProperties)) {
+    if (Objects.isNull(nodeProperties)) {
       nodeProperties = new HashMap<>();
     }
     Map<String, Object> properties = new HashMap<>(nodeProperties);

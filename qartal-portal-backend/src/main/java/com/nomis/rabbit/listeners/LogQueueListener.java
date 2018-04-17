@@ -27,7 +27,7 @@ public class LogQueueListener {
   private SocketService socketService;
 
   @RabbitHandler
-  public void onMessage(@Payload byte[] message, @Headers Map<String, String> headers ) {
+  public void onMessage(@Payload byte[] message, @Headers Map<String, String> headers) {
     String msg = new String(message, Charset.forName("UTF-8"));
     String level = headers.get("level");
     String ip = headers.get("remoteHostIP");

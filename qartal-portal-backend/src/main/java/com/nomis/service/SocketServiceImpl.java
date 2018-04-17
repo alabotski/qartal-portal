@@ -72,17 +72,14 @@ public class SocketServiceImpl implements SocketService {
   }
 
   public void updateLogInfo(String msg) {
-
     webSocketSessionLogMap.forEach((webSocketSession, logLevel) -> {
-
       LogInfoResponse logInfoResponse = new LogInfoResponse();
       logInfoResponse.setCurrentTime(formatter.format(LocalDateTime.now()));
       logInfoResponse.setLogLevel(logLevel);
       logInfoResponse.setMessage(msg);
       logInfoResponse.setSessionId(webSocketSession.getId());
       try {
-        webSocketSession
-            .sendMessage(new TextMessage(objectMapper.writeValueAsString(logInfoResponse)));
+        webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(logInfoResponse)));
       } catch (IOException e) {
         log.error("updateLogInfo", e);
       }
