@@ -53,7 +53,7 @@ public class SocketServiceImpl implements SocketService {
   private ObjectMapper objectMapper;
 
   @Inject
-  private JobManagerClientService jobManagerClientService;
+  private NodesServiceImpl nodesService;
 
   @Scheduled(fixedRate = 3000)
   public void updateServerStatus() throws IOException {
@@ -128,31 +128,43 @@ public class SocketServiceImpl implements SocketService {
 
     serverStatusInfoList.forEach(serverInfo -> {
       ServerStatus serverStatus = NOT_ACTUAL;
-      /*
-      switch (serverInfo.getId()) {
-        case 1:
-          serverStatus = RUNNING;
+      Map<Long, NodeDto> nodes = nodesService.getAllNodes();
+      switch (serverInfo.getName()) {
+        case "NPO":
+          serverStatus = nodes.values()
+              .stream()
+              .filter(node -> node.getNodeType()
+                  .equalsIgnoreCase("NPO"))
+              .map(node -> node.getStatus())
+              .findFirst()
+              .orElse(ServerStatus.NOT_ACTUAL);
           break;
-        case 2:
+        case "JM":
+          serverStatus = nodes.values()
+              .stream()
+              .filter(node -> node.getNodeType()
+                  .equalsIgnoreCase("JM"))
+              .map(node -> node.getStatus())
+              .findFirst()
+              .orElse(ServerStatus.NOT_ACTUAL);
           break;
-        case 3:
-          break;
-        case 4:
-          break;
-        case 5:
-          break;
-        case 6:
-          break;
-        case 7:
+        case "RabbitMQ":
+          serverStatus = nodes.values()
+              .stream()
+              .filter(node -> node.getNodeType()
+                  .equalsIgnoreCase("RabbitMQ"))
+              .map(node -> node.getStatus())
+              .findFirst()
+              .orElse(ServerStatus.NOT_ACTUAL);
           break;
         default:
           serverStatus = NOT_ACTUAL;
       }
-      */
+
       //      ServerStatus serverStatus = ServerStatus.getRandomStatus();
       ServerStatusInfo serverStatusInfoGen = new ServerStatusInfo();
       serverStatusInfoGen.setId(serverInfo.getId());
-      //      serverStatusInfoGen.setServerType(serverInfo.getServerType());
+      serverStatusInfoGen.setServerType(serverInfo.getServerType());
       serverStatusInfoGen.setServerStatus(serverStatus);
       serverStatusInfoListGen.add(serverStatusInfoGen);
     });
