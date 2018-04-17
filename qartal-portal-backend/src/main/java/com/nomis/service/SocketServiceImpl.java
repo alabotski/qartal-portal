@@ -1,13 +1,9 @@
 package com.nomis.service;
 
-import static com.nomis.shared.model.ServerStatus.DISABLED;
-import static com.nomis.shared.model.ServerStatus.ENABLE;
 import static com.nomis.shared.model.ServerStatus.NOT_ACTUAL;
 import static com.nomis.shared.model.ServerStatus.RUNNING;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.nomis.dto.BaselineJobs;
-import com.nomis.dto.SimulationJobs;
 import com.nomis.shared.model.LogLevel;
 import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.model.ServerStatus;
@@ -131,24 +127,6 @@ public class SocketServiceImpl implements SocketService {
           serverStatus = RUNNING;
           break;
         case 2:
-          BaselineJobs baselineJobs = jobManagerClientService.getBaselineJobs();
-          SimulationJobs simulationJobs = jobManagerClientService.getSimulationJobs();
-          if (baselineJobs != null && simulationJobs != null) {
-            if (!baselineJobs.getQueued()
-                .isEmpty()
-                || !baselineJobs.getRunning()
-                .isEmpty()
-                || !simulationJobs.getRunning()
-                .isEmpty()
-                || !simulationJobs.getQueued()
-                .isEmpty()) {
-              serverStatus = RUNNING;
-            } else {
-              serverStatus = ENABLE;
-            }
-          } else {
-            serverStatus = DISABLED;
-          }
           break;
         case 3:
           break;
