@@ -8,7 +8,6 @@ import com.gwtplatform.mvp.client.PresenterWidget;
 import com.gwtplatform.mvp.client.View;
 import com.nomis.client.css.QartalPortalBundle;
 import com.nomis.client.event.LogOptionEvent;
-import com.nomis.client.event.MessageEvent;
 import com.nomis.client.event.ShowInfoEvent;
 import com.nomis.shared.model.ServerStatus;
 import com.nomis.shared.model.ServerStatusInfo;
@@ -33,13 +32,13 @@ public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyVie
     void setServerStatusColor(Color color);
   }
 
-  @Inject
-  private ServerStatusConstants serverStatusConstants;
+  //  @Inject
+  //  private ServerStatusConstants serverStatusConstants;
 
   @Inject
   private QartalPortalBundle qartalPortalBundle;
 
-  private ServerStatus serverStatus;
+  //  private ServerStatus serverStatus;
   private ServerStatusInfo serverStatusInfo;
 
   @Inject
@@ -59,27 +58,32 @@ public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyVie
 
   @Override
   public void getServerInfo() {
-    switch (serverStatus) {
-      case DISABLED:
-        MessageEvent.fire(this, serverStatusInfo.getServerType()
-            .name() + " " + serverStatusConstants.isDisable());
-        break;
-      case RUNNING:
-        MessageEvent.fire(this, serverStatusInfo.getServerType()
-            .name() + " " + serverStatusConstants.isRunning());
-        break;
-      case ENABLE:
-        LogOptionEvent.fire(this, getServerId());
-        ShowInfoEvent.fire(this, getServerId());
-        break;
-      default:
-        break;
-    }
+    LogOptionEvent.fire(this, getServerId());
+    ShowInfoEvent.fire(this, getServerId());
+
+    /*
+      switch (serverStatus) {
+        case DISABLED:
+          MessageEvent.fire(this, serverStatusInfo.getServerType()
+              .name() + " " + serverStatusConstants.isDisable());
+          break;
+        case RUNNING:
+          MessageEvent.fire(this, serverStatusInfo.getServerType()
+              .name() + " " + serverStatusConstants.isRunning());
+          break;
+        case ENABLE:
+          LogOptionEvent.fire(this, getServerId());
+          ShowInfoEvent.fire(this, getServerId());
+          break;
+        default:
+          break;
+      }
+    */
   }
 
   @Override
   public void setServerStatus(ServerStatus serverStatus) {
-    this.serverStatus = serverStatus;
+    //    this.serverStatus = serverStatus;
     switch (serverStatus) {
       case ENABLE:
         getView().setImage(qartalPortalBundle.enable());

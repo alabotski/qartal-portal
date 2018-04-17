@@ -15,6 +15,7 @@ public class CodecModule extends AbstractPresenterModule {
     bind(ServerStatusResponseCodec.class).asEagerSingleton();
     bind(LogInfoResponseCodec.class).asEagerSingleton();
     bind(LogInfoRequestCodec.class).asEagerSingleton();
+    bind(ServerInfoResponseCodec.class).asEagerSingleton();
   }
 
 }
