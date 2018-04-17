@@ -3,6 +3,7 @@ package com.nomis.service;
 import static com.nomis.shared.model.ServerStatus.NOT_ACTUAL;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nomis.dto.NodeDto;
 import com.nomis.shared.model.LogLevel;
 import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.model.ServerStatus;
@@ -121,12 +122,34 @@ public class SocketServiceImpl implements SocketService {
 
     serverStatusInfoList.forEach(serverInfo -> {
       ServerStatus serverStatus = NOT_ACTUAL;
+      Map<Long, NodeDto> nodes = nodesService.getAllNodes();
       switch (serverInfo.getName()) {
         case "NPO":
+          serverStatus = nodes.values()
+              .stream()
+              .filter(node -> node.getNodeType()
+                  .equalsIgnoreCase("NPO"))
+              .map(node -> node.getStatus())
+              .findFirst()
+              .orElse(ServerStatus.NOT_ACTUAL);
           break;
         case "JM":
+          serverStatus = nodes.values()
+              .stream()
+              .filter(node -> node.getNodeType()
+                  .equalsIgnoreCase("JM"))
+              .map(node -> node.getStatus())
+              .findFirst()
+              .orElse(ServerStatus.NOT_ACTUAL);
           break;
         case "RabbitMQ":
+          serverStatus = nodes.values()
+              .stream()
+              .filter(node -> node.getNodeType()
+                  .equalsIgnoreCase("RabbitMQ"))
+              .map(node -> node.getStatus())
+              .findFirst()
+              .orElse(ServerStatus.NOT_ACTUAL);
           break;
         default:
           serverStatus = NOT_ACTUAL;
