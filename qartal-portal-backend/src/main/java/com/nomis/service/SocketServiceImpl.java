@@ -9,9 +9,11 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nomis.dto.BaselineJobs;
 import com.nomis.dto.SimulationJobs;
 import com.nomis.shared.model.LogLevel;
+import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.model.ServerStatus;
 import com.nomis.shared.model.ServerStatusInfo;
 import com.nomis.shared.response.LogInfoResponse;
+import com.nomis.shared.response.ServerInfoResponse;
 import com.nomis.shared.response.ServerStatusResponse;
 import java.io.IOException;
 import java.time.LocalDateTime;
@@ -22,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -84,31 +87,22 @@ public class SocketServiceImpl implements SocketService {
 
   @Scheduled(fixedRate = 3000)
   public void updateServiceInfo() {
-    /*
-    ServerInfoResponse serverInfoResponse = new ServerInfoResponse();
-    List<ServerInfo> serverInfoList = new ArrayList<>();
-    for (int i = 0; i < 20; i++) {
-      ServerInfo serverInfo = new ServerInfo();
-      serverInfo.setKey("Key for ID = " + serverInfoRequest.getId());
-      serverInfo.setValue(RandomStringUtils.randomAlphabetic(20));
-      serverInfoList.add(serverInfo);
-    }
-    serverInfoResponse.setServerInfoList(serverInfoList);
-    return serverInfoResponse;
-
-    webSocketSessionLogMap.forEach((webSocketSession, logLevel) -> {
-      LogInfoResponse logInfoResponse = new LogInfoResponse();
-      logInfoResponse.setCurrentTime(formatter.format(LocalDateTime.now()));
-      logInfoResponse.setLogLevel(logLevel);
-      logInfoResponse.setMessage("Message from server");
-      logInfoResponse.setSessionId(webSocketSession.getId());
+    webSocketSessionInfoMap.forEach((webSocketSession, id) -> {
+      ServerInfoResponse serverInfoResponse = new ServerInfoResponse();
+      List<ServerInfo> serverInfoList = new ArrayList<>();
+      for (int i = 0; i < 20; i++) {
+        ServerInfo serverInfo = new ServerInfo();
+        serverInfo.setKey("Key for ID = " + id);
+        serverInfo.setValue(RandomStringUtils.randomAlphabetic(20));
+        serverInfoList.add(serverInfo);
+      }
+      serverInfoResponse.setServerInfoList(serverInfoList);
       try {
-        webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(logInfoResponse)));
+        webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(serverInfoResponse)));
       } catch (IOException e) {
-        log.error("updateLogInfo", e);
+        log.error("updateServiceInfo", e);
       }
     });
-    */
   }
 
   @Override
