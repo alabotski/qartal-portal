@@ -146,13 +146,13 @@ public class HomePresenter extends Presenter<HomePresenter.MyView, HomePresenter
       serverStatusWidget.setServerStatusInfo(serverStatusInfo);
       switch (serverStatusInfo.getServerType()) {
         case SERVER:
-          //          serverStatusWidget.setWidth("100%");
-          addToSlot(SLOT_SERVER_CONTENT, serverInfoWidget);
+          serverStatusWidget.setWidth("100%");
+          addToSlot(SLOT_SERVER_CONTENT, serverStatusWidget);
           serverList.add(serverStatusWidget);
           break;
         case CLUSTER:
           serverStatusWidget.setGrid("s12 m12 l12");
-          addToSlot(SLOT_CLUSTER_CONTENT, serverInfoWidget);
+          addToSlot(SLOT_CLUSTER_CONTENT, serverStatusWidget);
           clusterList.add(serverStatusWidget);
           break;
         default:
