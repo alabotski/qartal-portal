@@ -98,8 +98,14 @@ public class JobManagerClientServiceImpl implements JobManagerClientService {
         || !baselineJobs.getRunning()
         .isEmpty()) {
       jobManagerNode.setStatus(ServerStatus.RUNNING);
+      //TODO implement status update within appropriate service
+      nodesService.getNodeByNodeType("NPO").setStatus(ServerStatus.RUNNING);
+      nodesService.getNodeListByNodeType("SERVICES").forEach(node -> node.setStatus(ServerStatus.RUNNING));
     } else {
       jobManagerNode.setStatus(ServerStatus.ENABLE);
+      //TODO implement status update within appropriate service
+      nodesService.getNodeByNodeType("NPO").setStatus(ServerStatus.ENABLE);
+      nodesService.getNodeListByNodeType("SERVICES").forEach(node -> node.setStatus(ServerStatus.ENABLE));
     }
 
   }
