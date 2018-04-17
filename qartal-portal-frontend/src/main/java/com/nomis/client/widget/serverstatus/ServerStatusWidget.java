@@ -12,6 +12,7 @@ import com.nomis.client.event.MessageEvent;
 import com.nomis.client.event.ShowInfoEvent;
 import com.nomis.shared.model.ServerStatus;
 import com.nomis.shared.model.ServerStatusInfo;
+import gwt.material.design.client.constants.Color;
 
 /**
  * ServerStatusWidget.
@@ -28,6 +29,8 @@ public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyVie
     void setServerInfoName(String serverInfoName);
 
     void setServerStatusText(String serverStatusName);
+
+    void setServerStatusColor(Color color);
   }
 
   @Inject
@@ -80,12 +83,15 @@ public class ServerStatusWidget extends PresenterWidget<ServerStatusWidget.MyVie
     switch (serverStatus) {
       case ENABLE:
         getView().setImage(qartalPortalBundle.enable());
+        getView().setServerStatusColor(Color.GREEN);
         break;
       case DISABLED:
         getView().setImage(qartalPortalBundle.disable());
+        getView().setServerStatusColor(Color.RED);
         break;
       case RUNNING:
         getView().setImage(qartalPortalBundle.running());
+        getView().setServerStatusColor(Color.BLUE);
         break;
       default:
         break;

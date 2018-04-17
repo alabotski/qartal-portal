@@ -4,7 +4,7 @@ import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
-import gwt.material.design.client.ui.MaterialCollection;
+import gwt.material.design.client.ui.MaterialColumn;
 import gwt.material.design.client.ui.MaterialPanel;
 import gwt.material.design.client.ui.MaterialRow;
 
@@ -21,10 +21,10 @@ public class HomeView extends ViewWithUiHandlers<HomeUiHandlers> implements Home
   }
 
   @UiField
-  MaterialCollection serverCollection;
+  MaterialColumn serverCollection;
 
   @UiField
-  MaterialCollection clusterCollection;
+  MaterialColumn clusterCollection;
 
   @UiField
   MaterialRow serverInfo;

@@ -5,12 +5,16 @@
 
   <m:MaterialPanel>
     <m:MaterialRow>
-      <m:MaterialColumn grid="s2">
-        <m:MaterialCollection header="{lang.serverHeaderText}" width="100%" ui:field="serverCollection"/>
-        <m:MaterialCollection header="{lang.clusterHeaderText}" width="100%" ui:field="clusterCollection"/>
+      <m:MaterialColumn grid="s3">
+        <m:MaterialRow>
+          <m:MaterialColumn grid="s12 m12 l12" ui:field="serverCollection"/>
+        </m:MaterialRow>
+        <m:MaterialRow>
+          <m:MaterialColumn grid="s12 m12 l12" ui:field="clusterCollection"/>
+        </m:MaterialRow>
       </m:MaterialColumn>
 
-      <m:MaterialColumn grid="s10">
+      <m:MaterialColumn grid="s9">
         <m:MaterialRow>
           <m:MaterialColumn grid="s12">
             <m:MaterialTab ui:field="tab" indicatorColor="YELLOW" shadow="1">

@@ -1,15 +1,18 @@
 package com.nomis.client.widget.serverstatus;
 
 import com.google.gwt.event.dom.client.ClickEvent;
-import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.resources.client.DataResource;
 import com.google.gwt.uibinder.client.UiBinder;
 import com.google.gwt.uibinder.client.UiField;
+import com.google.gwt.uibinder.client.UiHandler;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
-import gwt.material.design.client.ui.MaterialCollectionItem;
+import gwt.material.design.client.constants.Color;
+import gwt.material.design.client.ui.MaterialCard;
+import gwt.material.design.client.ui.MaterialCardTitle;
 import gwt.material.design.client.ui.MaterialImage;
 import gwt.material.design.client.ui.MaterialLabel;
+import gwt.material.design.client.ui.MaterialLink;
 
 /**
  * ServerStatusView.
@@ -19,32 +22,25 @@ import gwt.material.design.client.ui.MaterialLabel;
  */
 public class ServerStatusView extends ViewWithUiHandlers<ServerStatusUiHandlers> implements ServerStatusWidget.MyView {
 
-  interface Binder extends UiBinder<MaterialCollectionItem, ServerStatusView> {
+  interface Binder extends UiBinder<MaterialCard, ServerStatusView> {
 
   }
-
-  @UiField
-  MaterialCollectionItem serverStatus;
 
   @UiField
   MaterialImage serverIcon;
 
   @UiField
-  MaterialLabel serverName;
+  MaterialCardTitle serverName;
 
   @UiField
-  MaterialLabel serverWebSocketUrl;
+  MaterialLabel serverStatus;
+
+  @UiField
+  MaterialLink showInfo;
 
   @Inject
   ServerStatusView(Binder binder) {
     initWidget(binder.createAndBindUi(this));
-
-    serverStatus.addClickHandler(new ClickHandler() {
-      @Override
-      public void onClick(ClickEvent event) {
-        getUiHandlers().getServerInfo();
-      }
-    });
   }
 
   @Override
@@ -60,7 +56,17 @@ public class ServerStatusView extends ViewWithUiHandlers<ServerStatusUiHandlers>
 
   @Override
   public void setServerStatusText(String serverStatusName) {
-    serverWebSocketUrl.setText(serverStatusName);
+    serverStatus.setText(serverStatusName);
+
   }
 
+  @Override
+  public void setServerStatusColor(Color color) {
+    serverStatus.setTextColor(color);
+  }
+
+  @UiHandler("showInfo")
+  void onShowInfoClicked(ClickEvent event) {
+    getUiHandlers().getServerInfo();
+  }
 }
