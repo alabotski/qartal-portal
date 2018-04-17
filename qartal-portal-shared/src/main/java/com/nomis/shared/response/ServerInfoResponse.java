@@ -12,6 +12,7 @@ import java.util.List;
 public class ServerInfoResponse {
 
   private List<ServerInfo> serverInfoList;
+  private String webSocketUrl;
 
   public List<ServerInfo> getServerInfoList() {
     return serverInfoList;
@@ -21,4 +22,11 @@ public class ServerInfoResponse {
     this.serverInfoList = serverInfoList;
   }
 
+  public String getWebSocketUrl() {
+    return webSocketUrl;
+  }
+
+  public void setWebSocketUrl(String webSocketUrl) {
+    this.webSocketUrl = webSocketUrl;
+  }
 }

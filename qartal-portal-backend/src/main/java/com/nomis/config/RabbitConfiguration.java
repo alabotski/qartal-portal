@@ -16,7 +16,9 @@ import org.springframework.context.annotation.Configuration;
 
 
 /**
- * @author Sokolov
+ * RabbitConfiguration.
+ *
+ * @author Sokolov.
  */
 @Configuration
 @EnableRabbit
@@ -30,10 +32,9 @@ public class RabbitConfiguration {
 
   @Bean
   public ConnectionFactory rabbitConnectionFactory() {
-    CachingConnectionFactory connectionFactory = new CachingConnectionFactory(
-        propertyService.getAmqpHost());
-    connectionFactory.setCacheMode(
-        CachingConnectionFactory.CacheMode.CHANNEL); // Mandatory option. Only this cash mode permit auto-declaring of queues in rabbitMq broker.
+    CachingConnectionFactory connectionFactory = new CachingConnectionFactory(propertyService.getAmqpHost());
+    // Mandatory option. Only this cash mode permit auto-declaring of queues in rabbitMq broker.
+    connectionFactory.setCacheMode(CachingConnectionFactory.CacheMode.CHANNEL);
     connectionFactory.setPort(propertyService.getAmqpPort());
     connectionFactory.setUsername(propertyService.getAmqpUser());
     connectionFactory.setPassword(propertyService.getAmqpPassword());
@@ -53,8 +54,7 @@ public class RabbitConfiguration {
 
   @Bean
   public AmqpAdmin rabbitAdmin(ConnectionFactory factory) {
-    AmqpAdmin admin = new RabbitAdmin(factory);
-    return admin;
+    return new RabbitAdmin(factory);
   }
 
   @Bean

@@ -1,8 +1,8 @@
 package com.nomis.config;
 
-import com.nomis.handler.JobManagerHandler;
 import com.nomis.handler.LogInfoHandler;
 import com.nomis.handler.ServerInfoHandler;
+import com.nomis.handler.ServerStatusHandler;
 import java.util.concurrent.Executors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootConfiguration;
@@ -24,20 +24,20 @@ import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry
 public class WebSocketConfiguration implements WebSocketConfigurer {
 
   @Autowired
-  private ServerInfoHandler serverInfoHandler;
+  private ServerStatusHandler serverStatusHandler;
 
   @Autowired
   private LogInfoHandler logInfoHandler;
 
   @Autowired
-  private JobManagerHandler jobManagerHandler;
+  private ServerInfoHandler serverInfoHandler;
 
   public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-    registry.addHandler(serverInfoHandler, "/serverStatus")
+    registry.addHandler(serverStatusHandler, "/serverStatus")
+        .setAllowedOrigins("*");
+    registry.addHandler(serverInfoHandler, "/serverInfo")
         .setAllowedOrigins("*");
     registry.addHandler(logInfoHandler, "/logInfo")
-        .setAllowedOrigins("*");
-    registry.addHandler(jobManagerHandler, "/jobmanager")
         .setAllowedOrigins("*");
   }
 

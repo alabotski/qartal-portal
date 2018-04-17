@@ -15,6 +15,9 @@ public interface SocketService {
 
   List<WebSocketSession> getWebSocketSessionList();
 
-  Map<WebSocketSession, LogLevel> getWebSocketSessionMap();
+  Map<WebSocketSession, LogLevel> getWebSocketSessionLogMap();
+
+  Map<WebSocketSession, Integer> getWebSocketSessionInfoMap();
+
 
 }

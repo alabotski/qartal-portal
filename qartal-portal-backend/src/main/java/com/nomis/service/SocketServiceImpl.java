@@ -41,7 +41,8 @@ public class SocketServiceImpl implements SocketService {
   private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
   private List<WebSocketSession> webSocketSessionList = new ArrayList<>();
-  private Map<WebSocketSession, LogLevel> webSocketSessionMap = new HashMap<>();
+  private Map<WebSocketSession, LogLevel> webSocketSessionLogMap = new HashMap<>();
+  private Map<WebSocketSession, Integer> webSocketSessionInfoMap = new HashMap<>();
 
   @Autowired
   private ServerService serverService;
@@ -67,7 +68,7 @@ public class SocketServiceImpl implements SocketService {
 
   @Scheduled(fixedRate = 3000)
   public void updateLogInfo() {
-    webSocketSessionMap.forEach((webSocketSession, logLevel) -> {
+    webSocketSessionLogMap.forEach((webSocketSession, logLevel) -> {
       LogInfoResponse logInfoResponse = new LogInfoResponse();
       logInfoResponse.setCurrentTime(formatter.format(LocalDateTime.now()));
       logInfoResponse.setLogLevel(logLevel);
@@ -81,14 +82,48 @@ public class SocketServiceImpl implements SocketService {
     });
   }
 
+  @Scheduled(fixedRate = 3000)
+  public void updateServiceInfo() {
+    /*
+    ServerInfoResponse serverInfoResponse = new ServerInfoResponse();
+    List<ServerInfo> serverInfoList = new ArrayList<>();
+    for (int i = 0; i < 20; i++) {
+      ServerInfo serverInfo = new ServerInfo();
+      serverInfo.setKey("Key for ID = " + serverInfoRequest.getId());
+      serverInfo.setValue(RandomStringUtils.randomAlphabetic(20));
+      serverInfoList.add(serverInfo);
+    }
+    serverInfoResponse.setServerInfoList(serverInfoList);
+    return serverInfoResponse;
+
+    webSocketSessionLogMap.forEach((webSocketSession, logLevel) -> {
+      LogInfoResponse logInfoResponse = new LogInfoResponse();
+      logInfoResponse.setCurrentTime(formatter.format(LocalDateTime.now()));
+      logInfoResponse.setLogLevel(logLevel);
+      logInfoResponse.setMessage("Message from server");
+      logInfoResponse.setSessionId(webSocketSession.getId());
+      try {
+        webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(logInfoResponse)));
+      } catch (IOException e) {
+        log.error("updateLogInfo", e);
+      }
+    });
+    */
+  }
+
   @Override
   public List<WebSocketSession> getWebSocketSessionList() {
     return webSocketSessionList;
   }
 
   @Override
-  public Map<WebSocketSession, LogLevel> getWebSocketSessionMap() {
-    return webSocketSessionMap;
+  public Map<WebSocketSession, LogLevel> getWebSocketSessionLogMap() {
+    return webSocketSessionLogMap;
+  }
+
+  @Override
+  public Map<WebSocketSession, Integer> getWebSocketSessionInfoMap() {
+    return webSocketSessionInfoMap;
   }
 
   private ServerStatusResponse generateServerStatusResponse(List<ServerStatusInfo> serverStatusInfoList) {

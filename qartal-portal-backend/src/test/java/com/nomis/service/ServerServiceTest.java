@@ -47,13 +47,12 @@ public class ServerServiceTest {
 
 
   @Test
-  public void should_serverInfo() {
+  public void should_serverInfo() throws IOException {
     ServerInfoRequest serverInfoRequest = new ServerInfoRequest();
     serverInfoRequest.setId(1);
 
-    ServerInfoResponse serverInfoResponse = serverServiceImpl.getServerInfo(serverInfoRequest);
-    Assert.assertEquals(serverInfoResponse.getServerInfoList()
-        .size(), 20);
+    ServerInfoResponse serverInfoResponse = serverServiceImpl.getServerInfo();
+    Assert.assertNotNull(serverInfoResponse.getWebSocketUrl());
   }
 
   @Test

@@ -11,18 +11,10 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
-@RabbitListener(
-    id = "config", bindings = @QueueBinding(
-    value = @Queue(autoDelete = "false", durable = "true", value = "#{logQueue}"),
-    key = "#{logQueue}",
-    exchange = @Exchange(
-        value = "#{exchangeName}",
-        type = ExchangeTypes.TOPIC,
-        durable = "true"
-    )
-)
-)
-
+@RabbitListener(id = "config",
+    bindings = @QueueBinding(value = @Queue(autoDelete = "false", durable = "true", value = "#{logQueue}"),
+        key = "#{logQueue}",
+        exchange = @Exchange(value = "#{exchangeName}", type = ExchangeTypes.TOPIC, durable = "true")))
 @Component
 @Slf4j
 public class LogQueueListener {

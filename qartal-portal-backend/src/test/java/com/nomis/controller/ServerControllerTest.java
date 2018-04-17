@@ -3,14 +3,11 @@ package com.nomis.controller;
 import static com.nomis.TestUtil.asJsonString;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.refEq;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoMoreInteractions;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -100,19 +97,19 @@ public class ServerControllerTest {
 
     ServerInfoResponse serverInfoResponse = new ServerInfoResponse();
     serverInfoResponse.setServerInfoList(serverInfoList);
-    when(serverService.getServerInfo(any())).thenReturn(serverInfoResponse);
+    when(serverService.getServerInfo()).thenReturn(serverInfoResponse);
 
     ServerInfoRequest serverInfoRequest = new ServerInfoRequest();
     serverInfoRequest.setId(1);
 
-    mockMvc.perform(post("/server/serverInfo").contentType(MediaType.APPLICATION_JSON_UTF8)
+    mockMvc.perform(get("/server/serverInfo").contentType(MediaType.APPLICATION_JSON_UTF8)
         .content(asJsonString(serverInfoRequest))
         .accept(MediaType.APPLICATION_JSON))
         .andExpect(status().isOk())
         .andExpect(content().contentType(MediaType.APPLICATION_JSON_UTF8_VALUE))
         .andExpect(jsonPath("$.serverInfoList", hasSize(1)));
 
-    verify(serverService, times(1)).getServerInfo(refEq(serverInfoRequest));
+    verify(serverService, times(1)).getServerInfo();
     verifyNoMoreInteractions(serverService);
   }
 
