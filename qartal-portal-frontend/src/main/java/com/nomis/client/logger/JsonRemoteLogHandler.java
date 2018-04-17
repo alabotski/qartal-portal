@@ -25,8 +25,6 @@ public class JsonRemoteLogHandler extends RemoteLogHandlerBase {
     logGwtRequest.setLevel(logRecord.getLevel()
         .getName());
     logGwtRequest.setMessage(logRecord.getMessage());
-    logGwtRequest.setSourceClassName(logGwtRequest.getSourceClassName());
-    logGwtRequest.setSourceMethodName(logGwtRequest.getSourceMethodName());
     logGwtRequest.setThrowable(logRecord.getThrown());
 
     loggerService.log(logGwtRequest, new MethodCallback<Void>() {

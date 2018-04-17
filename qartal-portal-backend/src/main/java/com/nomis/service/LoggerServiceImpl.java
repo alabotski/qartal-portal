@@ -42,28 +42,22 @@ public class LoggerServiceImpl implements LoggerService {
     if (isNotBlank(logGwtRequest.getLevel())) {
       Level level = LEVELS.get(logGwtRequest.getLevel());
       String message = isNotBlank((logGwtRequest.getMessage())) ? logGwtRequest.getMessage() : StringUtils.EMPTY;
-      String sourceClassName = isNotBlank((logGwtRequest.getSourceClassName())) ? logGwtRequest.getSourceClassName() :
-          StringUtils.EMPTY;
-      String sourceMethodName =
-          isNotBlank((logGwtRequest.getSourceMethodName())) ? logGwtRequest.getSourceMethodName() :
-              StringUtils.EMPTY;
 
-      String logmsg = sourceClassName + " " + sourceMethodName + " " + message;
       switch (level) {
         case INFO:
-          log.info(logmsg, logGwtRequest.getThrowable());
+          log.info(message, logGwtRequest.getThrowable());
           break;
         case WARN:
-          log.warn(logmsg, logGwtRequest.getThrowable());
+          log.warn(message, logGwtRequest.getThrowable());
           break;
         case DEBUG:
-          log.debug(logmsg, logGwtRequest.getThrowable());
+          log.debug(message, logGwtRequest.getThrowable());
           break;
         case ERROR:
-          log.error(logmsg, logGwtRequest.getThrowable());
+          log.error(message, logGwtRequest.getThrowable());
           break;
         case TRACE:
-          log.trace(logmsg, logGwtRequest.getThrowable());
+          log.trace(message, logGwtRequest.getThrowable());
           break;
         default:
           break;
