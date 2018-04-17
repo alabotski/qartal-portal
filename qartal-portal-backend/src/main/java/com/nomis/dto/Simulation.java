@@ -17,6 +17,7 @@ public class Simulation {
   private int userId;
   private String userName;
   private int optScenarioId;
+  private String state;
 
 
   @Override
@@ -48,7 +49,10 @@ public class Simulation {
     if (name != null ? !name.equals(that.name) : that.name != null) {
       return false;
     }
-    return userName != null ? userName.equals(that.userName) : that.userName == null;
+    if (userName != null ? !userName.equals(that.userName) : that.userName != null) {
+      return false;
+    }
+    return state != null ? state.equals(that.state) : that.state == null;
   }
 
   @Override
@@ -60,29 +64,7 @@ public class Simulation {
     result = 31 * result + userId;
     result = 31 * result + (userName != null ? userName.hashCode() : 0);
     result = 31 * result + optScenarioId;
+    result = 31 * result + (state != null ? state.hashCode() : 0);
     return result;
-  }
-
-  @Override
-  public String toString() {
-    final StringBuilder sb = new StringBuilder("Simulation{");
-    sb.append("tenantId='")
-        .append(tenantId)
-        .append('\'');
-    sb.append(", vertical='")
-        .append(vertical)
-        .append('\'');
-    sb.append(", name='")
-        .append(name)
-        .append('\'');
-    sb.append(", userId=")
-        .append(userId);
-    sb.append(", userName='")
-        .append(userName)
-        .append('\'');
-    sb.append(", optScenarioId=")
-        .append(optScenarioId);
-    sb.append('}');
-    return sb.toString();
   }
 }

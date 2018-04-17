@@ -1,6 +1,7 @@
 package com.nomis.util;
 
 import java.io.InputStream;
+import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -12,11 +13,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ResourcesUtil {
 
-  private static ResourcesUtil instance;
+  private static volatile ResourcesUtil instance;
+  private static volatile Object lock = new Object();
 
   public static synchronized ResourcesUtil getInstance() {
     if (instance == null) {
-      instance = new ResourcesUtil();
+      synchronized (lock) {
+        instance = new ResourcesUtil();
+      }
     }
     return instance;
   }
