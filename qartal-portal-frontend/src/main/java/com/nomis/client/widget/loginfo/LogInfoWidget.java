@@ -47,8 +47,8 @@ public class LogInfoWidget extends PresenterWidget<LogInfoWidget.MyView> impleme
   @Override
   public void onLogRow(LogInfoEvent event) {
     getView().getLogInfo()
-        .setHTML(getView().getLogInfo()
-            .getHTML() + event.getLogRow());
+        .setHTML(event.getLogRow() + getView().getLogInfo()
+            .getHTML());
   }
 
 }

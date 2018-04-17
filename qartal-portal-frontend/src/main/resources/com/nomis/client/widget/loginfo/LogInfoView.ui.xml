@@ -14,7 +14,8 @@
   </ui:style>
 
   <m:MaterialPanel addStyleNames="{style.panel}">
-    <ma:richeditor.MaterialRichEditor ui:field="logInfo" airMode="true" height="calc(100vh - 300px)" enabled="false"/>
+    <ma:richeditor.MaterialRichEditor ui:field="logInfo" airMode="true" height="calc(100vh - 300px)" overflow="AUTO"
+      enabled="false"/>
   </m:MaterialPanel>
 
 </ui:UiBinder>
