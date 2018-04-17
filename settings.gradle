@@ -1,4 +1,4 @@
 include "qartal-portal-backend"
 include "qartal-portal-frontend"
 include "qartal-portal-shared"
-include 'qartal-portal-services'
+//include 'qartal-portal-services'
