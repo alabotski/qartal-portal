@@ -4,7 +4,6 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 
 import com.nomis.service.LoggerService;
 import com.nomis.shared.request.LogGwtRequest;
-import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,7 +29,7 @@ public class LoggerController {
 
   @PostMapping(value = "/log", consumes = MediaType.APPLICATION_JSON_VALUE,
       produces = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Void> login(@RequestBody @Valid LogGwtRequest logGwtRequest) {
+  public ResponseEntity<Void> login(@RequestBody LogGwtRequest logGwtRequest) {
     loggerService.writeLog(logGwtRequest);
     return new ResponseEntity<>(NO_CONTENT);
   }

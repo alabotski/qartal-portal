@@ -39,27 +39,35 @@ public class LoggerServiceImpl implements LoggerService {
 
   @Override
   public void writeLog(LogGwtRequest logGwtRequest) {
-    Level level = LEVELS.get(logGwtRequest.getLevel());
-    String message = isNotBlank((logGwtRequest.getMessage())) ? logGwtRequest.getMessage() : StringUtils.EMPTY;
+    if (isNotBlank(logGwtRequest.getLevel())) {
+      Level level = LEVELS.get(logGwtRequest.getLevel());
+      String message = isNotBlank((logGwtRequest.getMessage())) ? logGwtRequest.getMessage() : StringUtils.EMPTY;
+      String sourceClassName = isNotBlank((logGwtRequest.getSourceClassName())) ? logGwtRequest.getSourceClassName() :
+          StringUtils.EMPTY;
+      String sourceMethodName =
+          isNotBlank((logGwtRequest.getSourceMethodName())) ? logGwtRequest.getSourceMethodName() :
+              StringUtils.EMPTY;
 
-    switch (level) {
-      case INFO:
-        log.info(message, logGwtRequest.getThrowable());
-        break;
-      case WARN:
-        log.warn(message, logGwtRequest.getThrowable());
-        break;
-      case DEBUG:
-        log.debug(message, logGwtRequest.getThrowable());
-        break;
-      case ERROR:
-        log.error(message, logGwtRequest.getThrowable());
-        break;
-      case TRACE:
-        log.trace(message, logGwtRequest.getThrowable());
-        break;
-      default:
-        break;
+      String logmsg = sourceClassName + " " + sourceMethodName + " " + message;
+      switch (level) {
+        case INFO:
+          log.info(logmsg, logGwtRequest.getThrowable());
+          break;
+        case WARN:
+          log.warn(logmsg, logGwtRequest.getThrowable());
+          break;
+        case DEBUG:
+          log.debug(logmsg, logGwtRequest.getThrowable());
+          break;
+        case ERROR:
+          log.error(logmsg, logGwtRequest.getThrowable());
+          break;
+        case TRACE:
+          log.trace(logmsg, logGwtRequest.getThrowable());
+          break;
+        default:
+          break;
+      }
     }
   }
 }

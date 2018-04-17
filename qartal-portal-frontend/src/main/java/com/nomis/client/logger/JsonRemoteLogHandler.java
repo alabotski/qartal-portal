@@ -1,7 +1,8 @@
 package com.nomis.client.logger;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.logging.client.RemoteLogHandlerBase;
-import com.google.inject.Inject;
+import com.google.gwt.user.client.Window;
 import com.nomis.client.rest.LoggerService;
 import com.nomis.shared.request.LogGwtRequest;
 import java.util.logging.LogRecord;
@@ -16,8 +17,7 @@ import org.fusesource.restygwt.client.MethodCallback;
  */
 public class JsonRemoteLogHandler extends RemoteLogHandlerBase {
 
-  @Inject
-  private LoggerService loggerService;
+  private static final LoggerService loggerService = GWT.create(LoggerService.class);
 
   @Override
   public void publish(LogRecord logRecord) {
@@ -25,17 +25,19 @@ public class JsonRemoteLogHandler extends RemoteLogHandlerBase {
     logGwtRequest.setLevel(logRecord.getLevel()
         .getName());
     logGwtRequest.setMessage(logRecord.getMessage());
+    logGwtRequest.setSourceClassName(logGwtRequest.getSourceClassName());
+    logGwtRequest.setSourceMethodName(logGwtRequest.getSourceMethodName());
     logGwtRequest.setThrowable(logRecord.getThrown());
 
     loggerService.log(logGwtRequest, new MethodCallback<Void>() {
       @Override
       public void onFailure(Method method, Throwable exception) {
-
+        Window.alert("err");
       }
 
       @Override
       public void onSuccess(Method method, Void response) {
-
+        Window.alert("scu");
       }
     });
   }

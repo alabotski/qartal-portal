@@ -1,7 +1,5 @@
 package com.nomis.shared.request;
 
-import javax.validation.constraints.NotNull;
-
 /**
  * LogGwtRequest.
  *
@@ -10,10 +8,10 @@ import javax.validation.constraints.NotNull;
  */
 public class LogGwtRequest {
 
-  @NotNull
   private String level;
-  @NotNull
   private String message;
+  private String sourceClassName;
+  private String sourceMethodName;
   private Throwable throwable;
 
   public String getLevel() {
@@ -38,5 +36,21 @@ public class LogGwtRequest {
 
   public void setThrowable(Throwable throwable) {
     this.throwable = throwable;
+  }
+
+  public String getSourceClassName() {
+    return sourceClassName;
+  }
+
+  public void setSourceClassName(String sourceClassName) {
+    this.sourceClassName = sourceClassName;
+  }
+
+  public String getSourceMethodName() {
+    return sourceMethodName;
+  }
+
+  public void setSourceMethodName(String sourceMethodName) {
+    this.sourceMethodName = sourceMethodName;
   }
 }

@@ -90,6 +90,9 @@ public class ServerInfoWidget extends PresenterWidget<ServerInfoWidget.MyView> i
             public void onMessage(final WebSocket webSocket, final String data) {
               ServerInfoResponse serverInfoResponse = serverInfoResponseCodec.decode(data);
               getView().getServerInfo()
+                  .getRows()
+                  .clear();
+              getView().getServerInfo()
                   .setRowData(0, serverInfoResponse.getServerInfoList());
             }
 

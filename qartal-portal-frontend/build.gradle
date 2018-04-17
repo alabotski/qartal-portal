@@ -38,16 +38,16 @@ dependencies {
 gwt {
   if (project.hasProperty("dev")) {
     println "Run developer mode"
-    modules "com.nomis.QartalPortal"
-    logLevel "ERROR"
+    modules "com.nomis.QartalPortalDev"
+    logLevel "INFO"
     compiler {
       style = "PRETTY"
       optimize = 0
     }
   } else {
     println "Run production mode"
-    modules "com.nomis.QartalPortalDev"
-    logLevel "INFO"
+    modules "com.nomis.QartalPortal"
+    logLevel "ERROR"
     compiler {
       style = "OBF"
       optimize = 9
