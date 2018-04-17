@@ -1,5 +1,6 @@
 package com.nomis.config;
 
+import com.nomis.handler.JobmanagerWebSocketHandler;
 import com.nomis.handler.LogInfoHandler;
 import com.nomis.handler.ServerInfoHandler;
 import java.util.concurrent.Executors;
@@ -28,10 +29,15 @@ public class WebSocketConfiguration implements WebSocketConfigurer {
   @Autowired
   private LogInfoHandler logInfoHandler;
 
+  @Autowired
+  private JobmanagerWebSocketHandler jobmanagerWebSocketHandler;
+
   public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
     registry.addHandler(serverInfoHandler, "/serverStatus")
         .setAllowedOrigins("*");
     registry.addHandler(logInfoHandler, "/logInfo")
+        .setAllowedOrigins("*");
+    registry.addHandler(jobmanagerWebSocketHandler, "/jobmanager")
         .setAllowedOrigins("*");
   }
 
