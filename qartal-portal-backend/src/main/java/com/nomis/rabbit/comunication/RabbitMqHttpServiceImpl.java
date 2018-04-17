@@ -2,8 +2,6 @@ package com.nomis.rabbit.comunication;
 
 import com.rabbitmq.http.client.Client;
 import com.rabbitmq.http.client.domain.ConnectionInfo;
-import com.rabbitmq.http.client.domain.QueueInfo;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
@@ -37,8 +35,7 @@ public class RabbitMqHttpServiceImpl {
     try {
       client.whoAmI();
       return true;
-    }
-    catch (Exception ex) {
+    } catch (Exception ex) {
       log.error("RabbitMq is not alive: ", ex);
       return false;
     }

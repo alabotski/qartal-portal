@@ -70,18 +70,16 @@ public class RabbitMqClientServiceImpl implements RabbitMqClientService {
             servicesNodes.add(nodeDto);
           });
 
-      servicesNodes
-          .forEach(service -> {
-                NodeDto nodeDto = servicesList.stream()
-                    .filter(node -> node.getIpAddress()
-                        .equalsIgnoreCase(service.getIpAddress()))
-                    .findFirst()
-                    .orElse(null);
-                if (Objects.isNull(nodeDto)) {
-                  nodesService.addNode(service);
-                }
-              }
-          );
+      servicesNodes.forEach(service -> {
+        NodeDto nodeDto = servicesList.stream()
+            .filter(node -> node.getIpAddress()
+                .equalsIgnoreCase(service.getIpAddress()))
+            .findFirst()
+            .orElse(null);
+        if (Objects.isNull(nodeDto)) {
+          nodesService.addNode(service);
+        }
+      });
 
       //      servicesList.stream()
       //          .filter(node -> servicesNodes.stream()
