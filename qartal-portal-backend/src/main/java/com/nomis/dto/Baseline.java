@@ -17,6 +17,7 @@ public class Baseline {
   private int baselineId;
   private int userId;
   private String userName;
+  private String state;
 
   @Override
   public boolean equals(Object o) {
@@ -47,7 +48,10 @@ public class Baseline {
     if (baselineName != null ? !baselineName.equals(baseline.baselineName) : baseline.baselineName != null) {
       return false;
     }
-    return userName != null ? userName.equals(baseline.userName) : baseline.userName == null;
+    if (userName != null ? !userName.equals(baseline.userName) : baseline.userName != null) {
+      return false;
+    }
+    return state != null ? state.equals(baseline.state) : baseline.state == null;
   }
 
   @Override
@@ -59,6 +63,7 @@ public class Baseline {
     result = 31 * result + baselineId;
     result = 31 * result + userId;
     result = 31 * result + (userName != null ? userName.hashCode() : 0);
+    result = 31 * result + (state != null ? state.hashCode() : 0);
     return result;
   }
 }

@@ -16,8 +16,10 @@ import org.apache.logging.log4j.util.Strings;
 import org.springframework.stereotype.Service;
 
 /**
- * @author Artur Kushner
- * @since 4/17/18
+ * NodesServiceImpl.
+ *
+ * @author Artur Kushner.
+ * @since 4/17/18.
  */
 @Service
 @Slf4j
@@ -45,9 +47,11 @@ public class NodesServiceImpl implements NodesService {
   }
 
   public long addNode(NodeDto node) {
-    long id = nodes.keySet().stream()
+    long id = nodes.keySet()
+        .stream()
         .mapToLong(Long::longValue)
-        .max().orElse(0) + 1;
+        .max()
+        .orElse(0) + 1;
     node.setId(id);
     nodes.put(id, node);
     return id;
@@ -65,9 +69,11 @@ public class NodesServiceImpl implements NodesService {
     if (Strings.isEmpty(nodeType)) {
       return null;
     }
-    return nodes.values().stream()
+    return nodes.values()
+        .stream()
         .filter(Objects::nonNull)
         .filter(node -> nodeType.equalsIgnoreCase(node.getNodeType()))
-        .findFirst().orElse(null);
+        .findFirst()
+        .orElse(null);
   }
 }

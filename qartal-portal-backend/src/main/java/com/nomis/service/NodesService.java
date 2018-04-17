@@ -3,8 +3,10 @@ package com.nomis.service;
 import com.nomis.dto.NodeDto;
 
 /**
- * @author Artur Kushner
- * @since 4/17/18
+ * NodesService.
+ *
+ * @author Artur Kushner.
+ * @since 4/17/18.
  */
 public interface NodesService {
 

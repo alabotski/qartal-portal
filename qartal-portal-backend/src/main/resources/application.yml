@@ -6,7 +6,7 @@ com.rednavis:
       socket:
         protocol: http://
         port: 9010
-        host: localhost
+        host: 192.168.50.142
         apiPath: /api/jobs
         connectUrl: ${com.rednavis.socket.protocol}${com.rednavis.socket.host}:${com.rednavis.socket.port}${com.rednavis.socket.apiPath}
 
