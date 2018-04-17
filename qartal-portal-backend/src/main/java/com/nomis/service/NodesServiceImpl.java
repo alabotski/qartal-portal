@@ -37,8 +37,9 @@ public class NodesServiceImpl implements NodesService {
     nodes = new HashMap<>();
 
     List<NodeDto> nodeList = objectMapper.readValue(ResourcesUtil.getInstance()
-        .getResource("nodes.json"), new TypeReference<List<NodeDto>>() {
-    });
+            .getResource("nodes.json"), new TypeReference<List<NodeDto>>() {
+        }
+    );
 
     nodeList.stream()
         .filter(Objects::nonNull)

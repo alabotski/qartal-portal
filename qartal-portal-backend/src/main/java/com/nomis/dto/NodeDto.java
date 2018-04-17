@@ -15,13 +15,16 @@ import lombok.Data;
 @Data
 public class NodeDto {
 
-  private long id;
+  private Long id;
   private String nodeType;
   private String ipAddress;
   private ServerStatus status;
   private Map<String, Object> nodeProperties;
 
-  public Map<String, Object> getNode() {
+  public Map<String, Object> getNodeInfo() {
+    if(Objects.isNull(nodeProperties)) {
+      nodeProperties = new HashMap<>();
+    }
     Map<String, Object> properties = new HashMap<>(nodeProperties);
     properties.put("id", id);
     properties.put("type", nodeType);
@@ -30,10 +33,10 @@ public class NodeDto {
   }
 
   public void addProperty(String key, Object value) {
-    if(Objects.isNull(nodeProperties)) {
+    if (Objects.isNull(nodeProperties)) {
       nodeProperties = new HashMap<>();
     }
-    nodeProperties.put(key,value);
+    nodeProperties.put(key, value);
   }
 
 }

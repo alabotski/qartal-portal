@@ -1,9 +1,9 @@
 package com.nomis.service;
 
 import static com.nomis.shared.model.ServerStatus.NOT_ACTUAL;
-import static com.nomis.shared.model.ServerStatus.RUNNING;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.nomis.dto.NodeDto;
 import com.nomis.shared.model.LogLevel;
 import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.model.ServerStatus;
@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
@@ -45,6 +45,9 @@ public class SocketServiceImpl implements SocketService {
 
   @Autowired
   private ServerService serverService;
+
+  @Inject
+  private NodesService nodesService;
 
   @Autowired
   private ObjectMapper objectMapper;
@@ -86,12 +89,15 @@ public class SocketServiceImpl implements SocketService {
     webSocketSessionInfoMap.forEach((webSocketSession, id) -> {
       ServerInfoResponse serverInfoResponse = new ServerInfoResponse();
       List<ServerInfo> serverInfoList = new ArrayList<>();
-      for (int i = 0; i < 20; i++) {
-        ServerInfo serverInfo = new ServerInfo();
-        serverInfo.setKey("Key for ID = " + id);
-        serverInfo.setValue(RandomStringUtils.randomAlphabetic(20));
-        serverInfoList.add(serverInfo);
-      }
+      NodeDto nodeDto = nodesService.getNodeById(id.longValue());
+      nodeDto.getNodeInfo().entrySet().stream()
+          .filter(Objects::nonNull)
+          .forEach(entry -> {
+            ServerInfo info = new ServerInfo();
+            info.setKey(entry.getKey());
+            info.setValue(entry.getValue().toString());
+            serverInfoList.add(info);
+          });
       serverInfoResponse.setServerInfoList(serverInfoList);
       try {
         webSocketSession.sendMessage(new TextMessage(objectMapper.writeValueAsString(serverInfoResponse)));
@@ -122,6 +128,7 @@ public class SocketServiceImpl implements SocketService {
 
     serverStatusInfoList.forEach(serverInfo -> {
       ServerStatus serverStatus = NOT_ACTUAL;
+      /*
       switch (serverInfo.getId()) {
         case 1:
           serverStatus = RUNNING;
@@ -141,11 +148,11 @@ public class SocketServiceImpl implements SocketService {
         default:
           serverStatus = NOT_ACTUAL;
       }
-
+      */
       //      ServerStatus serverStatus = ServerStatus.getRandomStatus();
       ServerStatusInfo serverStatusInfoGen = new ServerStatusInfo();
       serverStatusInfoGen.setId(serverInfo.getId());
-      serverStatusInfoGen.setServerType(serverInfo.getServerType());
+      //      serverStatusInfoGen.setServerType(serverInfo.getServerType());
       serverStatusInfoGen.setServerStatus(serverStatus);
       serverStatusInfoListGen.add(serverStatusInfoGen);
     });

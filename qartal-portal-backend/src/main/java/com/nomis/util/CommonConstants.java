@@ -1,6 +1,8 @@
 package com.nomis.util;
 
 /**
+ * CommonConstants.
+ *
  * @author Artur Kushner
  * @since 4/17/18
  */

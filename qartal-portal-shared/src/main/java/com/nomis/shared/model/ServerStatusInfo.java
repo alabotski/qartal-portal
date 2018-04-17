@@ -8,16 +8,16 @@ package com.nomis.shared.model;
  */
 public class ServerStatusInfo {
 
-  private Long id;
+  private Integer id;
   private String name;
   private ServerType serverType;
   private ServerStatus serverStatus;
 
-  public Long getId() {
+  public Integer getId() {
     return id;
   }
 
-  public void setId(Long id) {
+  public void setId(Integer id) {
     this.id = id;
   }
 
@@ -27,6 +27,12 @@ public class ServerStatusInfo {
 
   public void setName(String name) {
     this.name = name;
+    if (name.toUpperCase()
+        .equals("SERVICES")) {
+      setServerType(ServerType.CLUSTER);
+    } else {
+      setServerType(ServerType.SERVER);
+    }
   }
 
   public ServerType getServerType() {
