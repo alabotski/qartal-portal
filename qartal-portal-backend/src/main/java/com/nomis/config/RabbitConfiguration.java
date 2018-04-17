@@ -70,9 +70,5 @@ public class RabbitConfiguration {
     return factory;
   }
 
-  @Bean
-  public ObjectMapper objectMapper() {
-    return new ObjectMapper();
-  }
 
 }
