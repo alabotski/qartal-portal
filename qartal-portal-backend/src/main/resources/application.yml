@@ -4,6 +4,7 @@ com:
 
 com.rednavis:
       socket:
+        statusSocketUrl: ws://localhost:8080/serverStatus
         protocol: http://
         port: 9010
         host: 192.168.50.142

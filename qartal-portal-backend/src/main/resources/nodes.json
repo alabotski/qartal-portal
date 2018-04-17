@@ -20,6 +20,9 @@
       "ipAddress": "192.168.50.142",
       "nodeType": "RabbitMQ",
       "status": "DISABLED",
-      "nodeProperties": {}
+      "nodeProperties": {
+        "user" : "nomisadmin",
+        "password" : "nomis"
+      }
     }
 ]

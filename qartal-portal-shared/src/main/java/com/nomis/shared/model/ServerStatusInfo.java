@@ -8,16 +8,16 @@ package com.nomis.shared.model;
  */
 public class ServerStatusInfo {
 
-  private Integer id;
+  private Long id;
   private String name;
   private ServerType serverType;
   private ServerStatus serverStatus;
 
-  public Integer getId() {
+  public Long getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(Long id) {
     this.id = id;
   }
 

@@ -19,7 +19,6 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class LogQueueListener {
 
-
   @RabbitHandler
   public void onMessage(@Payload byte[] message) {
 

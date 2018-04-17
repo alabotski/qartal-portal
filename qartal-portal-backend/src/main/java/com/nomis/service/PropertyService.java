@@ -16,6 +16,9 @@ public class PropertyService {
   @Value("${com.rednavis.socket.connectUrl}")
   private String connectUrl;
 
+  @Value("${com.rednavis.socket.statusSocketUrl}")
+  private String statusSocketUrl;
+
   @Value("${com.rednavis.socket.port}")
   private String jobManagerPort;
 

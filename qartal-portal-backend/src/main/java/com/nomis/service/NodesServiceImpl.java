@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
@@ -57,6 +58,10 @@ public class NodesServiceImpl implements NodesService {
     return id;
   }
 
+  public void updateNode(long id, NodeDto nodeDto) {
+    nodes.put(id, nodeDto);
+  }
+
   public void removeNodeById(long id) {
     nodes.remove(id);
   }
@@ -75,5 +80,17 @@ public class NodesServiceImpl implements NodesService {
         .filter(node -> nodeType.equalsIgnoreCase(node.getNodeType()))
         .findFirst()
         .orElse(null);
+  }
+
+  public List<NodeDto> getNodeListByNodeType(String nodeType) {
+    return nodes.values()
+        .stream()
+        .filter(Objects::nonNull)
+        .filter(node -> nodeType.equalsIgnoreCase(node.getNodeType()))
+        .collect(Collectors.toList());
+  }
+
+  public Map<Long, NodeDto> getAllNodes() {
+    return nodes;
   }
 }
