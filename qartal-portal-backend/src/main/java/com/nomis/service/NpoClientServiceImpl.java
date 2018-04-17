@@ -1,6 +1,7 @@
 package com.nomis.service;
 
 import com.nomis.dto.NodeDto;
+import com.nomis.shared.model.NodeName;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
@@ -23,6 +24,6 @@ public class NpoClientServiceImpl implements NpoClientService {
 
   @PostConstruct
   public void init() {
-    npo = nodesService.getNodeByNodeType("NPO");
+    npo = nodesService.getNodeByNodeType(NodeName.NPO.toString());
   }
 }

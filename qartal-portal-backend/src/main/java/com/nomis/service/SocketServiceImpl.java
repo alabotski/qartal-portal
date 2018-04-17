@@ -5,6 +5,7 @@ import static com.nomis.shared.model.ServerStatus.NOT_ACTUAL;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nomis.dto.NodeDto;
 import com.nomis.shared.model.LogLevel;
+import com.nomis.shared.model.NodeName;
 import com.nomis.shared.model.ServerInfo;
 import com.nomis.shared.model.ServerStatus;
 import com.nomis.shared.model.ServerStatusInfo;
@@ -87,12 +88,15 @@ public class SocketServiceImpl implements SocketService {
       ServerInfoResponse serverInfoResponse = new ServerInfoResponse();
       List<ServerInfo> serverInfoList = new ArrayList<>();
       NodeDto nodeDto = nodesService.getNodeById(id.longValue());
-      nodeDto.getNodeInfo().entrySet().stream()
+      nodeDto.getNodeInfo()
+          .entrySet()
+          .stream()
           .filter(Objects::nonNull)
           .forEach(entry -> {
             ServerInfo info = new ServerInfo();
             info.setKey(entry.getKey());
-            info.setValue(entry.getValue().toString());
+            info.setValue(entry.getValue()
+                .toString());
             serverInfoList.add(info);
           });
       serverInfoResponse.setServerInfoList(serverInfoList);
@@ -131,8 +135,8 @@ public class SocketServiceImpl implements SocketService {
           serverStatus = nodes.values()
               .stream()
               .filter(node -> node.getNodeType()
-                  .equalsIgnoreCase("NPO"))
-              .map(node -> node.getStatus())
+                  .equalsIgnoreCase(NodeName.NPO.toString()))
+              .map(NodeDto::getStatus)
               .findFirst()
               .orElse(ServerStatus.NOT_ACTUAL);
           break;
@@ -140,8 +144,8 @@ public class SocketServiceImpl implements SocketService {
           serverStatus = nodes.values()
               .stream()
               .filter(node -> node.getNodeType()
-                  .equalsIgnoreCase("JM"))
-              .map(node -> node.getStatus())
+                  .equalsIgnoreCase(NodeName.Jobmanager.toString()))
+              .map(NodeDto::getStatus)
               .findFirst()
               .orElse(ServerStatus.NOT_ACTUAL);
           break;
@@ -149,8 +153,17 @@ public class SocketServiceImpl implements SocketService {
           serverStatus = nodes.values()
               .stream()
               .filter(node -> node.getNodeType()
-                  .equalsIgnoreCase("RabbitMQ"))
-              .map(node -> node.getStatus())
+                  .equalsIgnoreCase(NodeName.RabbitMQ.toString()))
+              .map(NodeDto::getStatus)
+              .findFirst()
+              .orElse(ServerStatus.NOT_ACTUAL);
+          break;
+        case "SERVICES":
+          serverStatus = nodes.values()
+              .stream()
+              .filter(node -> node.getNodeType()
+                  .equalsIgnoreCase(NodeName.Service.toString()))
+              .map(NodeDto::getStatus)
               .findFirst()
               .orElse(ServerStatus.NOT_ACTUAL);
           break;
