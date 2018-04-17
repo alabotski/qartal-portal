@@ -52,9 +52,6 @@ public class SocketServiceImpl implements SocketService {
   @Autowired
   private ObjectMapper objectMapper;
 
-  @Inject
-  private NodesServiceImpl nodesService;
-
   @Scheduled(fixedRate = 3000)
   public void updateServerStatus() throws IOException {
     ServerStatusResponse serverStatusResponse = generateServerStatusResponse(serverService.getServerStatus()
@@ -127,7 +124,7 @@ public class SocketServiceImpl implements SocketService {
     List<ServerStatusInfo> serverStatusInfoListGen = new ArrayList<>();
 
     serverStatusInfoList.forEach(serverInfo -> {
-      ServerStatus serverStatus = NOT_ACTUAL;
+      ServerStatus serverStatus;
       Map<Long, NodeDto> nodes = nodesService.getAllNodes();
       switch (serverInfo.getName()) {
         case "NPO":
