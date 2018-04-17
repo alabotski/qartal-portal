@@ -14,7 +14,7 @@
   </ui:style>
 
   <m:MaterialPanel addStyleNames="{style.panel}">
-    <m.table:MaterialDataTable ui:field="serverInfo" height="calc(100vh - 300px)" useStickyHeader="true"
-      useCategories="false" useRowExpansion="false" selectionType="NONE"/>
+    <m.table:MaterialDataTable ui:field="serverInfo" height="calc(100vh - 300px)" useCategories="false"
+      useRowExpansion="false" selectionType="SINGLE"/>
   </m:MaterialPanel>
 </ui:UiBinder>

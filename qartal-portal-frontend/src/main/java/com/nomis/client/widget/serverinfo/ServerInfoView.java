@@ -5,7 +5,6 @@ import com.google.gwt.uibinder.client.UiField;
 import com.google.inject.Inject;
 import com.gwtplatform.mvp.client.ViewWithUiHandlers;
 import com.nomis.shared.model.ServerInfo;
-import gwt.material.design.client.data.BaseRenderer;
 import gwt.material.design.client.ui.MaterialPanel;
 import gwt.material.design.client.ui.table.MaterialDataTable;
 import gwt.material.design.client.ui.table.cell.TextColumn;
@@ -29,7 +28,15 @@ public class ServerInfoView extends ViewWithUiHandlers<ServerInfoUiHandlers> imp
   ServerInfoView(Binder binder) {
     initWidget(binder.createAndBindUi(this));
     serverInfo.setVisibleRange(0, 100);
-    serverInfo.setRenderer(new BaseRenderer<>());
+    serverInfo.getElement()
+        .getChild(0)
+        .removeFromParent();
+    //    serverInfo.setRenderer(new BaseRenderer<>());
+    //    serverInfo.getTableTitle().setVisible(false);
+    //    serverInfo.getStretchIcon().setVisible(false);
+    //    serverInfo.getMenu().setVisible(false);
+    //    serverInfo.getColumnMenuIcon().setVisible(false);
+    //    serverInfo.getTableIcon().setVisible(false);
   }
 
   @Override
@@ -54,8 +61,8 @@ public class ServerInfoView extends ViewWithUiHandlers<ServerInfoUiHandlers> imp
 
   @Override
   public void setTableTitle(String title) {
-    serverInfo.getTableTitle()
-        .setText(title);
+    //    serverInfo.getTableTitle()
+    //        .setText(title);
   }
 
   @Override
