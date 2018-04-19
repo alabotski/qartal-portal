@@ -126,7 +126,7 @@ public class LogOptionWidget extends PresenterWidget<LogOptionWidget.MyView> imp
         webSocketUrl = response.getWebSocketUrl();
         getView().resetLogLevel();
         setEnabled(false);
-        ClearEvent.fire(LogOptionWidget.this);
+        //        ClearEvent.fire(LogOptionWidget.this);
         MessageEvent.fire(LogOptionWidget.this, logOptionConstants.serverLogOptionSuccess());
       }
     });
